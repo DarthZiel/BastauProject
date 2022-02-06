@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import RegisterUser, ShowCases
+from .views import RegisterUser, ShowCases, ShowPartners
 from . import views
 
 urlpatterns = [
@@ -9,5 +9,7 @@ urlpatterns = [
     path('login/',views.login,name='login'),
     path('createcase/',views.createcase,name = 'createcase'),
     path('showcases/',ShowCases.as_view(),name='showcases'),
-    path('contacts/',views.contacts,name='contacts')
+    path('contacts/',views.contacts,name='contacts'),
+    path('personal/',views.personal,name='personal'),
+    path('partners/',ShowPartners.as_view(),name='partners')
 ]   

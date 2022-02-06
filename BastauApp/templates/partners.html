@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+ 
+    {% for item in object_list %}
+    <div class="case">
+      <span class="case__title">
+        {{item}}
+      </span>
+      <p>{{item.name_of_partner}}</p>
+      <p>{{item.site}}</p>
+      {{item.avatar}}
+      <p>{{item.user_id.pk}}</p>
+      
+    </div>
+    {% endfor %}
+  {% endblock %}

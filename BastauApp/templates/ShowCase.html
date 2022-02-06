@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
   {% block content %}
+ <a href="{% url 'createcase' %}"><button>Создать кейс</button></a> 
     {% for item in object_list %}
     <div class="case">
       <span class="case__title">

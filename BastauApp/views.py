@@ -9,11 +9,16 @@ from django.views.generic import ListView
 from .models import *
 # Create your views here.
 menu = [
-        {'title':'Создать кейс', 'url_name':'createcase'},
+       # {'title':'Создать кейс', 'url_name':'createcase'},
+        {'title':'Партнеры','url_name':'partners'},
         {'title':'Кейсы', 'url_name':'showcases'},    
-        {'title':'Логин','url_name':'login'},
-        {'title':'Контакты','url_name':'contacts'}    
+        #{'title':'Логин','url_name':'login'},
+        {'title':'Контакты','url_name':'contacts'},
+        {'title':'Личный кабинет','url_name':'personal'}
 ]
+
+def personal(request):
+    return render(request,'personal.html',{'menu':menu})
 def contacts(request):
     return render(request,'contacts.html',{'menu':menu})
 def index(request):
@@ -53,3 +58,7 @@ class ShowCases(ListView):
     model = Case 
     template_name = 'ShowCase.html'
     extra_context = {"name":'Кейсы','menu':menu}
+class ShowPartners(ListView):
+    model = Partner 
+    template_name = 'partners.html'
+    extra_context = {'name':'Партнеры','menu':menu}
