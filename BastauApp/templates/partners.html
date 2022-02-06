@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% load static %}
+
+
 {% block content %}
  
     {% for item in object_list %}
@@ -8,8 +11,11 @@
       </span>
       <p>{{item.name_of_partner}}</p>
       <p>{{item.site}}</p>
+      <img src="{{item.avatar.url}}" alt="">
       {{item.avatar}}
-      <p>{{item.user_id.pk}}</p>
+      
+      <p>{{item.user_id.id}}</p>
+        <p>{{item.user_id.phone}}</p>
       
     </div>
     {% endfor %}

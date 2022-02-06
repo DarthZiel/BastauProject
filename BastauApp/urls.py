@@ -1,7 +1,8 @@
 from django.urls import path
 from .views import RegisterUser, ShowCases, ShowPartners
 from . import views
-
+from BastauSite import settings
+from django.conf.urls.static import static
 urlpatterns = [
     path('', views.index, name='index'),
     path('about/',views.about,name='about'),
@@ -13,3 +14,6 @@ urlpatterns = [
     path('personal/',views.personal,name='personal'),
     path('partners/',ShowPartners.as_view(),name='partners')
 ]   
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -85,7 +85,7 @@ class Partner(models.Model):
     Fio = models.CharField(max_length=100,verbose_name='ФИО',blank=True)
     name_of_partner = models.CharField(max_length=100,verbose_name='Название организации')
     site = models.URLField(max_length=200)
-    avatar = models.ImageField("Аватар", upload_to="avatar/")
+    avatar = models.ImageField("Аватар", upload_to="img")
     user_id = models.OneToOneField(User, verbose_name='id',on_delete= models.CASCADE)
     class Meta:
         verbose_name = "Партнер"
