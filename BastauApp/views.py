@@ -10,7 +10,7 @@ from .models import *
 # Create your views here.
 menu = [
         {'title':'Создать кейс', 'url_name':'createcase'},
-        {'title':'Показать кейсы', 'url_name':'showcases'},    
+        {'title':'Кейсы', 'url_name':'showcases'},    
         {'title':'Логин','url_name':'login'},
         {'title':'Контакты','url_name':'contacts'}    
 ]
@@ -29,12 +29,12 @@ def login(request):
     return render(request,'login.html',{'menu':menu})
 
 def createcase(request):
+    form = AddCaseForm()
     if request.method == 'POST':
         form = AddCaseForm(request.POST)
         if form.is_valid():
             print(form.cleaned_data)
     else:
-        form = AddCaseForm()
         data = {
             'form': form
         }

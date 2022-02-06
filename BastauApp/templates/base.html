@@ -1,33 +1,42 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <link type="text/css" href="{% static 'css/style.css' %}" rel="stylesheet" />
     <link type="text/css" href="{% static 'css/zero.css' %}" rel="stylesheet" />
     <title>{{title}}</title>
-</head>
+  </head>
 
-<body>
-    <div class="wrapper">
-    <header class="header">
+  <body>
+    <nav class="nav">
+      <div class="container">
         {% block mainmenu %}
-    <ul>
-        <li><a href="{% url 'index' %}">Главная</a></li>
-        {% for m in menu %}
-        {% if not forloop.last %}
-        <li><a href="{% url m.url_name %}">{{m.title}}</a></li>
-        {% else %}
-        <li><a href="{% url m.url_name %}">{{m.title}}</a></li>
-        {% endif%}
-        {% endfor %}
-    </ul>
-    {% endblock mainmenu %}
-    {% block content %}
-    {% endblock %}
-</header>
-    <main class="main"></main>
-    <footer class="footer">О нас</footer>
-</div>
-</body>
+          <ul class="nav__list">
+            <li><a href="{% url 'index' %}">Главная</a></li>
+            {% for item in menu %}
+              {% if not forloop.last %}
+              <li><a href="{% url item.url_name %}">{{item.title}}</a></li>
+              {% else %}
+              <li><a href="{% url item.url_name %}">{{item.title}}</a></li>
+              {% endif%}
+            {% endfor %}
+          </ul>
+        {% endblock mainmenu %}
+      </div>
+    </nav>
+    <div class="content">
+      <div class="container">
+        <main class="main">
+          {% block content %}
+          {% endblock %}
+        </main>  
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        About us
+      </div>
+    </footer>
+  </body>
 </html>
