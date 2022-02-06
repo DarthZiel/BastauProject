@@ -1,11 +1,14 @@
 from django.contrib import admin
 
-# Register your models here.
-class UserAdmin():
-    pass
+from BastauApp.models import User,Student,Partner,Case,Answer
 
-class CaseAdmin():
-    pass
 
-class AnswerAdmin():
-    pass
+admin.site.register(Student)
+admin.site.register(Partner)
+admin.site.register(Case)
+admin.site.register(Answer)
+
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    fields = ('email', 'password', 'phone')
+    
