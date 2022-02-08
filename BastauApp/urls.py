@@ -11,7 +11,8 @@ urlpatterns = [
     path('createcase/',views.createcase,name = 'createcase'),
     path('showcases/',ShowCases.as_view(),name='showcases'),
     path('contacts/',views.contacts,name='contacts'),
-    path('personal/',views.personal,name='personal'),
+    # path('personal/',views.personal,name='personal'),
+    path('personal/',views.LoginUser.as_view(),name='personal'),
     path('partners/',ShowPartners.as_view(),name='partners')
 ]   
 

@@ -1,11 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import AddCaseForm
+from .forms import AddCaseForm, AuthUserForm
 from django.views.generic import ListView
+from django.contrib.auth.views import LoginView, LogoutView
 from .models import *
 # Create your views here.
 menu = [
@@ -35,15 +36,30 @@ def login(request):
 
 def createcase(request):
     form = AddCaseForm()
+    error = ''
     if request.method == 'POST':
         form = AddCaseForm(request.POST)
         if form.is_valid():
-            print(form.cleaned_data)
+            form.save()
+            return redirect('createcase')
     else:
-        data = {
-            'form': form
-        }
-    return render(request,'createcase.html',{'menu':menu})
+        error = 'Форма была неверной'
+
+    data = {
+        'form': form,
+        'error': error
+    }
+    return render(request,'createcase.html',data)
+
+class LoginUser(LoginView):
+    template_name = 'personal.html'
+    # form_class = AuthUserForm
+    form_class = AuthUserForm
+    # success_url = reverse_lazy('createcase')
+
+    def get_success_url(self):
+        return reverse_lazy('createcase')
+
 class RegisterUser(CreateView):
     form_class = UserCreationForm
     template_name = 'register.html'
