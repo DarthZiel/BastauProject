@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from BastauApp.models import User,Student,Partner,Case,Answer
+from BastauApp.models import *
 
 
 admin.site.register(Student)
@@ -10,5 +10,5 @@ admin.site.register(Answer)
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    fields = ('email', 'password', 'phone')
+    pass
     

@@ -1,37 +1,81 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.contrib.auth.views import LoginView
 from django.views.generic import CreateView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import AddCaseForm
+from .forms import AddCaseForm, RegisterUserForm, LoginUserForm, UserStudentForm, UserPartnerForm
 from django.views.generic import ListView
 from .models import *
-# Create your views here.
+from django.contrib.auth import logout, login
+
 menu = [
-       # {'title':'Создать кейс', 'url_name':'createcase'},
-        {'title':'Партнеры','url_name':'partners'},
-        {'title':'Кейсы', 'url_name':'showcases'},    
-        #{'title':'Логин','url_name':'login'},
-        {'title':'Контакты','url_name':'contacts'},
-        {'title':'Личный кабинет','url_name':'personal'}
+    # {'title':'Создать кейс', 'url_name':'createcase'},
+    {'title': 'Партнеры', 'url_name': 'partners'},
+    {'title': 'Кейсы', 'url_name': 'showcases'},
+    {'title': 'Контакты', 'url_name': 'contacts'},
 ]
 
+
+def logout_user(request):
+    logout(request)
+    return redirect('login')
+
 def personal(request):
-    return render(request,'personal.html',{'menu':menu})
+
+    if request.user.role == 'Студент':
+
+        form = UserStudentForm()
+
+        error = ''
+        if request.method == 'POST':
+            form = UserStudentForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('personal')
+        else:
+            error = 'Форма была неверной'
+
+        data = {
+            'form': form,
+            'error': error,
+            'menu': menu
+        }
+        return render(request, 'personal.html', data)
+    elif request.user.role=='Партнер':
+        print(request.user.role)
+        form = UserPartnerForm()
+        error = ''
+        if request.method == 'POST':
+            form = UserPartnerForm(request.POST)
+
+            if form.is_valid():
+                form.save()
+                return redirect('personal')
+        else:
+            error = 'Форма была неверной'
+            data = {
+                'form': form,
+                'error': error,
+                'menu': menu
+            }
+            return render(request, 'personal.html', data)
+
+
 def contacts(request):
-    return render(request,'contacts.html',{'menu':menu})
+    return render(request, 'contacts.html', {'menu': menu})
+
+
 def index(request):
-    return render(request,'index.html',{'menu':menu})
+    return render(request, 'index.html', {'menu': menu})
+
 
 def about(request):
-    return render(request,'about.html')
+    return render(request, 'about.html')
 
-def register(request):
-    return render(request,'register.html')
 
 def login(request):
-    return render(request,'login.html',{'menu':menu})
+    return render(request, 'login.html', {'menu': menu})
+
 
 def createcase(request):
     form = AddCaseForm()
@@ -43,22 +87,34 @@ def createcase(request):
         data = {
             'form': form
         }
-    return render(request,'createcase.html',{'menu':menu})
-class RegisterUser(CreateView):
-    form_class = UserCreationForm
-    template_name = 'register.html'
-    success_url = reverse_lazy('login')
+    return render(request, 'createcase.html', {'menu': menu})
 
-    # def get_context_data(self,*,object_list=None,**kwargs):
-    #     content = super().get_context_data(**kwargs)
-    #     c_def = self.get_user_content(title='Регистрация')
-    #     return dict(list(content.items()) + list(c_def.items()))
-    
+
 class ShowCases(ListView):
-    model = Case 
+    model = Case
     template_name = 'ShowCase.html'
-    extra_context = {"name":'Кейсы','menu':menu}
+    extra_context = {"name": 'Кейсы', 'menu': menu}
+
+
 class ShowPartners(ListView):
-    model = Partner 
+    model = Partner
     template_name = 'partners.html'
-    extra_context = {'name':'Партнеры','menu':menu}
+    extra_context = {'name': 'Партнеры', 'menu': menu}
+
+
+class SignUpView(CreateView):
+    form_class = RegisterUserForm
+    success_url = reverse_lazy('login')
+    template_name = 'register.html'
+    extra_context = {'menu': menu}
+
+
+class LoginUser(LoginView):
+    form = LoginUserForm
+    template_name = "login.html"
+    extra_context = {'menu': menu}
+
+    def get_success_url(self):
+        return reverse_lazy('index')
+
+

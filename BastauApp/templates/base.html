@@ -15,12 +15,14 @@
           <ul class="nav__list">
             <li><a href="{% url 'index' %}">Главная</a></li>
             {% for item in menu %}
-              {% if not forloop.last %}
               <li><a href="{% url item.url_name %}">{{item.title}}</a></li>
-              {% else %}
-              <li><a href="{% url item.url_name %}">{{item.title}}</a></li>
-              {% endif%}
             {% endfor %}
+           {% if request.user.is_authenticated %}
+<li class="last">  {{user.email}}|<a href="{% url 'personal' %}">личный кабинет</a>| <a href="{% url 'logout' %}">выйти</a></li>
+{% else %}
+<li class="last"><a href="{% url 'signup' %}">Регистрация</a> | <a href="{% url 'login' %}">Войти</a></li>
+{% endif %}
+
           </ul>
         {% endblock mainmenu %}
       </div>
