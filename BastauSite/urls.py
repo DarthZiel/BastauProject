@@ -19,4 +19,5 @@ from BastauApp.views import index
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('BastauApp.urls'))
+    # path('create', views.create, name='create_case')
 ]

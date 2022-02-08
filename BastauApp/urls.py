@@ -13,8 +13,8 @@ urlpatterns = [
     path('partners/', ShowPartners.as_view(), name='partners'),
     path('login/', LoginUser.as_view(), name='login'),
     path('personal/', views.personal, name='personal'),
-    path('logout/',views.logout_user,name='logout'),
-]   
+    path('logout/',views.logout_user,name='logout'),]
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

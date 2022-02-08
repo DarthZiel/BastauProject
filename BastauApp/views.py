@@ -1,10 +1,13 @@
-from django.contrib.auth import authenticate
+
+
 from django.shortcuts import render, redirect
+
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView
 from django.views.generic import CreateView
 from .forms import AddCaseForm, RegisterUserForm, LoginUserForm, UserStudentForm, UserPartnerForm
 from django.views.generic import ListView
+from django.contrib.auth.views import LoginView, LogoutView
 from .models import *
 from django.contrib.auth import logout, login
 
@@ -79,15 +82,19 @@ def login(request):
 
 def createcase(request):
     form = AddCaseForm()
+    error = ''
     if request.method == 'POST':
         form = AddCaseForm(request.POST)
         if form.is_valid():
-            print(form.cleaned_data)
+            form.save()
+            return redirect('createcase')
     else:
         data = {
-            'form': form
-        }
-    return render(request, 'createcase.html', {'menu': menu})
+        'form': form,
+        'error': error}
+    return render(request,'createcase.html',data)
+
+
 
 
 class ShowCases(ListView):
