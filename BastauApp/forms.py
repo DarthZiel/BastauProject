@@ -1,15 +1,38 @@
 from django import forms
 from .models import *
+from django.forms import ModelForm, TextInput, Textarea, Select, DateTimeInput
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
 ROLES = [('Студент', 'Студент'),
         ('Партнер', 'Партнер')]
-class AddCaseForm(forms.Form):
+class AddCaseForm(ModelForm):
     class Meta:
         model = Case
-        fields = '__all__'
+        fields = ['title', 'description', 'category', 'date_of_close','user_id']
 
+        widgets = {
+            "title": TextInput(attrs={
+                'class': '',
+                'placeholder': 'Название кейса'
+            }),
+            "description": Textarea(attrs={
+                'class': '',
+                'placeholder': 'Описание кейса'
+            }),
+            "category": Select (attrs={
+                'class': '',
+                'placeholder': 'Выберите категорию'
+            }),
+            "date_of_close": DateTimeInput(attrs={
+                'class': '',
+                'placeholder': 'Дата завершения кейса'
+            }),
+            "user_id": Select(attrs={
+                'class': '',
+                'placeholder': 'Выберите категорию'
+            })
+        }
 
 class RegisterUserForm(UserCreationForm):
     email = forms.CharField(label='Email',widget= forms.EmailInput(attrs={'class': 'form-input'}))

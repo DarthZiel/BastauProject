@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView
 from django.views.generic import CreateView
 from .forms import AddCaseForm, RegisterUserForm, LoginUserForm, UserStudentForm, UserPartnerForm
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from .models import *
 from django.contrib.auth import logout, login
 
@@ -79,15 +79,22 @@ def login(request):
 
 def createcase(request):
     form = AddCaseForm()
+    email = request.user.email
+    error = ''
     if request.method == 'POST':
         form = AddCaseForm(request.POST)
         if form.is_valid():
-            print(form.cleaned_data)
+            form.save()
+            return redirect('createcase')
     else:
-        data = {
-            'form': form
+        error = 'Форма была неверной'
+
+    data = {
+        'form': form,
+        'error': error,
+        'menu': menu
         }
-    return render(request, 'createcase.html', {'menu': menu})
+    return render(request, 'createcase.html', data)
 
 
 class ShowCases(ListView):
@@ -95,6 +102,10 @@ class ShowCases(ListView):
     template_name = 'ShowCase.html'
     extra_context = {"name": 'Кейсы', 'menu': menu}
 
+class DetailCases(DetailView):
+        context_object_name = 'detail'
+        model = Case
+        template_name ="DetailCase.html"
 
 class ShowPartners(ListView):
     model = Partner
