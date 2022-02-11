@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed&display=swap');
+
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
 body{
   height: 100%;
 }
@@ -10,52 +16,48 @@ html{
   height: 100%;
 }
 
+.main-page{
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background-image: url(https://s0.rbk.ru/v6_top_pics/resized/1180xH/media/img/6/62/755456800517626.jpeg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  filter: brightness(80%)
+}
  /* ===== NAV ===== */
-
-.nav{
-  height: 64px;
-  background-color: rgb(109, 109, 109);
-  align-items: center;
-}
-
-.nav__list{
-  height: 100%;
+.nav {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-}
-
-.nav__list li {
-  margin-right: 30px;
-}
-
-.nav__list li a{
-  text-decoration: none;
-  font-size: 20px;
-  color: azure;
-}
-
-.nav__list li a:hover{
-  color: bisque;
-}
-
- /* ===== MAIN ===== */
-
- .content {
-   min-height: calc(100vh - 128px);
-   background-color: rgb(53, 53, 53);
-   padding: 20px;
- }
-
- /* ===== FOOTER ===== */
-
-.footer {
+  padding: 0 15px;
+  width: 100%;
   height: 64px;
-  background-color: rgb(165, 79, 79);
+  backdrop-filter: blur(5px);
 }
-
- /* ===== CASE ===== */
-
+.nav__menu{
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.nav__menu li a:hover{
+  text-decoration: underline;
+}
+.nav__menu li a{
+  text-decoration: none;
+  color: #fff;
+}
+.nav__logo {
+  white-space: nowrap;
+  color: #fff;
+  font-size: 20px;
+  letter-spacing: 3px;
+  font-weight: 500;
+}
 .case{
   background-color: #fff;
   padding: 15px;
@@ -67,5 +69,36 @@ html{
 .case__title{
   font-size: 20px;
   font-weight: bold;
+}
+
+.content{
+  height: 100%;
+  width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff;
+}
+.content__title{
+  backdrop-filter: blur(5px);
+  font-size: 40px;
+  letter-spacing: 2px;
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+.content__description{
+  backdrop-filter: blur(5px);
+}
+.main-page__footer{
+  color: #fff;
+  font-size: 15px;
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+  text-decoration: underline;
+}
+.main-page__footer:hover{
+  cursor: pointer;
 }
 

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+  {% block content %}
+{% for item in object_list %}
+    <div class="case">
+    <p>{{detail_case.title}}</p>
+    <p>{{detail_case.description}}</p>
+    <p>{{detail_case.category}}</p>
+    </div>
+    {% endfor %}
+  {% endblock %}

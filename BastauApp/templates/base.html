@@ -9,23 +9,20 @@
   </head>
 
   <body>
-    <nav class="nav">
-      <div class="container">
-        {% block mainmenu %}
-          <ul class="nav__list">
-            <li><a href="{% url 'index' %}">Главная</a></li>
-            {% for item in menu %}
-              <li><a href="{% url item.url_name %}">{{item.title}}</a></li>
-            {% endfor %}
-           {% if request.user.is_authenticated %}
-<li class="last">  {{user.email}}|<a href="{% url 'personal' %}">личный кабинет</a>| <a href="{% url 'logout' %}">выйти</a></li>
-{% else %}
-<li class="last"><a href="{% url 'signup' %}">Регистрация</a> | <a href="{% url 'login' %}">Войти</a></li>
-{% endif %}
-
-          </ul>
-        {% endblock mainmenu %}
-      </div>
+    <!-- <nav class="nav">
+      {% block mainmenu %}
+        <ul class="nav__list">
+          <li class="nav__title"><a href="{% url 'index' %}">BASTAU PROJECT</a></li>
+          <li><a href="{% url 'index' %}">Главная</a></li>
+          {% for item in menu %}
+            {% if not forloop.last %}
+            <li><a href="{% url item.url_name %}">{{item.title}}</a></li>
+            {% else %}
+            <li><a href="{% url item.url_name %}">{{item.title}}</a></li>
+            {% endif%}
+          {% endfor %}
+        </ul>
+      {% endblock mainmenu %}
     </nav>
     <div class="content">
       <div class="container">
@@ -39,6 +36,25 @@
       <div class="container">
         About us
       </div>
-    </footer>
+    </footer> -->
+  <div class="main-page">
+    <header class="header">
+      <nav class="nav">
+        <div class="nav__logo">PROJECT BASTAU</div>
+        <ul class="nav__menu">
+          <li><a href="#">menuitem</a></li>
+          <li><a href="#">menuitem</a></li>
+          <li><a href="#">menuitem</a></li>
+          <li><a href="#">menuitem</a></li>
+          <li><a href="#">menuitem</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="content">
+      <div class="content__title">Мотивационная надпись</div>
+      <div class="content__description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae iure eveniet quidem magni eos tempore quisquam aliquid! Voluptatibus facere molestiae perspiciatis id, veritatis incidunt pariatur. Repellat ullam accusantium nesciunt vel.</div>
+    </div>
+    <div class="main-page__footer">Обратиться в поддержку</div>
+  </div>
   </body>
 </html>

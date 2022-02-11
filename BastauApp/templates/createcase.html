@@ -1,15 +1,20 @@
 {% extends 'base.html' %}
   {% block content %}
 
-    <h1>Форма создания кейса</h1>
     <form method="post">
+      {% if request.user.is_authenticated %}
       {% csrf_token %}
-<!--      {{ form.title }} <br>-->
-<!--      {{ form.description }} <br>-->
-<!--      {{ form.category }} <br>-->
-<!--      {{ form.date_of_close }} <br>-->
-          {{form.as_p}}
+      {{ form.title }} <br>
+      {{ form.description }} <br>
+      {{ form.category }} <br>
+      {{ form.date_of_close }} <br>
+      {{ form.user_id }} <br>
+<!--      {{form.as_p}}-->
         <span>{{error}}</span>
         <button type="submit">Добавить</button>
     </form>
+      {% else %}
+      <p>Вы не авторизированы!</p>
+{% endif %}
   {% endblock %}
+

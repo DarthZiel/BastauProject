@@ -9,12 +9,12 @@ urlpatterns = [
     path('register/',  SignUpView.as_view(), name='signup'),
     path('createcase/', views.createcase, name = 'createcase'),
     path('showcases/', ShowCases.as_view(), name='showcases'),
+    path('showcases/int:pk/', views.DetailCases.as_view(), name="detail_case"),
     path('contacts/', views.contacts, name='contacts'),
     path('partners/', ShowPartners.as_view(), name='partners'),
     path('login/', LoginUser.as_view(), name='login'),
     path('personal/', views.personal, name='personal'),
     path('logout/',views.logout_user,name='logout'),]
-
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

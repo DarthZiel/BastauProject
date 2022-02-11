@@ -43,7 +43,7 @@ from django.forms import ModelForm, TextInput, Textarea, Select, DateTimeInput
 from django.contrib.auth.forms import AuthenticationForm
 
 class AddCaseForm(forms.ModelForm):
-    user_id = forms.CharField(label='Юзер')
+    
     class Meta:
         model = Case
         # fields = ['title', 'description', 'category', 'date_of_close']
