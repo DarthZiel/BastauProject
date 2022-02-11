@@ -101,4 +101,6 @@ html{
 .main-page__footer:hover{
   cursor: pointer;
 }
-
+.prikol{
+  display: none;
+}

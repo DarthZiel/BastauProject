@@ -52,7 +52,7 @@
         {% if request.user.is_authenticated %}
 <li class="last"> {{user.email}} | <a href="{% url 'personal' %}">Личный кабинет</a></li>
 {% else %}
-<li class="last"><a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Войти</a></li>
+<li class="last"><a href="{% url 'signup' %}">Регистрация</a> | <a href="{% url 'login' %}">Войти</a></li>
 {% endif %}
       </ul>
         {% endblock mainmenu %}

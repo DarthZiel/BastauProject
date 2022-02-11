@@ -43,32 +43,34 @@ from django.forms import ModelForm, TextInput, Textarea, Select, DateTimeInput
 from django.contrib.auth.forms import AuthenticationForm
 
 class AddCaseForm(forms.ModelForm):
-    
     class Meta:
         model = Case
-        # fields = ['title', 'description', 'category', 'date_of_close']
-        fields = '__all__'
+        fields = ['title', 'description', 'category', 'date_of_close', 'user_id']
 
-        # widgets = {
-        #     "title": TextInput(attrs={
-        #         'class': '',
-        #         'placeholder': 'Название кейса'
-        #     }),
-        #     "description": Textarea(attrs={
-        #         'class': '',
-        #         'placeholder': 'Описание кейса'
-        #     }),
-        #     "category": Select (attrs={
-        #         'class': '',
-        #         'placeholder': 'Выберите категорию'
-        #     }),
-        #     "date_of_close": DateTimeInput(attrs={
-        #         'class': '',
-        #         'placeholder': 'Дата завершения кейса'
-        #     }),
-        #     "user_id": Select(attrs={
-        #         'class': '',
-        #         'placeholder': 'Выберите категорию'
-        #     })
-        # }
+        widgets = {
+            "title": TextInput(attrs={
+                'class': '',
+                'placeholder': 'Название кейса'
+            }),
+            "description": Textarea(attrs={
+                'class': '',
+                'placeholder': 'Описание кейса'
+            }),
+            "category": Select (attrs={
+                'class': '',
+                'placeholder': 'Выберите категорию'
+            }),
+            "date_of_close": DateTimeInput(attrs={
+                'class': '',
+                'placeholder': 'Дата завершения кейса'
+            }),
+            "url": TextInput(attrs={
+                'class': '',
+                'placeholder': 'Название ссылки'
+            }),
+        }
 
+# class DetailCase(forms.ModelForm):
+#     class Meta:
+#         model = Case
+#         fields = ['title', 'description', 'category', 'date_of_close', 'user_id']

@@ -12,7 +12,7 @@ from django.views.generic import ListView
 from django.contrib.auth.views import LoginView, LogoutView
 
 from django.views.generic import ListView, DetailView
-
+from django.views.generic.base import View
 from .models import *
 from django.contrib.auth import logout, login
 
@@ -84,24 +84,20 @@ def login(request):
 
 
 def createcase(request):
-    form = AddCaseForm()
-    email = request.user.email
-    error = ''
+    active_user = {'user_id': request.user}
+
+    form = AddCaseForm(active_user)
     if request.method == 'POST':
         form = AddCaseForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('createcase')
-    else:
+            return redirect('showcases')
 
-        data = {
-        'menu': menu,
+    data = {
         'form': form,
-        'error': error}
+        'menu': menu
+    }
     return render(request,'createcase.html', data)
-
-
-
 
 
 class ShowCases(ListView):
@@ -109,15 +105,27 @@ class ShowCases(ListView):
     template_name = 'ShowCase.html'
     extra_context = {"name": 'Кейсы', 'menu': menu}
 
-class DetailCases(DetailView):
-        context_object_name = 'detail'
-        model = Case
-        template_name ="DetailCase.html"
+# class DetailCases(DetailView):
+#     model = Case
+#     slug_field = "url"
+#     template_name = 'DetailCase.html'
+#     extra_context = {'menu': menu}
+
+def detail_view(request, case_id):
+    # dictionary for initial data with
+    # field names as keys
+    context = {}
+
+    # add the dictionary during initialization
+    context["data"] = Case.objects.get(pk=case_id)
+
+    return render(request, "DetailCase.html", context)
 
 class ShowPartners(ListView):
     model = Partner
     template_name = 'partners.html'
     extra_context = {'name': 'Партнеры', 'menu': menu}
+
 
 
 class SignUpView(CreateView):
