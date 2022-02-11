@@ -29,13 +29,10 @@ def logout_user(request):
     return redirect('login')
 
 def personal(request):
-
     if request.user.role == 'Студент':
         active_user = {'user_id': request.user.email}
 
         form = UserStudentForm(active_user)
-
-        error = ''
         if request.method == 'POST':
             form = UserStudentForm(request.POST)
             if form.is_valid():

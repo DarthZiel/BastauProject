@@ -10,7 +10,7 @@
 
   <body>
     <!-- <nav class="nav">
-      {% block mainmenu %}
+     
         <ul class="nav__list">
           <li class="nav__title"><a href="{% url 'index' %}">BASTAU PROJECT</a></li>
           <li><a href="{% url 'index' %}">Главная</a></li>
@@ -22,13 +22,12 @@
             {% endif%}
           {% endfor %}
         </ul>
-      {% endblock mainmenu %}
+     
     </nav>
     <div class="content">
       <div class="container">
         <main class="main">
-          {% block content %}
-          {% endblock %}
+        
         </main>  
       </div>
     </div>
@@ -37,24 +36,29 @@
         About us
       </div>
     </footer> -->
-  <div class="main-page">
+ 
     <header class="header">
       <nav class="nav">
-        <div class="nav__logo">PROJECT BASTAU</div>
+        {% block mainmenu %}
+        <div class="nav__logo"> <a href="{% url 'index' %}">PROJECT BASTAU</a> </div>
         <ul class="nav__menu">
-          <li><a href="#">menuitem</a></li>
-          <li><a href="#">menuitem</a></li>
-          <li><a href="#">menuitem</a></li>
-          <li><a href="#">menuitem</a></li>
-          <li><a href="#">menuitem</a></li>
-        </ul>
+          {% for item in menu %}
+          {% if not forloop.last %}
+          <li><a href="{% url item.url_name %}">{{item.title}}</a></li>
+          {% else %}
+          <li><a href="{% url item.url_name %}">{{item.title}}</a></li>
+          {% endif%}
+        {% endfor %}
+        {% if request.user.is_authenticated %}
+<li class="last"> {{user.email}} | <a href="{% url 'personal' %}">Личный кабинет</a></li>
+{% else %}
+<li class="last"><a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Войти</a></li>
+{% endif %}
+      </ul>
+        {% endblock mainmenu %}
       </nav>
     </header>
-    <div class="content">
-      <div class="content__title">Мотивационная надпись</div>
-      <div class="content__description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae iure eveniet quidem magni eos tempore quisquam aliquid! Voluptatibus facere molestiae perspiciatis id, veritatis incidunt pariatur. Repellat ullam accusantium nesciunt vel.</div>
-    </div>
-    <div class="main-page__footer">Обратиться в поддержку</div>
-  </div>
+    {% block content %}
+    {% endblock %}
   </body>
 </html>
