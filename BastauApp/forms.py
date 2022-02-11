@@ -1,4 +1,6 @@
 from django import forms
+from django.http import request
+
 from .models import *
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
@@ -25,7 +27,8 @@ class LoginUserForm(AuthenticationForm):
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
 
 class UserStudentForm(forms.ModelForm):
-    # user_id = forms.CharField(label='Юзер', widget=forms.Input(attrs={'class': 'special'}))
+    user_id = forms.CharField(label='Юзер')
+
     class Meta:
         model = Student
 
@@ -39,7 +42,8 @@ class UserPartnerForm(forms.ModelForm):
 from django.forms import ModelForm, TextInput, Textarea, Select, DateTimeInput
 from django.contrib.auth.forms import AuthenticationForm
 
-class AddCaseForm(ModelForm):
+class AddCaseForm(forms.ModelForm):
+    user_id = forms.CharField(label='Юзер')
     class Meta:
         model = Case
         # fields = ['title', 'description', 'category', 'date_of_close']

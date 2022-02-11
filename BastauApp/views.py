@@ -26,8 +26,9 @@ def logout_user(request):
 def personal(request):
 
     if request.user.role == 'Студент':
+        active_user = {'user_id': request.user.email}
 
-        form = UserStudentForm()
+        form = UserStudentForm(active_user)
 
         error = ''
         if request.method == 'POST':
@@ -45,8 +46,8 @@ def personal(request):
         }
         return render(request, 'personal.html', data)
     elif request.user.role=='Партнер':
-        print(request.user.role)
-        form = UserPartnerForm()
+        active_user = {'user_id': request.user.email}
+        form = UserPartnerForm(active_user)
         error = ''
         if request.method == 'POST':
             form = UserPartnerForm(request.POST)
@@ -90,9 +91,10 @@ def createcase(request):
             return redirect('createcase')
     else:
         data = {
+        'menu': menu,
         'form': form,
         'error': error}
-    return render(request,'createcase.html',data)
+    return render(request,'createcase.html', data)
 
 
 

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
-<<<<<<< HEAD
+
  {% block content %}
+
 <form action="" method="POST">
     {% csrf_token %}
 
@@ -10,21 +11,9 @@
     <div> {{form.region}}</div>
     <div> {{form.Direction_of_study}}</div><div> {{form.Course}}</div>
     <div> {{form.user_id}}</div>
-
+      <input id="user_id" type="text" name="your_name" value="{{user_id}}">
 
         <button type="submit">Добавить</button>
 </form>
 <a href='/logout/'>Выйти</a>?
   {% endblock %}
-=======
-{% block content %}
-
-<h1>Авторизация</h1>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }} <br><br>
-  {{request.user}}
-    <button type="submit">Войти</button>
-</form>
-{% endblock %}
->>>>>>> origin/aktan2
