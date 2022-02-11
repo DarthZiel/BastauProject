@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+ {% block content %}
+<form action="" method="POST">
+    {% csrf_token %}
+
+        <div> {{form.Fio}}</div>
+        <div> {{form.Educational_institution}}</div>
+    <div> {{form.date_of_birth}}</div>
+    <div> {{form.region}}</div>
+    <div> {{form.Direction_of_study}}</div><div> {{form.Course}}</div>
+    <div> {{form.user_id}}</div>
+
+
+        <button type="submit">Добавить</button>
+</form>
+<a href='/logout/'>Выйти</a>?
+  {% endblock %}
