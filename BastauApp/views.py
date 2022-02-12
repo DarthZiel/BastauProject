@@ -115,7 +115,7 @@ def detail_view(request, case_id):
     # dictionary for initial data with
     # field names as keys
     context = {}
-
+    extra_context = {'menu': menu}
     # add the dictionary during initialization
     context["data"] = Case.objects.get(pk=case_id)
 
