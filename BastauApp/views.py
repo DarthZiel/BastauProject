@@ -47,7 +47,7 @@ def personal(request):
             'menu': menu
         }
         return render(request, 'personal.html', data)
-    elif request.user.role=='Партнер':
+    elif request.user.role == 'Партнер':
         active_user = {'user_id': request.user.email}
         form = UserPartnerForm(active_user)
         error = ''
@@ -59,12 +59,11 @@ def personal(request):
                 return redirect('personal')
         else:
             error = 'Форма была неверной'
-            data = {
-                'form': form,
-                'error': error,
-                'menu': menu
-            }
-            return render(request, 'personal.html', data)
+        data = {
+            'form': form,
+            'error': error,
+            'menu': menu}
+        return render(request, 'personal.html', data)
 
 
 def contacts(request):
