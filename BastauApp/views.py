@@ -52,11 +52,11 @@ def personal(request):
         form = UserPartnerForm(active_user)
         error = ''
         if request.method == 'POST':
-            form = UserPartnerForm(request.POST)
+            form = UserPartnerForm(request.POST, request.FILES)
 
             if form.is_valid():
                 form.save()
-                return redirect('personal')
+                return redirect('showcases')
         else:
             error = 'Форма была неверной'
         data = {
