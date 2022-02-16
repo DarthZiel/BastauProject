@@ -6,7 +6,7 @@ from django.contrib.auth.models import UserManager, PermissionsMixin, BaseUserMa
 
 
 class CustomUserManager(BaseUserManager):
-    def _create_user(self, email, phone, password, **extra_fields):
+    def _create_user(self, email, password, phone, **extra_fields):
         if not email:
             raise ValueError("User must have an email")
         if not password:
@@ -28,7 +28,7 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('is_superuser', False)
         return self._create_user(email, password, phone, **extra_fields)
 
-    def create_superuser(self, email, phone, password, **extra_fields):
+    def create_superuser(self, email, password, phone, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_active', True)
         extra_fields.setdefault('is_superuser', True)

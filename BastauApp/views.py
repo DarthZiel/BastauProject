@@ -96,7 +96,7 @@ def createcase(request):
         'form': form,
         'menu': menu
     }
-    return render(request,'createcase.html', data)
+    return render(request, 'createcase.html', data)
 
 
 class ShowCases(ListView):
