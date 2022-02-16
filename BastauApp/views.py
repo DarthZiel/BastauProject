@@ -30,14 +30,14 @@ def logout_user(request):
 
 def personal(request):
     if request.user.role == 'Студент':
-        active_user = {'user_id': request.user.email}
-
+        active_user = {'user_id': request.user}
+        error = ''
         form = UserStudentForm(active_user)
         if request.method == 'POST':
             form = UserStudentForm(request.POST)
             if form.is_valid():
                 form.save()
-                return redirect('personal')
+                return redirect('showcases')
         else:
             error = 'Форма была неверной'
 
@@ -48,15 +48,15 @@ def personal(request):
         }
         return render(request, 'personal.html', data)
     elif request.user.role == 'Партнер':
-        active_user = {'user_id': request.user.email}
+        active_user = {'user_id': request.user}
         form = UserPartnerForm(active_user)
         error = ''
         if request.method == 'POST':
-            form = UserPartnerForm(request.POST)
+            form = UserPartnerForm(request.POST, request.FILES)
 
             if form.is_valid():
                 form.save()
-                return redirect('personal')
+                return redirect('showcases')
         else:
             error = 'Форма была неверной'
         data = {
