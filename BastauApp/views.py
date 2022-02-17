@@ -61,6 +61,12 @@ class ShowCases(ListView):
     template_name = 'ShowCase.html'
     extra_context = {"name": 'Кейсы', 'menu': menu}
 
+class ShowCasesPartner(ListView):
+    model = Case
+    template_name = 'casepartners.html'
+    extra_context = { 'menu': menu}
+
+
 # class DetailCases(DetailView):
 #     model = Case
 #     slug_field = "url"
@@ -145,5 +151,5 @@ class partner_update(UpdateView):
     model = Partner
     fields = '__all__'
     success_url = "/"
-    template_name = 'personal.html'
+    template_name = 'personal_partner.html'
     extra_context = {'menu': menu}

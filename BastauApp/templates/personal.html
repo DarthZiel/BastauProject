@@ -4,7 +4,6 @@
 
 <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    {% if request.user.is_student is True %}
 
     <div>ФИО: {{form.Fio}}</div>
     <div>Место учебы: {{form.Educational_institution}}</div>
@@ -16,15 +15,7 @@
     <div>Курс: {{form.Course}}</div>
 
     <div class="prikol"> {{form.user}}</div>
-    {% elif request.user.is_partner is True %}
 
-    <div>ФИО: {{form.Fio}}</div>
-    <div>Название организации: {{form.name_of_partner}}</div>
-    <div>Сайт: {{form.site}}</div>
-    <div>Аватар: {{form.avatar}}</div>
-    <div class="prikol">{{form.user}}</div>
-    <br>
-    {% endif %}
        <input type="submit" value="Update">
 </form>
 <a href='/logout/'>Выйти</a>?
