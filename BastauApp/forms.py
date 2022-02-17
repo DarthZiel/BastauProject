@@ -75,7 +75,7 @@ class PartnerSignUpForm(UserCreationForm):
     Fio = forms.CharField()
     name_of_partner = forms.CharField()
     site = forms.URLField()
-    avatar = forms.ImageField(required=False)
+    avatar = forms.ImageField(required=True)
 
     class Meta(UserCreationForm.Meta):
         fields = ['email','phone']
