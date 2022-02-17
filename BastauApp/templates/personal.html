@@ -4,18 +4,20 @@
 
 <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    {% if user.role == "Студент" %}
-        <div>ФИО: {{form.Fio}}</div>
-        <div>Место учебы: {{form.Educational_institution}}</div>
-    <div>Дата Рождения: {{form.date_of_birth}}</div>
+    {% if request.user.is_student is True %}
+
+{{form.as_p}}
+    <div>ФИО: {{form.Fio}}</div>
+    <div>Место учебы: {{form.Educational_institution}}</div>
+    <div>Возраст: {{form.age}}</div>
     <div>Регион: {{form.region}}</div>
     <div>Специальность: {{form.Direction_of_study}}</div>
     <div>Специальность: {{form.Education}}</div>
 
     <div>Курс: {{form.Course}}</div>
 
-    <div class="prikol"> {{form.user_id}}</div>
-    {% else %}
+    <div class="prikol"> {{form.user}}</div>
+    {% elif request.user.is_partner is True %}
     <div>ФИО: {{form.Fio}}</div>
     <div>Название организации: {{form.name_of_partner}}</div>
     <div>Сайт: {{form.site}}</div>
@@ -23,7 +25,7 @@
     <div class="prikol">{{form.user_id}}</div>
     <br>
     {% endif %}
-        <button type="submit">Добавить</button>
+       <input type="submit" value="Update">
 </form>
 <a href='/logout/'>Выйти</a>?
 

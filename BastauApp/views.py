@@ -1,24 +1,13 @@
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-
-from django.contrib.auth import authenticate
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout
-from django.urls import reverse_lazy, reverse
-from django.contrib.auth.views import LoginView
+from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from .forms import AddCaseForm,StudentSignUpForm, PartnerSignUpForm,LoginUserForm
-
-from django.views.generic import ListView
 from django.contrib.auth.views import LoginView, LogoutView
-
-from django.views.generic import ListView, DetailView
-from django.views.generic.base import View
+from django.views.generic import ListView, UpdateView
 from .models import *
 from django.contrib.auth import logout, login
 
 menu = [
-    # {'title':'Создать кейс', 'url_name':'createcase'},
     {'title': 'Партнеры', 'url_name': 'partners'},
     {'title': 'Кейсы', 'url_name': 'showcases'},
     {'title': 'Контакты', 'url_name': 'contacts'},
@@ -30,7 +19,7 @@ def logout_user(request):
     return redirect('login')
 
 def personal(request):
-    return render(request, 'personal.html')
+    return render(request, 'personal.html',{'menu':menu})
 
 
 
@@ -106,24 +95,7 @@ class LoginUser(LoginView):
         return reverse_lazy('index')
 
 
-# def RegisterUser(request):
-#     if request.method == "POST":
-#         login_form = LoginUserForm
-#         student_form = UserStudentForm
-#         partner_form = UserPartnerForm
-#         if login_form.is_valid():
-#             # Do the needful
-#             return HttpResponseRedirect(reverse('form-redirect'))
-#     else:
-#         login_form = LoginUserForm
-#         student_form = UserStudentForm
-#         partner_form = UserPartnerForm
-#
-#     return render(request, 'register.html', {
-#         'login_form': login_form,
-#         'student_form': student_form,
-#         'partner_form': partner_form})
-#
+
 def register(request):
     return render(request, 'register.html',{'menu':menu})
 
@@ -132,19 +104,26 @@ class student_register(CreateView):
     model = User
     form_class = StudentSignUpForm
     template_name = 'student_register.html'
-
+    extra_context = {'menu':menu}
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
         return redirect('/')
+
 
 
 class partner_register(CreateView):
     model = User
     form_class = PartnerSignUpForm
     template_name = 'partner_register.html'
-
+    extra_context = {'menu': menu}
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
         return redirect('/')
+
+class student_update(UpdateView):
+    model = Student
+    fields = '__all__'
+    template_name = 'personal.html'
+    extra_context = {'menu': menu}

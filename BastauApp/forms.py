@@ -58,7 +58,7 @@ class StudentSignUpForm(UserCreationForm):
         user.is_student = True
         user.email = self.cleaned_data.get('email')
         user.phone = self.cleaned_data.get('phone')
-
+        user.save()
         student = Student.objects.create(user=user)
         student.Fio = self.cleaned_data.get('Fio')
         student.age = self.cleaned_data.get('age')
