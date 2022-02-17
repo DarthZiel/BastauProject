@@ -40,14 +40,13 @@ class CustomUserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    ROLES = [('Студент', 'Студент'),
-             ('Партнер', 'Партнер')]
     email = models.EmailField(db_index=True, unique=True, max_length=254)
     phone = models.CharField(max_length=20, help_text='Номер телефона')
     is_staff = models.BooleanField(default=True)  # must needed, otherwise you won't be at
     is_active = models.BooleanField(default=True)  # must needed, otherwise you won't be «
     is_superuser = models.BooleanField(default=False)  # this field we inherit from Permis
-    role = models.CharField(choices=ROLES, default=ROLES[0], max_length=10)
+    is_student = models.BooleanField(default=False)
+    is_partner = models.BooleanField(default=False)
     objects = CustomUserManager()
     REQUIRED_FIELDS = ["phone"]
     USERNAME_FIELD = 'email'
@@ -58,6 +57,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Student(models.Model):
+    user = models.OneToOneField(User, verbose_name='id', on_delete=models.CASCADE, primary_key=True)
     Fio = models.CharField(max_length=100, blank=True, verbose_name='ФИО')
     REGIONS = [
         ('Акмолинская', 'Акмолинская'),
@@ -77,12 +77,12 @@ class Student(models.Model):
         # '3','4','5'
     ]
     Educational_institution = models.CharField(max_length=50, verbose_name='Место учебы')
-    date_of_birth = models.DateField()
+    age = models.CharField(max_length=2,verbose_name='возраст')
     region = models.CharField(max_length=50, choices=REGIONS, default=REGIONS[0])
     Direction_of_study = models.CharField(max_length=50, verbose_name='Специальность')
     Education = models.CharField(max_length=50, verbose_name='Образование', choices=EDUCATION, default=EDUCATION[0])
     Course = models.CharField(max_length=50, verbose_name='Образование', choices=COURSE, default=EDUCATION[0])
-    user_id = models.OneToOneField(User, verbose_name='id', on_delete=models.CASCADE)
+
 
     class Meta:
         verbose_name = "Студент"
@@ -93,11 +93,12 @@ class Student(models.Model):
 
 
 class Partner(models.Model):
+    user = models.OneToOneField(User, verbose_name='id', on_delete=models.CASCADE, primary_key=True)
     Fio = models.CharField(max_length=100, verbose_name='ФИО', blank=True)
     name_of_partner = models.CharField(max_length=100, verbose_name='Название организации')
     site = models.URLField(max_length=200)
     avatar = models.ImageField("Аватар", upload_to="img/",blank=True)
-    user_id = models.OneToOneField(User, verbose_name='id', on_delete=models.CASCADE)
+
 
     class Meta:
         verbose_name = "Партнер"

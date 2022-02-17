@@ -1,12 +1,13 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
 from django.contrib.auth import authenticate
 from django.shortcuts import render, redirect
-
-from django.urls import reverse_lazy
+from django.contrib.auth import login, logout
+from django.urls import reverse_lazy, reverse
 from django.contrib.auth.views import LoginView
 from django.views.generic import CreateView
-from .forms import AddCaseForm, RegisterUserForm, LoginUserForm, UserStudentForm, UserPartnerForm
+from .forms import AddCaseForm,StudentSignUpForm, PartnerSignUpForm,LoginUserForm
 
 from django.views.generic import ListView
 from django.contrib.auth.views import LoginView, LogoutView
@@ -29,41 +30,8 @@ def logout_user(request):
     return redirect('login')
 
 def personal(request):
-    if request.user.role == 'Студент':
-        active_user = {'user_id': request.user}
-        error = ''
-        form = UserStudentForm(active_user)
-        if request.method == 'POST':
-            form = UserStudentForm(request.POST)
-            if form.is_valid():
-                form.save()
-                return redirect('showcases')
-        else:
-            error = 'Форма была неверной'
+    return render(request, 'personal.html')
 
-        data = {
-            'form': form,
-            'error': error,
-            'menu': menu
-        }
-        return render(request, 'personal.html', data)
-    elif request.user.role == 'Партнер':
-        active_user = {'user_id': request.user}
-        form = UserPartnerForm(active_user)
-        error = ''
-        if request.method == 'POST':
-            form = UserPartnerForm(request.POST, request.FILES)
-
-            if form.is_valid():
-                form.save()
-                return redirect('showcases')
-        else:
-            error = 'Форма была неверной'
-        data = {
-            'form': form,
-            'error': error,
-            'menu': menu}
-        return render(request, 'personal.html', data)
 
 
 def contacts(request):
@@ -78,8 +46,8 @@ def about(request):
     return render(request, 'about.html')
 
 
-def login(request):
-    return render(request, 'login.html', {'menu': menu})
+# def login(request):
+#     return render(request, 'login.html', {'menu': menu})
 
 
 def createcase(request):
@@ -127,11 +95,6 @@ class ShowPartners(ListView):
 
 
 
-class SignUpView(CreateView):
-    form_class = RegisterUserForm
-    success_url = reverse_lazy('login')
-    template_name = 'register.html'
-    extra_context = {'menu': menu}
 
 
 class LoginUser(LoginView):
@@ -143,3 +106,45 @@ class LoginUser(LoginView):
         return reverse_lazy('index')
 
 
+# def RegisterUser(request):
+#     if request.method == "POST":
+#         login_form = LoginUserForm
+#         student_form = UserStudentForm
+#         partner_form = UserPartnerForm
+#         if login_form.is_valid():
+#             # Do the needful
+#             return HttpResponseRedirect(reverse('form-redirect'))
+#     else:
+#         login_form = LoginUserForm
+#         student_form = UserStudentForm
+#         partner_form = UserPartnerForm
+#
+#     return render(request, 'register.html', {
+#         'login_form': login_form,
+#         'student_form': student_form,
+#         'partner_form': partner_form})
+#
+def register(request):
+    return render(request, 'register.html',{'menu':menu})
+
+
+class student_register(CreateView):
+    model = User
+    form_class = StudentSignUpForm
+    template_name = 'student_register.html'
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('/')
+
+
+class partner_register(CreateView):
+    model = User
+    form_class = PartnerSignUpForm
+    template_name = 'partner_register.html'
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('/')

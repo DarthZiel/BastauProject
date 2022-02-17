@@ -9,34 +9,6 @@
   </head>
 
   <body>
-    <!-- <nav class="nav">
-     
-        <ul class="nav__list">
-          <li class="nav__title"><a href="{% url 'index' %}">BASTAU PROJECT</a></li>
-          <li><a href="{% url 'index' %}">Главная</a></li>
-          {% for item in menu %}
-            {% if not forloop.last %}
-            <li><a href="{% url item.url_name %}">{{item.title}}</a></li>
-            {% else %}
-            <li><a href="{% url item.url_name %}">{{item.title}}</a></li>
-            {% endif%}
-          {% endfor %}
-        </ul>
-     
-    </nav>
-    <div class="content">
-      <div class="container">
-        <main class="main">
-        
-        </main>  
-      </div>
-    </div>
-    <footer class="footer">
-      <div class="container">
-        About us
-      </div>
-    </footer> -->
- 
     <header class="header">
       <nav class="nav">
         {% block mainmenu %}
@@ -52,7 +24,7 @@
         {% if request.user.is_authenticated %}
 <li class="last"> {{user.email}} | <a href="{% url 'personal' %}">Личный кабинет</a></li>
 {% else %}
-<li class="last"><a href="{% url 'signup' %}">Регистрация</a> | <a href="{% url 'login' %}">Войти</a></li>
+<li class="last"><a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login'%}">Войти</a></li>
 {% endif %}
       </ul>
         {% endblock mainmenu %}
