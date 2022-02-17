@@ -110,17 +110,28 @@ class student_register(CreateView):
         login(self.request, user)
         return redirect('/')
 
+
 class partner_register(CreateView):
     model = User
     form_class = PartnerSignUpForm
     template_name = 'partner_register.html'
     extra_context = {'menu': menu}
-    
+
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
         return redirect('/')
 
+    def upload_file(request):
+        if request.method == 'POST':
+            form = PartnerSignUpForm(request.POST, request.FILES)
+            if form.is_valid():
+
+                instance.save()
+                return HttpResponseRedirect('/success/url/')
+        else:
+            form = UploadFileForm()
+        return render(request, 'upload.html', {'form': form})
 
 class student_update(UpdateView):
     model = Student

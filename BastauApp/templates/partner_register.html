@@ -13,14 +13,13 @@
             <div class="card-body">
                 <form action="{% url 'partner_register' %}" method="POST" novalidate>
                   {% csrf_token %}
-                     {% for field in form.visible_fields %}
-                       <div class="form-group">
-                           {{ field.label_tag }}
-                              {% render_field field class="form-control" %}
-                                {% for error in field.errors %}
-                                  <span style="color:red">{{ error }}</span>
-                                {% endfor %}
-                     {% endfor %}
+                    <div>Email: {{form.email}}</div>
+                    <div>Телефон: {{form.phone}}</div>
+                    <div>Пароль: {{form.password1}}</div>
+                    <div>Подтвердите пароль: {{form.password2}}</div>
+                    <div>ФИО: {{form.Fio}}</div>
+                    <div>Организация: {{form.name_of_partner}}</div>
+                    <div>Сайт: {{form.site}}</div>
                          <input type="submit" value="Register" class="btn btn-block btn-primary">
                        </div>
                 </form>
