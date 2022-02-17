@@ -110,20 +110,29 @@ class student_register(CreateView):
         login(self.request, user)
         return redirect('/')
 
-
-
 class partner_register(CreateView):
     model = User
     form_class = PartnerSignUpForm
     template_name = 'partner_register.html'
     extra_context = {'menu': menu}
+    
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
         return redirect('/')
 
+
 class student_update(UpdateView):
     model = Student
     fields = '__all__'
+    template_name = 'personal.html'
+    success_url = "/"
+    extra_context = {'menu': menu}
+
+
+class partner_update(UpdateView):
+    model = Partner
+    fields = '__all__'
+    success_url = "/"
     template_name = 'personal.html'
     extra_context = {'menu': menu}

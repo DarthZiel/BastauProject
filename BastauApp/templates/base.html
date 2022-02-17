@@ -22,7 +22,11 @@
           {% endif%}
         {% endfor %}
         {% if request.user.is_authenticated %}
-<li class="last"> {{user.email}} | <a href="{% url 'personal' %}">Личный кабинет</a></li>
+            {% if request.user.is_student %}
+            <li class="last"> {{user.email}} | <a href="{% url 'personal' user.id %}">Личный кабинет</a></li>
+            {% elif request.user.is_partner %}
+            <li class="last"> {{user.email}} | <a href="{% url 'personal_partner' user.id %}">Личный кабинет</a></li>
+            {%endif%}
 {% else %}
 <li class="last"><a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login'%}">Войти</a></li>
 {% endif %}
