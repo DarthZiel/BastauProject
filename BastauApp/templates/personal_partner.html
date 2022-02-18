@@ -6,6 +6,7 @@
     {% csrf_token %}
     {% if request.user.is_student is True %}
 
+{{form.as_p}}
     <div>ФИО: {{form.Fio}}</div>
     <div>Место учебы: {{form.Educational_institution}}</div>
     <div>Возраст: {{form.age}}</div>
@@ -17,14 +18,13 @@
 
     <div class="prikol"> {{form.user}}</div>
     {% elif request.user.is_partner is True %}
-
+    {{form.as_p}}
     <div>ФИО: {{form.Fio}}</div>
     <div>Название организации: {{form.name_of_partner}}</div>
     <div>Сайт: {{form.site}}</div>
     <div>Аватар: {{form.avatar}}</div>
-    <div class="prikol">{{form.user}}</div>
+    <div class="prikol">{{form.user_id}}</div>
     <br>
-
     {% endif %}
        <input type="submit" value="Update">
 </form>
