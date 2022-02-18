@@ -160,3 +160,10 @@ class partner_update(UpdateView):
 #     template_name = "updatecase.html"
 #     extra_context = {'menu':menu}
 #     success_url = "personal_partner"
+
+
+# class addanswer(CreateView):
+#     model = Answer
+#     form_class =
+#     template_name = 'partner_register.html'
+#     extra_context = {'menu': menu}
