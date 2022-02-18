@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from .forms import AddCaseForm,StudentSignUpForm, PartnerSignUpForm,LoginUserForm
 from django.contrib.auth.views import LoginView, LogoutView
-from django.views.generic import ListView, UpdateView
+from django.views.generic import ListView, UpdateView, DeleteView
 from .models import *
 from django.contrib.auth import logout, login
 
@@ -88,10 +88,6 @@ class ShowPartners(ListView):
     template_name = 'partners.html'
     extra_context = {'name': 'Партнеры', 'menu': menu}
 
-
-
-
-
 class LoginUser(LoginView):
     form = LoginUserForm
     template_name = "login.html"
@@ -152,6 +148,19 @@ class partner_update(UpdateView):
     fields = '__all__'
     success_url = "/"
     template_name = 'personal_partner.html'
+    extra_context = {'menu': menu}
+
+class case_update(UpdateView):
+    model = Case
+    fields = '__all__'
+    success_url = "/mycases"
+    template_name = 'createcase.html'
+    extra_context = {'menu': menu}
+
+class delete_case(DeleteView):
+    model = Case
+    template_name = 'delete_case.html'
+    success_url = "/mycases"
     extra_context = {'menu': menu}
 
 # class case_update(UpdateView):

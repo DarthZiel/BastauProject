@@ -11,8 +11,8 @@
       <p>{{item.description}}</p>
       <p>{{item.category}}</p>
       <a href="{{item.id}}"><button>Открыть</button></a>
-      <a href="#"></a>  <button>Редактировать</button>
-        <button>Удалить</button>
+      <a href="{% url 'case_update' item.id %}"><button>Редактировать</button></a>
+      <a href="{% url 'delete_case' item.id %}"><button>Удалить</button></a>
     </div>
     {% endif %}
     {% endfor %}
