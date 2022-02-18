@@ -14,6 +14,13 @@
         <p>{{item.user.phone}}</p>
         <p>{{item.user.email}}</p>
 
+
+      {% if item.avatar %}
+            <p><img src="{{item.avatar.url}}"></p>
+        {% else %}
+           <p></p>
+        {% endif %}
+
     </div>
     {% endfor %}
   {% endblock %}

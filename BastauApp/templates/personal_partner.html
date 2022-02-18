@@ -4,31 +4,27 @@
 
 <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    {% if request.user.is_student is True %}
-
-{{form.as_p}}
-    <div>ФИО: {{form.Fio}}</div>
-    <div>Место учебы: {{form.Educational_institution}}</div>
-    <div>Возраст: {{form.age}}</div>
-    <div>Регион: {{form.region}}</div>
-    <div>Специальность: {{form.Direction_of_study}}</div>
-    <div>Специальность: {{form.Education}}</div>
-
-    <div>Курс: {{form.Course}}</div>
-
-    <div class="prikol"> {{form.user}}</div>
-    {% elif request.user.is_partner is True %}
-    {{form.as_p}}
+    <div class="prikol">ФИО: {{form.user}}</div>
     <div>ФИО: {{form.Fio}}</div>
     <div>Название организации: {{form.name_of_partner}}</div>
     <div>Сайт: {{form.site}}</div>
     <div>Аватар: {{form.avatar}}</div>
     <div class="prikol">{{form.user_id}}</div>
     <br>
-    {% endif %}
        <input type="submit" value="Update">
 </form>
-<a href='/logout/'>Выйти</a>?
+{% for item in object_list %}
+    <div class="case">
+      <span class="case__title">
+       {{item}}
+      </span>
+      <p>{{item.description}}</p>
+      <p>{{item.category}}</p>
+        <a href="{{item.id}}"><button>Ответить на кейс</button></a>
+    </div>
+    {% endfor %}
+<a href='/logout/'>Выйти</a>?<br>
+<a href='{% url "mycases" %}'>Мои кейсы</a>
 
   {% endblock %}
 

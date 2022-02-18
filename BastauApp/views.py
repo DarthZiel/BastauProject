@@ -61,6 +61,12 @@ class ShowCases(ListView):
     template_name = 'ShowCase.html'
     extra_context = {"name": 'Кейсы', 'menu': menu}
 
+class ShowCasesPartner(ListView):
+    model = Case
+    template_name = 'casepartners.html'
+    extra_context = { 'menu': menu}
+
+
 # class DetailCases(DetailView):
 #     model = Case
 #     slug_field = "url"
@@ -110,17 +116,28 @@ class student_register(CreateView):
         login(self.request, user)
         return redirect('/')
 
+
 class partner_register(CreateView):
     model = User
     form_class = PartnerSignUpForm
     template_name = 'partner_register.html'
     extra_context = {'menu': menu}
-    
+
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
         return redirect('/')
 
+    def upload_file(request):
+        if request.method == 'POST':
+            form = PartnerSignUpForm(request.POST, request.FILES)
+            if form.is_valid():
+
+                instance.save()
+                return HttpResponseRedirect('/success/url/')
+        else:
+            form = UploadFileForm()
+        return render(request, 'upload.html', {'form': form})
 
 class student_update(UpdateView):
     model = Student
@@ -134,7 +151,12 @@ class partner_update(UpdateView):
     model = Partner
     fields = '__all__'
     success_url = "/"
-    template_name = 'personal.html'
+    template_name = 'personal_partner.html'
     extra_context = {'menu': menu}
 
-
+# class case_update(UpdateView):
+#     model = Case
+#     fields = '__all__'
+#     template_name = "updatecase.html"
+#     extra_context = {'menu':menu}
+#     success_url = "personal_partner"
