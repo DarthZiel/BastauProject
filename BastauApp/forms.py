@@ -126,6 +126,11 @@ class AddCaseForm(forms.ModelForm):
             }),
         }
 
+class AddAnswer(forms.ModelForm):
+    class Meta:
+        model = Answer
+        fields = '__all__'
+
 # class DetailCase(forms.ModelForm):
 #     class Meta:
 #         model = Case

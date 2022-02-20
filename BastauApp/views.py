@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
-from .forms import AddCaseForm,StudentSignUpForm, PartnerSignUpForm,LoginUserForm
+from .forms import AddCaseForm,StudentSignUpForm, PartnerSignUpForm,LoginUserForm, AddAnswer
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import ListView, UpdateView, DeleteView
 from .models import *
@@ -162,6 +162,29 @@ class delete_case(DeleteView):
     template_name = 'delete_case.html'
     success_url = "/mycases"
     extra_context = {'menu': menu}
+
+# class add_answer(CreateView):
+#     model = Answer
+#     form_class = AddAnswer
+#     template_name = 'DetailCase.html'
+#     extra_context = {'menu': menu}
+#
+def add_answer(request):
+
+    active_user = {'student_id': request.user}
+    form = AddAnswer(active_user)
+    if request.method == 'POST':
+        form = AddAnswer(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+
+    data = {
+        'form': form,
+        'menu': menu
+    }
+    return render(request, 'addanswer.html', data)
+
 
 # class case_update(UpdateView):
 #     model = Case

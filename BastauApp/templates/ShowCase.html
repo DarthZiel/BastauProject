@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
   {% block content %}
- <a href="{% url 'createcase' %}"><button>Создать кейс</button></a> 
+{%if request.user.is_partner%}
+ <a href="{% url 'createcase' %}"><button>Создать кейс</button></a>
+{%endif%}
     {% for item in object_list %}
     <div class="case">
       <span class="case__title">
        {{item}}
       </span>
-      <p>{{item.description}}</p>
       <p>{{item.category}}</p>
-        <a href="{{item.id}}"><button>Ответить на кейс</button></a>
+        <a href="{{item.id}}"><button>Перейти к кейсу</button></a>
     </div>
     {% endfor %}
   {% endblock %}
