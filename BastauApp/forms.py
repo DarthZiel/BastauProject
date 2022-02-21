@@ -77,6 +77,7 @@ class PartnerSignUpForm(UserCreationForm):
     site = forms.URLField(required=True)
 
 
+
     class Meta(UserCreationForm.Meta):
         fields = ['email','phone']
         field_classes = {'email': EmailField}

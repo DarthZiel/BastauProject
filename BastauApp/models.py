@@ -100,6 +100,7 @@ class Partner(models.Model):
     avatar = models.ImageField("Аватар", upload_to="img/", blank=True)
 
 
+
     class Meta:
         verbose_name = "Партнер"
         verbose_name_plural = "Партнеры"
