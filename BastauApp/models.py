@@ -133,7 +133,7 @@ class Answer(models.Model):
     Url = models.URLField(verbose_name='Ссылка на ответ', blank=True)
     File = models.FileField(verbose_name='Файл', upload_to = "file",blank=True)
     id_case = models.ForeignKey(Case, verbose_name="id_case", on_delete=models.CASCADE,blank=True,related_name='cases')
-    id_student = models.OneToOneField(User, verbose_name="id_student", on_delete=models.CASCADE,blank=True)
+    id_student = models.ForeignKey(User, verbose_name="id_student", on_delete=models.CASCADE,blank=True)
 
     class Meta:
         verbose_name = "Ответ"

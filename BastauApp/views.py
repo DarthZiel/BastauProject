@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView
 from django.views.generic.edit import FormMixin
 
-from .forms import AddCaseForm, StudentSignUpForm, PartnerSignUpForm, LoginUserForm, AddAnswer
+from .forms import AddCaseForm, StudentSignUpForm, PartnerSignUpForm, LoginUserForm, AddAnswer, UploadFileForm
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import ListView, UpdateView, DeleteView
 from .models import *
@@ -173,14 +173,13 @@ class AnswerToCase(FormMixin, DetailView):
     template_name = 'addanswer.html'
     form_class = AddAnswer
     success_url = '/'
-
+    context_object_name = 'get_case'
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         if form.is_valid():
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
-
     def form_valid(self, form):
         self.object = form.save(commit=False)
         self.object.id_case = self.get_object()

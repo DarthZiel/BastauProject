@@ -9,4 +9,10 @@
          <input type="submit" value="Register" class="btn btn-block btn-primary">
         </form>
     </div>
+
+    {% for item in get_case.cases.all %}
+   {{item.id_student}} {{item.Url}}
+    {{item.File}}
+    <br>
+    {% endfor %}
   {% endblock %}

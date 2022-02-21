@@ -141,4 +141,6 @@ class LoginUserForm(AuthenticationForm):
 
 
 
-
+class UploadFileForm(forms.ModelForm):
+    model = Answer
+    File = forms.FileField()
