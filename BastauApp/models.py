@@ -97,7 +97,7 @@ class Partner(models.Model):
     Fio = models.CharField(max_length=100, verbose_name='ФИО', blank=True)
     name_of_partner = models.CharField(max_length=100, verbose_name='Название организации')
     site = models.URLField(max_length=200)
-    avatar = models.ImageField("Аватар", upload_to="img/",blank=True)
+    avatar = models.ImageField("Аватар", upload_to="img/",blank=True, null=True)
 
 
     class Meta:

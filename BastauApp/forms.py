@@ -75,7 +75,7 @@ class PartnerSignUpForm(UserCreationForm):
     Fio = forms.CharField()
     name_of_partner = forms.CharField()
     site = forms.URLField()
-    avatar = forms.ImageField(required=True)
+
 
     class Meta(UserCreationForm.Meta):
         fields = ['email','phone']
@@ -94,7 +94,7 @@ class PartnerSignUpForm(UserCreationForm):
         partner.Fio = self.cleaned_data.get('Fio')
         partner.name_of_partner = self.cleaned_data.get('name_of_partner')
         partner.site = self.cleaned_data.get('site')
-        partner.avatar = self.cleaned_data.get('avatar')
+
         partner.save()
         return user
 
