@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
   {% block content %}
 
-    <form action="{% url 'answer' %}" method="POST" novalidate>
+    <form action="" method="POST" novalidate>
+    
       {% csrf_token %}
         <div>Ссылка: {{form.Url}}</div>
         <div>Файл: {{form.File}}</div>
         <div>Айди: {{form.id_case}}</div>
-        <div>айди: {{form.id_student}}</div>
+        <div class="">Выполнил: {{form.id_student}}</div>
+        
          <input type="submit" value="Register" class="btn btn-block btn-primary">
         </form>
     </div>

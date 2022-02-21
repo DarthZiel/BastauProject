@@ -1,7 +1,11 @@
-from django.shortcuts import render, redirect
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
-from .forms import AddCaseForm,StudentSignUpForm, PartnerSignUpForm,LoginUserForm, AddAnswer
+from django.views.generic import CreateView, DetailView
+from django.views.generic.edit import FormMixin
+
+from .forms import AddCaseForm, StudentSignUpForm, PartnerSignUpForm, LoginUserForm, AddAnswer
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import ListView, UpdateView, DeleteView
 from .models import *
@@ -18,9 +22,9 @@ def logout_user(request):
     logout(request)
     return redirect('login')
 
-def personal(request):
-    return render(request, 'personal.html',{'menu':menu})
 
+def personal(request):
+    return render(request, 'personal.html', {'menu': menu})
 
 
 def contacts(request):
@@ -33,10 +37,6 @@ def index(request):
 
 def about(request):
     return render(request, 'about.html')
-
-
-# def login(request):
-#     return render(request, 'login.html', {'menu': menu})
 
 
 def createcase(request):
@@ -61,10 +61,11 @@ class ShowCases(ListView):
     template_name = 'ShowCase.html'
     extra_context = {"name": 'Кейсы', 'menu': menu}
 
+
 class ShowCasesPartner(ListView):
     model = Case
     template_name = 'casepartners.html'
-    extra_context = { 'menu': menu}
+    extra_context = {'menu': menu}
 
 
 # class DetailCases(DetailView):
@@ -83,10 +84,12 @@ def detail_view(request, case_id):
 
     return render(request, "DetailCase.html", context)
 
+
 class ShowPartners(ListView):
     model = Partner
     template_name = 'partners.html'
     extra_context = {'name': 'Партнеры', 'menu': menu}
+
 
 class LoginUser(LoginView):
     form = LoginUserForm
@@ -97,16 +100,16 @@ class LoginUser(LoginView):
         return reverse_lazy('index')
 
 
-
 def register(request):
-    return render(request, 'register.html',{'menu':menu})
+    return render(request, 'register.html', {'menu': menu})
 
 
 class student_register(CreateView):
     model = User
     form_class = StudentSignUpForm
     template_name = 'student_register.html'
-    extra_context = {'menu':menu}
+    extra_context = {'menu': menu}
+
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
@@ -124,16 +127,6 @@ class partner_register(CreateView):
         login(self.request, user)
         return redirect('/')
 
-    def upload_file(request):
-        if request.method == 'POST':
-            form = PartnerSignUpForm(request.POST, request.FILES)
-            if form.is_valid():
-
-                instance.save()
-                return HttpResponseRedirect('/success/url/')
-        else:
-            form = UploadFileForm()
-        return render(request, 'upload.html', {'form': form})
 
 class student_update(UpdateView):
     model = Student
@@ -150,6 +143,7 @@ class partner_update(UpdateView):
     template_name = 'personal_partner.html'
     extra_context = {'menu': menu}
 
+
 class case_update(UpdateView):
     model = Case
     fields = '__all__'
@@ -157,11 +151,13 @@ class case_update(UpdateView):
     template_name = 'createcase.html'
     extra_context = {'menu': menu}
 
+
 class delete_case(DeleteView):
     model = Case
     template_name = 'delete_case.html'
     success_url = "/mycases"
     extra_context = {'menu': menu}
+
 
 # class add_answer(CreateView):
 #     model = Answer
@@ -169,22 +165,25 @@ class delete_case(DeleteView):
 #     template_name = 'DetailCase.html'
 #     extra_context = {'menu': menu}
 #
-def add_answer(request):
+class AnswerToCase(FormMixin, DetailView):
+    model = Case
+    template_name = 'addanswer.html'
+    form_class = AddAnswer
+    success_url = '/'
 
-    active_user = {'student_id': request.user}
-    form = AddAnswer(active_user)
-    if request.method == 'POST':
-        form = AddAnswer(request.POST, request.FILES)
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
         if form.is_valid():
-            form.save()
-            return redirect('/')
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
 
-    data = {
-        'form': form,
-        'menu': menu
-    }
-    return render(request, 'addanswer.html', data)
-
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.id_case = self.get_object()
+        self.object.id_student = self.request.user
+        self.object.save()
+        return super().form_valid(form)
 
 # class case_update(UpdateView):
 #     model = Case
@@ -192,10 +191,3 @@ def add_answer(request):
 #     template_name = "updatecase.html"
 #     extra_context = {'menu':menu}
 #     success_url = "personal_partner"
-
-
-# class addanswer(CreateView):
-#     model = Answer
-#     form_class =
-#     template_name = 'partner_register.html'
-#     extra_context = {'menu': menu}

@@ -4,7 +4,7 @@
     <p>{{data.title}}</p>
     <p>{{data.description}}</p>
     <p>{{data.category}}</p>
-    <a href="{% url 'answer' %}"><button>Удалить</button></a>
+    <a href="{% url 'answer' data.pk %}"><button>Ответить</button></a>
 
     </div>
   {% endblock %}

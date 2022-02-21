@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ShowCases, ShowPartners,detail_view, student_update, partner_update, ShowCasesPartner, case_update, delete_case,add_answer
+from .views import ShowCases, ShowPartners,detail_view, student_update, partner_update, ShowCasesPartner, case_update, delete_case
 from . import views
 from BastauSite import settings
 from django.conf.urls.static import static
@@ -22,7 +22,8 @@ urlpatterns = [
     path('logout/', views.logout_user, name='logout'),
     path('student_register/', views.student_register.as_view(), name='student_register'),
     path('partner_register/', views.partner_register.as_view(), name='partner_register'),
-    path('answer/', views.add_answer, name='answer'),
+    path('answer/<int:pk>', views.AnswerToCase.as_view(), name='answer'),
+
 
 ]
 
