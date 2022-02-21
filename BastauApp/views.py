@@ -58,6 +58,9 @@ def createcase(request):
 
 class ShowCases(ListView):
     model = Case
+    queryset = Case.objects.filter(is_published=True)
+
+
     template_name = 'ShowCase.html'
     extra_context = {"name": 'Кейсы', 'menu': menu}
 

@@ -120,7 +120,7 @@ class Case(models.Model):
     date_of_close = models.DateTimeField()
     category = models.CharField(max_length=100, choices=CATEGORIES)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-
+    is_published = models.BooleanField(default=True)
     class Meta:
         verbose_name = "Кейс"
         verbose_name_plural = "Кейсы"
