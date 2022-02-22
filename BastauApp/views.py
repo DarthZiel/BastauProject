@@ -191,14 +191,6 @@ class AnswerToCase(FormMixin, DetailView):
         return super().form_valid(form)
 
 
-
-# class case_update(UpdateView):
-#     model = Case
-#     fields = '__all__'
-#     template_name = "updatecase.html"
-#     extra_context = {'menu':menu}
-#     success_url = "personal_partner"
-
 class delete_answer(DeleteView):
     model = Answer
     template_name = 'delete_answer.html'
