@@ -10,6 +10,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import ListView, UpdateView, DeleteView
 from .models import *
 from django.contrib.auth import logout, login
+import datetime
 
 menu = [
     {'title': 'Партнеры', 'url_name': 'partners'},
@@ -57,8 +58,9 @@ def createcase(request):
 
 
 class ShowCases(ListView):
+    now = datetime.datetime.now()
     model = Case
-    queryset = Case.objects.filter(is_published=True)
+    queryset = Case.objects.filter(date_of_close__gte = now)
 
 
     template_name = 'ShowCase.html'
@@ -162,12 +164,7 @@ class delete_case(DeleteView):
     extra_context = {'menu': menu}
 
 
-# class add_answer(CreateView):
-#     model = Answer
-#     form_class = AddAnswer
-#     template_name = 'DetailCase.html'
-#     extra_context = {'menu': menu}
-#
+
 class AnswerToCase(FormMixin, DetailView):
     model = Case
     template_name = 'addanswer.html'
@@ -193,3 +190,9 @@ class AnswerToCase(FormMixin, DetailView):
 #     template_name = "updatecase.html"
 #     extra_context = {'menu':menu}
 #     success_url = "personal_partner"
+
+class delete_answer(DeleteView):
+    model = Answer
+    template_name = 'delete_answer.html'
+    success_url = "/mycases"
+    extra_context = {'menu': menu}
