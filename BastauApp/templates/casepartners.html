@@ -16,7 +16,13 @@
     </div>
     {% endif %}
     {% endfor %}
+    {% for item in get_case.cases.all %}
+   
+    <div>{{item.File}} </div><div> {{item.id_student}}</div>
+    <div>{{item.Url}}</div>
 
+    <br>
+    {% endfor %}
   {% endblock %}
 
 

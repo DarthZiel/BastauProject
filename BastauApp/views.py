@@ -4,8 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView
 from django.views.generic.edit import FormMixin
-
-from .forms import AddCaseForm, StudentSignUpForm, PartnerSignUpForm, LoginUserForm, AddAnswer, UploadFileForm
+from .forms import AddCaseForm, StudentSignUpForm, PartnerSignUpForm, LoginUserForm, AddAnswer
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import ListView, UpdateView, DeleteView
 from .models import *
@@ -88,7 +87,13 @@ def detail_view(request, case_id):
     context["menu"] = menu
 
     return render(request, "DetailCase.html", context)
+def detail_view_for_Partner(request, case_id):
+    context = {}
+    # add the dictionary during initialization
+    context["data"] = Case.objects.get(pk=case_id)
+    context["menu"] = menu
 
+    return render(request, "DetailCaseOfPartner.html", context)
 
 class ShowPartners(ListView):
     model = Partner
@@ -178,11 +183,14 @@ class AnswerToCase(FormMixin, DetailView):
         else:
             return self.form_invalid(form)
     def form_valid(self, form):
+
         self.object = form.save(commit=False)
         self.object.id_case = self.get_object()
         self.object.id_student = self.request.user
         self.object.save()
         return super().form_valid(form)
+
+
 
 # class case_update(UpdateView):
 #     model = Case
