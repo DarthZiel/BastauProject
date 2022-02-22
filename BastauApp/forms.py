@@ -1,7 +1,7 @@
 from django import forms
 from django.db import transaction
 
-from django.forms import ModelForm, TextInput, Textarea, Select, DateTimeInput, EmailField
+from django.forms import ModelForm, TextInput, Textarea, Select, DateTimeInput, EmailField, CheckboxInput
 from django.contrib.auth.forms import AuthenticationForm
 from .models import *
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -127,20 +127,15 @@ class AddCaseForm(forms.ModelForm):
         }
 
 class AddAnswer(forms.ModelForm):
+
     class Meta:
         model = Answer
         fields = '__all__'
 
-# class DetailCase(forms.ModelForm):
-#     class Meta:
-#         model = Case
-#         fields = ['title', 'description', 'category', 'date_of_close', 'user_id']
 class LoginUserForm(AuthenticationForm):
     email = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
 
 
 
-class UploadFileForm(forms.ModelForm):
-    model = Answer
-    File = forms.FileField()
+

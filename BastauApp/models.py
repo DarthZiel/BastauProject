@@ -47,6 +47,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default=False)  # this field we inherit from Permis
     is_student = models.BooleanField(default=False)
     is_partner = models.BooleanField(default=False)
+
     objects = CustomUserManager()
     REQUIRED_FIELDS = ["phone"]
     USERNAME_FIELD = 'email'
@@ -121,13 +122,13 @@ class Case(models.Model):
     category = models.CharField(max_length=100, choices=CATEGORIES)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     is_published = models.BooleanField(default=True)
+
     class Meta:
         verbose_name = "Кейс"
         verbose_name_plural = "Кейсы"
 
     def __str__(self):
         return self.title
-
 
 class Answer(models.Model):
     Url = models.URLField(verbose_name='Ссылка на ответ', blank=True)
