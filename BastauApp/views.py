@@ -59,7 +59,7 @@ def createcase(request):
 class ShowCases(ListView):
     now = datetime.datetime.now()
     model = Case
-    queryset = Case.objects.filter(date_of_close__gte = now)
+    queryset = Case.objects.filter(is_published=True)
 
 
     template_name = 'ShowCase.html'
@@ -99,6 +99,7 @@ class ShowPartners(ListView):
     model = Partner
     template_name = 'partners.html'
     extra_context = {'name': 'Партнеры', 'menu': menu}
+
 
 
 class LoginUser(LoginView):
@@ -162,6 +163,7 @@ class case_update(UpdateView):
     extra_context = {'menu': menu}
 
 
+
 class delete_case(DeleteView):
     model = Case
     template_name = 'delete_case.html'
@@ -196,3 +198,13 @@ class delete_answer(DeleteView):
     template_name = 'delete_answer.html'
     success_url = "/mycases"
     extra_context = {'menu': menu}
+
+class ShowAnswer(ListView):
+    model = Answer
+    template_name = 'showanswer.html'
+    extra_context = {'name': 'Ответы', 'menu': menu}
+
+class ShowAnswerStudent(ListView):
+    model = Answer
+    template_name = 'showanswer_student.html'
+    extra_context = {'name': 'Ответы', 'menu': menu}

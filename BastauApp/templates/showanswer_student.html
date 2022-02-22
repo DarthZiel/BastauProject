@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+  {% block content %}
+        {% for item in object_list %}
+        {% if item.id_student.email == request.user.email %}
+        <table border = "1">
+          <tr>
+              <td><a href="{% url 'detail_case' item.id_case_id %}">{{item.id_case}}</a></td>
+              <td>{{item.id_student}}</td>
+              <td><a href="{{item.Url}}">Ссылка на файл</a></td>
+              <td>{{item.File}}</td>
+              <td><a href="{% url 'delete_answer' item.id %}"><button>Удалить</button></a></td>
+          </tr>
+        </table>
+    {% endif %}
+
+    {% endfor %}
+
+  {% endblock %}
