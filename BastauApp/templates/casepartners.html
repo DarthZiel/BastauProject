@@ -10,11 +10,17 @@
       </span>
       <p>{{item.description}}</p>
       <p>{{item.category}}</p>
-      <a href="{{item.id}}"><button>Открыть</button></a>
+      <a href="{% url 'detail_case_partner' item.id %}"><button>Открыть</button></a>
+      <a href="{% url 'show_answer' item.id %}"><button>Ответы</button></a>
       <a href="{% url 'case_update' item.id %}"><button>Редактировать</button></a>
       <a href="{% url 'delete_case' item.id %}"><button>Удалить</button></a>
     </div>
     {% endif %}
+    {% endfor %}
+        {% for item in get_case.cases.all %}
+   {{item.id_student}} {{item.Url}}
+    {{item.File}}
+    <br>
     {% endfor %}
 
   {% endblock %}
