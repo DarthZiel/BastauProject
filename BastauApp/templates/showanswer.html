@@ -7,10 +7,14 @@
               <td>{{item.id_student_id}}</td>
               <td>{{item.id_student}}</td>
               <td><a href="{{item.Url}}">Ссылка на файл</a></td>
-              <td>{{item.File}}</td>
+              <td><a href="{{item.File}}" >{{item.File}}</a></td>
+              
               <td><a href="{% url 'delete_answer' item.id %}"><button>Удалить</button></a></td>
           </tr>
+
         </table>
+     
+
 
     </div>
     {% endfor %}
