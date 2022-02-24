@@ -72,11 +72,7 @@ class ShowCasesPartner(ListView):
     extra_context = {'menu': menu}
 
 
-# class DetailCases(DetailView):
-#     model = Case
-#     slug_field = "url"
-#     template_name = 'DetailCase.html'
-#     extra_context = {'menu': menu}
+
 
 def detail_view(request, case_id):
     # dictionary for initial data with
@@ -208,3 +204,10 @@ class ShowAnswerStudent(ListView):
     model = Answer
     template_name = 'showanswer_student.html'
     extra_context = {'name': 'Ответы', 'menu': menu}
+
+def detail_student(request, user_id):
+    a = User.objects.get(pk=user_id)
+    context = {}
+    context["b"] = Student.objects.get(user=a)
+    context["menu"] = menu
+    return render(request, "Bio.html", context)

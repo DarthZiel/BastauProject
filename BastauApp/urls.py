@@ -10,6 +10,7 @@ urlpatterns = [
     path('createcase/', views.createcase, name= 'createcase'),
     path('showcases/', ShowCases.as_view(), name='showcases'),
     path('showcases/<case_id>', detail_view, name= 'detail_case' ),
+    path('bio/<user_id>', views.detail_student, name= 'detail_student' ),
     path('mycases/<case_id>', detail_view_for_Partner, name= 'detail_view_for_Partner' ),
     path('contacts/', views.contacts, name='contacts'),
     path('partners/', ShowPartners.as_view(), name='partners'),
