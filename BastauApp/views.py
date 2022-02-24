@@ -59,7 +59,7 @@ def createcase(request):
 class ShowCases(ListView):
     now = datetime.datetime.now()
     model = Case
-    queryset = Case.objects.filter(is_published=True)
+    queryset = Case.objects.filter(date_of_close__gte=now)
 
 
     template_name = 'ShowCase.html'
@@ -211,3 +211,10 @@ def detail_student(request, user_id):
     context["b"] = Student.objects.get(user=a)
     context["menu"] = menu
     return render(request, "Bio.html", context)
+
+class ChoiceWinner(UpdateView):
+    model = Answer
+    fields = ['is_won']
+    template_name = 'winner.html'
+    success_url = "/"
+    extra_context = {'menu': menu}

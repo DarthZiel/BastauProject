@@ -10,13 +10,18 @@
               <td><a href="{{item.File}}" >{{item.File}}</a></td>
               
               <td><a href="{% url 'delete_answer' item.id %}"><button>Удалить</button></a></td>
+              <td><a href="{% url 'winner' item.id %}"><button>Выбрать победителя</button></a></td>
           </tr>
 
         </table>
-     
-
-
-    </div>
+  
+      
     {% endfor %}
 
+<br>
+<form action = "" method = "post">
+    {% csrf_token %}
+    {{instance.is_won }}
+    <input type="submit" value=Submit>
+</form>
   {% endblock %}

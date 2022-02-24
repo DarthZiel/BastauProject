@@ -135,7 +135,13 @@ class AddAnswer(forms.ModelForm):
 class LoginUserForm(AuthenticationForm):
     email = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
-
-
-
+#
+#
+# class WinnerForm(forms.ModelForm):
+#     region = forms.ChoiceField(required=True,widget=forms.Select)
+#     class Meta:
+#         model = Answer
+#         fields = ['is_won']
+#
+#
 

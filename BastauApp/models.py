@@ -131,11 +131,13 @@ class Case(models.Model):
         return self.title
 
 class Answer(models.Model):
+    STATUS = [
+        ('Участник', 'Участник'), ('Победитель','Победитель' )]
     Url = models.URLField(verbose_name='Ссылка на ответ', blank=True)
     File = models.FileField(verbose_name='Файл', upload_to = "file",blank=True)
     id_case = models.ForeignKey(Case, verbose_name="id_case", on_delete=models.CASCADE,blank=True,related_name='cases')
     id_student = models.ForeignKey(User, verbose_name="id_student", on_delete=models.CASCADE,blank=True)
-
+    is_won = models.CharField(max_length=20,verbose_name='Победитель',choices=STATUS, default= STATUS[0])
     class Meta:
         verbose_name = "Ответ"
         verbose_name_plural = "Ответы"

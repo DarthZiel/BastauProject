@@ -22,6 +22,7 @@ urlpatterns = [
     path('delete/<int:pk>', views.delete_case.as_view(), name='delete_case'),
     path('mycases/answers/<int:pk>', views.ShowAnswer.as_view(), name='show_answer'),
     path('answers/', views.ShowAnswerStudent.as_view(), name='show_answer_student'),
+    path('winner/<int:pk>',views.ChoiceWinner.as_view(), name = 'winner'),
     path('answers/delete/<int:pk>', views.delete_answer.as_view(), name='delete_answer'),
     path('logout/', views.logout_user, name='logout'),
     path('student_register/', views.student_register.as_view(), name='student_register'),
