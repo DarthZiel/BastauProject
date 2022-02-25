@@ -17,7 +17,14 @@
   
       
     {% endfor %}
-
+    {% for item in data.cases.all %}
+   
+    <div>{{item.File}} </div>
+    <div> {{item.id_student}}</div>
+    <div><a href="{{item.Url}}">{{item.Url}}</a></div>
+    <div>{{item.is_won}}</div>
+    <br>
+    {% endfor %}
 <br>
 <form action = "" method = "post">
     {% csrf_token %}

@@ -130,7 +130,7 @@ class AddAnswer(forms.ModelForm):
 
     class Meta:
         model = Answer
-        fields = '__all__'
+        fields = ['File', 'Url', 'id_case', 'id_student']
 
 class LoginUserForm(AuthenticationForm):
     email = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))

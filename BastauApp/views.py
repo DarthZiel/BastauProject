@@ -169,6 +169,8 @@ class delete_case(DeleteView):
 
 
 class AnswerToCase(FormMixin, DetailView):
+    STATUS = [
+        ('Участник', 'Участник'), ('Победитель', 'Победитель')]
     model = Case
     template_name = 'addanswer.html'
     form_class = AddAnswer
@@ -185,6 +187,7 @@ class AnswerToCase(FormMixin, DetailView):
         self.object = form.save(commit=False)
         self.object.id_case = self.get_object()
         self.object.id_student = self.request.user
+        # self.object.is_won = STATUS[0]
         self.object.save()
         return super().form_valid(form)
 
@@ -194,15 +197,22 @@ class delete_answer(DeleteView):
     template_name = 'delete_answer.html'
     success_url = "/mycases"
     extra_context = {'menu': menu}
+#
+# class ShowAnswer(ListView):
+#     model = Answer
+#     template_name = 'showanswer.html'
+#     extra_context = {'name': 'Ответы', 'menu': menu}
+def ShowAnswer(request, case_id):
+    context = {}
+    # add the dictionary during initialization
+    context["data"] = Case.objects.get(pk=case_id)
+    context["menu"] = menu
 
-class ShowAnswer(ListView):
-    model = Answer
-    template_name = 'showanswer.html'
-    extra_context = {'name': 'Ответы', 'menu': menu}
-
+    return render(request, "showanswer.html", context)
 class ShowAnswerStudent(ListView):
     model = Answer
     template_name = 'showanswer_student.html'
+    # queryset = Case.objects.get(pk=case_id)
     extra_context = {'name': 'Ответы', 'menu': menu}
 
 def detail_student(request, user_id):
