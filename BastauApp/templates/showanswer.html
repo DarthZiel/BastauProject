@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
   {% block content %}
-        {% for item in object_list %}
+        {% for item in data.cases.all %}
         <table border = "1">
           <tr>
               <td><a href="{% url 'detail_case' item.id_case_id %}">{{item.id_case}}</a></td>
@@ -8,23 +8,17 @@
               <td><a href="{% url 'detail_student' item.id_student_id %}">{{item.id_student}}</a></td>
               <td><a href="{{item.Url}}">Ссылка на файл</a></td>
               <td><a href="{{item.File}}" >{{item.File}}</a></td>
-              
+
               <td><a href="{% url 'delete_answer' item.id %}"><button>Удалить</button></a></td>
               <td><a href="{% url 'winner' item.id %}"><button>Выбрать победителя</button></a></td>
           </tr>
 
         </table>
-  
-      
+
+
+
     {% endfor %}
-    {% for item in data.cases.all %}
-   
-    <div>{{item.File}} </div>
-    <div> {{item.id_student}}</div>
-    <div><a href="{{item.Url}}">{{item.Url}}</a></div>
-    <div>{{item.is_won}}</div>
-    <br>
-    {% endfor %}
+
 <br>
 <form action = "" method = "post">
     {% csrf_token %}
