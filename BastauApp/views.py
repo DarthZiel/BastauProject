@@ -48,7 +48,6 @@ def createcase(request):
         if form.is_valid():
             form.save()
             return redirect('showcases')
-
     data = {
         'form': form,
         'menu': menu
@@ -228,3 +227,17 @@ class ChoiceWinner(UpdateView):
     template_name = 'winner.html'
     success_url = "/"
     extra_context = {'menu': menu}
+
+class Search(ListView):
+    """Поиск фильмов"""
+    paginate_by = 3
+    template_name = 'ShowCase.html'
+    extra_context = {'name': 'Партнеры', 'menu': menu}
+
+    def get_queryset(self):
+        return Case.objects.filter(title__icontains=self.request.GET.get("q"))
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["q"] = f'q={self.request.GET.get("q")}&'
+        return context

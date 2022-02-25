@@ -3,13 +3,19 @@
 {%if request.user.is_partner%}
  <a href="{% url 'createcase' %}"><button>Создать кейс</button></a>
 {%endif%}
+     <form action="{% url 'search' %}" method="get" class="d-flex editContent">
+        <input type="search" placeholder="Введите название..." name="q" required="">
+        <button type="submit" class="btn1 btn">
+            <span class="fa fa-search" aria-hidden="true">Искать</span>
+        </button>
+     </form>
     {% for item in object_list %}
     <div class="case">
       <span class="case__title">
        {{item}}
       </span>
       <p>{{item.category}}</p>
-        <a href="{{item.id}}"><button>Перейти к кейсу</button></a>
+        <a href="{% url 'detail_case' item.id %}"><button>Перейти к кейсу</button></a>
     </div>
     {% endfor %}
   {% endblock %}

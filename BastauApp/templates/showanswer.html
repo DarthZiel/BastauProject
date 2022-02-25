@@ -7,18 +7,14 @@
               <td>{{item.id_student_id}}</td>
               <td><a href="{% url 'detail_student' item.id_student_id %}">{{item.id_student}}</a></td>
               <td><a href="{{item.Url}}">Ссылка на файл</a></td>
-              <td><a href="{{item.File}}" >{{item.File}}</a></td>
+              <td><a href="{{item.File.url}}" download=""><button>Скачать файл</button></a></td>
 
               <td><a href="{% url 'delete_answer' item.id %}"><button>Удалить</button></a></td>
               <td><a href="{% url 'winner' item.id %}"><button>Выбрать победителя</button></a></td>
           </tr>
 
         </table>
-
-
-
     {% endfor %}
-
 <br>
 <form action = "" method = "post">
     {% csrf_token %}

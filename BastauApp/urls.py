@@ -28,6 +28,7 @@ urlpatterns = [
     path('student_register/', views.student_register.as_view(), name='student_register'),
     path('partner_register/', views.partner_register.as_view(), name='partner_register'),
     path('answer/<int:pk>', views.AnswerToCase.as_view(), name='answer'),
+    path("search/", views.Search.as_view(), name='search'),
 ]
 
 if settings.DEBUG:
