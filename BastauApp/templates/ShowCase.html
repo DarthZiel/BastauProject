@@ -9,6 +9,19 @@
             <span class="fa fa-search" aria-hidden="true">Искать</span>
         </button>
      </form>
+<!--Вывод категорий-->
+<form action="{% url 'category' %}">
+<ul>{% for item in view.get_cat%}
+<li>
+    <input type="checkbox" value="case.category">
+    <span>{{item}}</span>
+
+</li>
+{% endfor %}
+</ul>
+    <button type="submit">найти</button>
+    </form>
+
     {% for item in object_list %}
     <div class="case">
       <span class="case__title">
@@ -18,6 +31,7 @@
         <a href="{% url 'detail_case' item.id %}"><button>Перейти к кейсу</button></a>
     </div>
     {% endfor %}
+
   {% endblock %}
 
 

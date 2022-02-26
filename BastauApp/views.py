@@ -17,6 +17,10 @@ menu = [
     {'title': 'Контакты', 'url_name': 'contacts'},
 ]
 
+class Categories(ListView):
+    def get_cat(self):
+        return Category.objects.all()
+
 
 def logout_user(request):
     logout(request)
@@ -32,6 +36,7 @@ def contacts(request):
 
 
 def index(request):
+
     return render(request, 'index.html', {'menu': menu})
 
 
@@ -55,14 +60,17 @@ def createcase(request):
     return render(request, 'createcase.html', data)
 
 
-class ShowCases(ListView):
+class ShowCases(Categories, ListView):
+
     now = datetime.datetime.now()
     model = Case
     queryset = Case.objects.filter(date_of_close__gte=now)
 
 
+
     template_name = 'ShowCase.html'
     extra_context = {"name": 'Кейсы', 'menu': menu}
+
 
 
 class ShowCasesPartner(ListView):
@@ -241,3 +249,8 @@ class Search(ListView):
         context = super().get_context_data(*args, **kwargs)
         context["q"] = f'q={self.request.GET.get("q")}&'
         return context
+
+class CaseFilter(Categories,ListView):
+    def get_queryset(self):
+        queryset = Case.objects.filter(category_id__in= self.request.GET.getlist('category'))
+        return queryset

@@ -11,4 +11,5 @@ admin.site.register(Answer)
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
     pass
-    
+
+
