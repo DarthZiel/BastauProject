@@ -121,17 +121,24 @@ class Partner(models.Model):
     def __str__(self):
         return self.Fio
 
+class Category(models.Model):
+    title = models.CharField(max_length=30, verbose_name='Название')
+
+    class Meta:
+        verbose_name = "Категория"
+        verbose_name_plural = "Категории"
+
+    def __str__(self):
+        return self.title
+
 
 class Case(models.Model):
-    CATEGORIES = [
-        ('Медицина', 'Медицина'), ('Программирование', 'Программирование'), ('Архитектура', 'Архитектура')
-    ]
     title = models.CharField(max_length=200, verbose_name='Название')
     description = models.TextField(verbose_name='Описание кейса')
     date_of_create = models.DateTimeField(auto_now=True)
     date_of_edit = models.DateTimeField(auto_now_add=True)
     date_of_close = models.DateTimeField()
-    category = models.CharField(max_length=100, choices=CATEGORIES)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     is_published = models.BooleanField(default=True)
 
@@ -153,4 +160,5 @@ class Answer(models.Model):
     class Meta:
         verbose_name = "Ответ"
         verbose_name_plural = "Ответы"
+
 
