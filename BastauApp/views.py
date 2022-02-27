@@ -251,6 +251,7 @@ class Search(ListView):
         return context
 
 class CaseFilter(Categories,ListView):
+    template_name = 'ShowCase.html'
     def get_queryset(self):
-        queryset = Case.objects.filter(category_id__in= self.request.GET.getlist('category'))
+        queryset = Case.objects.filter(category__in= self.request.GET.getlist('cat'))
         return queryset

@@ -11,9 +11,10 @@
      </form>
 <!--Вывод категорий-->
 <form action="{% url 'category' %}">
+    <a href="{% url 'showcase' %}">все категории</a>
 <ul>{% for item in view.get_cat%}
 <li>
-    <input type="checkbox" value="case.category">
+    <input type="checkbox" name="cat" value="{{item.id}}">
     <span>{{item}}</span>
 
 </li>
