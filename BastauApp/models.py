@@ -54,8 +54,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
 
     class Meta:
-        verbose_name = "Юзер"
-        verbose_name_plural = "Юзеры"
+        verbose_name = "Пользователь"
+        verbose_name_plural = "Пользователи"
 
 
 class Student(models.Model):
@@ -95,7 +95,7 @@ class Student(models.Model):
     region = models.CharField(max_length=50, choices=REGIONS, default=REGIONS[0])
     Direction_of_study = models.CharField(max_length=50, verbose_name='Специальность')
     Education = models.CharField(max_length=50, verbose_name='Образование', choices=EDUCATION, default=EDUCATION[0])
-    Course = models.CharField(max_length=50, verbose_name='Образование', choices=COURSE, default=EDUCATION[0])
+    Course = models.CharField(max_length=50, verbose_name='Курс', choices=COURSE, default=COURSE[0])
 
 
     class Meta:
@@ -136,12 +136,12 @@ class Category(models.Model):
 class Case(models.Model):
     title = models.CharField(max_length=200, verbose_name='Название')
     description = models.TextField(verbose_name='Описание кейса')
-    date_of_create = models.DateTimeField(auto_now=True)
-    date_of_edit = models.DateTimeField(auto_now_add=True)
-    date_of_close = models.DateTimeField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    date_of_create = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
+    date_of_edit = models.DateTimeField(auto_now_add=True, verbose_name='Дата последней редакции')
+    date_of_close = models.DateTimeField(verbose_name='Дата закрытия')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категории')
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    is_published = models.BooleanField(default=True)
+    is_published = models.BooleanField(default=True, verbose_name='Опубликован')
 
     class Meta:
         verbose_name = "Кейс"
@@ -155,11 +155,14 @@ class Answer(models.Model):
         ('Участник', 'Участник'), ('Победитель','Победитель' )]
     Url = models.URLField(verbose_name='Ссылка на ответ', blank=True)
     File = models.FileField(verbose_name='Файл', upload_to = "file",blank=True)
-    id_case = models.ForeignKey(Case, verbose_name="id_case", on_delete=models.CASCADE,blank=True,related_name='cases')
-    id_student = models.ForeignKey(User, verbose_name="id_student", on_delete=models.CASCADE,blank=True)
+    id_case = models.ForeignKey(Case, verbose_name="Кейс", on_delete=models.CASCADE,blank=True,related_name='cases')
+    id_student = models.ForeignKey(User, verbose_name="Студент", on_delete=models.CASCADE,blank=True)
     is_won = models.CharField(max_length=20,verbose_name='Победитель',choices=STATUS, default= STATUS[0])
     class Meta:
         verbose_name = "Ответ"
         verbose_name_plural = "Ответы"
+
+    def __str__(self):
+        return self.Url
 
 

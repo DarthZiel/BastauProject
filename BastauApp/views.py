@@ -252,6 +252,7 @@ class Search(ListView):
 
 class CaseFilter(Categories,ListView):
     template_name = 'ShowCase.html'
+    extra_context = {'name': 'Партнеры', 'menu': menu}
     def get_queryset(self):
         queryset = Case.objects.filter(category__in= self.request.GET.getlist('cat'))
         return queryset

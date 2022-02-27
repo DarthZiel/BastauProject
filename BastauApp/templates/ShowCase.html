@@ -11,7 +11,7 @@
      </form>
 <!--Вывод категорий-->
 <form action="{% url 'category' %}">
-    <a href="{% url 'showcase' %}">все категории</a>
+    <a href="{% url 'showcases'%}">все категории</a>
 <ul>{% for item in view.get_cat%}
 <li>
     <input type="checkbox" name="cat" value="{{item.id}}">
