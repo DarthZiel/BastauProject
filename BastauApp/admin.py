@@ -14,7 +14,6 @@ class StudentAdmin(admin.ModelAdmin):
     list_display_links = ("user",)
     list_filter = ('Course','Education', 'Direction_of_study')
     search_fields = ("Fio", "Educational_institution")
-    search_fields = ("user",)
     readonly_fields = ("user",)
 
 

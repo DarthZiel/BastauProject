@@ -74,11 +74,13 @@ class StudentSignUpForm(UserCreationForm):
         student = Student.objects.create(user=user)
         student.Fio = self.cleaned_data.get('Fio')
         student.age = self.cleaned_data.get('age')
+        student.region = self.cleaned_data.get('region')
         student.Educational_institution = self.cleaned_data.get('Educational_institution')
         # student.region = self.cleaned_data.get('Регион')
         # student.Course = self.cleaned_data.get('Курс')
         student.Direction_of_study = self.cleaned_data.get('Direction_of_study')
         student.Education = self.cleaned_data.get('Education')
+        student.Course = self.cleaned_data.get('Course')
         student.save()
         return user
 
