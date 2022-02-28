@@ -194,7 +194,7 @@ class AnswerToCase(FormMixin, DetailView):
         self.object = form.save(commit=False)
         self.object.id_case = self.get_object()
         self.object.id_student = self.request.user
-        # self.object.is_won = STATUS[0]
+        self.object.is_won = self.get_object()
         self.object.save()
         return super().form_valid(form)
 
