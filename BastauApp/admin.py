@@ -1,14 +1,62 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 
 from BastauApp.models import *
 
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ("id", "title")
+    list_display_links = ("title",)
 
-admin.site.register(Student)
-admin.site.register(Partner)
-admin.site.register(Case)
-admin.site.register(Answer)
+@admin.register(Student)
+class StudentAdmin(admin.ModelAdmin):
+    list_display = ("user", "Fio", "Educational_institution", "age", "region", "Direction_of_study", "Education", "Course")
+    list_display_links = ("user",)
+    list_filter = ('Course','Education', 'Direction_of_study')
+    search_fields = ("Fio", "Educational_institution")
+    readonly_fields = ("user",)
+
+
+@admin.register(Partner)
+class PartnerAdmin(admin.ModelAdmin):
+    list_display = ("user", "Fio", "name_of_partner", "get_avatar",)
+    list_display_links = ("user",)
+    list_filter = ('name_of_partner',)
+    search_fields = ("Fio",)
+    readonly_fields = ("user", "get_avatar")
+    def get_avatar(self, obj):
+        return mark_safe(f'<img src={obj.avatar.url} width ="100" height ="110"')
+    get_avatar.short_description = "Аватар"
+
+
+class AnswerInline(admin.StackedInline):
+    model = Answer
+    extra = 0
+    readonly_fields = ("id_student",)
+
+
+@admin.register(Case)
+class CaseAdmin(admin.ModelAdmin):
+    list_display = ("id","title", "date_of_create", "date_of_edit", "date_of_close", "category", "is_published",)
+    list_display_links = ("title",)
+    list_filter = ('category','is_published')
+    search_fields = ("title",)
+    readonly_fields = ("user_id",)
+
+    inlines = [AnswerInline]
+
+@admin.register(Answer)
+class AnswerAdmin(admin.ModelAdmin):
+    list_display = ("id", "id_student","id_case", "is_won")
+    list_display_links = ("id_student",)
+    list_filter = ('is_won',)
+    search_fields = ("id_student","id_case")
+    readonly_fields = ("id_student","id_case")
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    pass
-    
+    list_display = ("email", "phone")
+    search_fields = ("email",)
+
+admin.site.site_header = "Администрация BastauProject"
+

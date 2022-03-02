@@ -1,16 +1,38 @@
 {% extends 'base.html' %}
   {% block content %}
- <a href="{% url 'createcase' %}"><button>Создать кейс</button></a> 
+{%if request.user.is_partner%}
+ <a href="{% url 'createcase' %}"><button>Создать кейс</button></a>
+{%endif%}
+     <form action="{% url 'search' %}" method="get" class="d-flex editContent">
+        <input type="search" placeholder="Введите название..." name="q" required="">
+        <button type="submit" class="btn1 btn">
+            <span class="fa fa-search" aria-hidden="true">Искать</span>
+        </button>
+     </form>
+<!--Вывод категорий-->
+<form action="{% url 'category' %}">
+    <a href="{% url 'showcases'%}">все категории</a>
+<ul>{% for item in view.get_cat%}
+<li>
+    <input type="checkbox" name="cat" value="{{item.id}}">
+    <span>{{item}}</span>
+
+</li>
+{% endfor %}
+</ul>
+    <button type="submit">найти</button>
+    </form>
+
     {% for item in object_list %}
     <div class="case">
       <span class="case__title">
-        {{item}}
+       {{item}}
       </span>
-      <p>{{item.description}}</p>
       <p>{{item.category}}</p>
-      <button>Ответить на кейс</button>
+        <a href="{% url 'detail_case' item.id %}"><button>Перейти к кейсу</button></a>
     </div>
     {% endfor %}
+
   {% endblock %}
 
 

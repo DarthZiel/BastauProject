@@ -1,20 +1,38 @@
 from django.urls import path
-from .views import ShowCases, ShowPartners,  SignUpView,LoginUser
+from .views import ShowCases, ShowPartners,detail_view, student_update, partner_update, ShowCasesPartner, case_update, delete_case, delete_answer, ShowAnswer, ShowAnswerStudent, detail_view_for_Partner
 from . import views
 from BastauSite import settings
 from django.conf.urls.static import static
 urlpatterns = [
     path('', views.index, name='index'),
     path('about/', views.about, name='about'),
-    path('register/',  SignUpView.as_view(), name='signup'),
-    path('createcase/', views.createcase, name = 'createcase'),
+
+    path('register/',  views.register, name='register'),
+    path('createcase/', views.createcase, name= 'createcase'),
+    path('filter/', views.CaseFilter.as_view(), name='category'),
     path('showcases/', ShowCases.as_view(), name='showcases'),
-    path('showcases/int:pk/', views.DetailCases.as_view(), name="detail_case"),
+    path('showcases/<case_id>', detail_view, name= 'detail_case' ),
+    path('bio/<user_id>', views.detail_student, name= 'detail_student' ),
+    path('mycases/<case_id>', detail_view_for_Partner, name= 'detail_view_for_Partner' ),
     path('contacts/', views.contacts, name='contacts'),
     path('partners/', ShowPartners.as_view(), name='partners'),
-    path('login/', LoginUser.as_view(), name='login'),
-    path('personal/', views.personal, name='personal'),
-    path('logout/',views.logout_user,name='logout'),]
+    path('login/', views.LoginUser.as_view(), name='login'),
+    path('personal_partner/<int:pk>', partner_update.as_view(), name='personal_partner'),
+    path('personal/student/<int:pk>', student_update.as_view(), name='personal'),
+    path('mycases/', views.ShowCasesPartner.as_view(), name='mycases'),
+    path('mycases/edit/<int:pk>', views.case_update.as_view(), name='case_update'),
+    path('delete/<int:pk>', views.delete_case.as_view(), name='delete_case'),
+    path('mycases/answers/<case_id>', views.ShowAnswer, name='show_answer'),
+    path('answers/', views.ShowAnswerStudent.as_view(), name='show_answer_student'),
+    path('winner/<int:pk>',views.ChoiceWinner.as_view(), name = 'winner'),
+    path('answers/delete/<int:pk>', views.delete_answer.as_view(), name='delete_answer'),
+    path('logout/', views.logout_user, name='logout'),
+    path('student_register/', views.student_register.as_view(), name='student_register'),
+    path('partner_register/', views.partner_register.as_view(), name='partner_register'),
+    path('answer/<int:pk>', views.AnswerToCase.as_view(), name='answer'),
+    path("search/", views.Search.as_view(), name='search'),
+
+]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

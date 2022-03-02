@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+  {% block content %}
+        {% for item in data.cases.all %}
+        <table border = "1">
+          <tr>
+              <td><a href="{% url 'detail_case' item.id_case_id %}">{{item.id_case}}</a></td>
+              <td>{{item.id_student_id}}</td>
+              <td><a href="{% url 'detail_student' item.id_student_id %}">{{item.id_student}}</a></td>
+              <td><a href="{{item.Url}}">Ссылка на файл</a></td>
+              <td><a href="{{item.File.url}}" download=""><button>Скачать файл</button></a></td>
+
+              <td><a href="{% url 'delete_answer' item.id %}"><button>Удалить</button></a></td>
+              <td><a href="{% url 'winner' item.id %}"><button>Выбрать победителя</button></a></td>
+          </tr>
+
+        </table>
+    {% endfor %}
+<br>
+<form action = "" method = "post">
+    {% csrf_token %}
+    {{instance.is_won }}
+    <input type="submit" value=Submit>
+</form>
+  {% endblock %}

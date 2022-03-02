@@ -1,22 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <h1> {{title}}  </h1>
-<!--    <form method="post ">-->
-<!--{% csrf_token %}-->
-<!--       {% for f in form %}-->
-<!--<p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>-->
-<!--<div class="form-error">{{ f.errors }}</div>-->
-
-<!--{% endfor %}-->
-<!--       <button type="submit">Регистрация</button>-->
-        <br>
-        <form method="post" role="form" action="">
-            {% csrf_token %}
-		{{form.as_table}}
-		<input class="btn btn-primary" type="submit" name="Create the account">
-	</form>
-
+    <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 mx-auto">
+              <div class="card">
+                <div class="card-header text-black">
+                  <h2>Registration</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                       <div class="col-lg-6">
+                        <a type="button" class="btn btn-block" href="{% url 'student_register' %}">I am a student</a>
+                       </div>
+                       <div class="col-lg-6">
+                        <a type="button" class="btn btn-block" href="{% url 'partner_register' %}">I am an partner</a>
+                       </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 {% endblock %}
 
 
