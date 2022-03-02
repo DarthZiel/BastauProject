@@ -48,17 +48,22 @@
           {% else %}
           <li><a href="{% url item.url_name %}">{{item.title}}</a></li>
           {% endif%}
-        {% endfor %}
-        {% if request.user.is_authenticated %}
-<li class="last"> {{user.email}} | <a href="{% url 'personal' %}">Личный кабинет</a></li>
-{% else %}
-<li class="last"><a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Войти</a></li>
-{% endif %}
-      </ul>
+          {% endfor %}
+          {% if request.user.is_authenticated %}
+          <li class="last"> {{user.email}} | <a href="{% url 'personal' %}">Личный кабинет</a></li>
+          {% else %}
+          <li class="last"><a href="{% url 'signup' %}">Регистрация</a> | <a href="{% url 'login' %}">Войти</a></li>
+          {% endif %}
+        </ul>
         {% endblock mainmenu %}
       </nav>
     </header>
-    {% block content %}
-    {% endblock %}
+    <div class="main-content">
+      {% block content %}
+      {% endblock %}
+    </div>
+    <footer class="">
+
+    </footer>
   </body>
 </html>

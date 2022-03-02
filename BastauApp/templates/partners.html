@@ -2,21 +2,19 @@
 {% load static %}
 
 
-{% block content %}
- 
+  {% block content %}
+  <div class="partner-page">
     {% for item in object_list %}
-    <div class="case">
-      <span class="case__title">
-        {{item}}
-      </span>
-      <p>{{item.name_of_partner}}</p>
-      <p>{{item.site}}</p>
-      <img src="{{item.avatar.url}}" alt="">
-      {{item.avatar}}
-      
-      <p>{{item.user_id.id}}</p>
-        <p>{{item.user_id.phone}}</p>
-      
+    <div class="partner">
+      <img style="background-position: center center;" src="{{item.avatar.url}}" alt="">
+      <div class="partner__content">
+        <span class="partner__title">
+          {{item}}
+        </span>
+        <p>{{item.name_of_partner}}</p>
+      </div>
     </div>
     {% endfor %}
+    </div>
   {% endblock %}
+
