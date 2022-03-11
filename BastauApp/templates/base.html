@@ -12,7 +12,7 @@
     <header class="header">
       <nav class="nav">
         {% block mainmenu %}
-        <div class="nav__logo"> <a href="{% url 'index' %}">PROJECT BASTAU</a> </div>
+        <div class="nav__logo"> <a href="{% url 'index' %}"><img class="nav__logo-logo" src="../static/Логотип Bastau svg.svg" alt=""></a> </div>
         <ul class="nav__menu">
           {% for item in menu %}
           {% if not forloop.last %}

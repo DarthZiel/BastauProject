@@ -1,30 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <section>
-        <div class="container">
-          <div class="row">
-            <div class="col-md-6 mx-auto">
-              <div class="card">
-                <div class="card-header text-black">
-                  <h2>Registration</h2>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                       <div class="col-lg-6">
-                        <a type="button" class="btn btn-block" href="{% url 'student_register' %}">I am a student</a>
-                       </div>
-                       <div class="col-lg-6">
-                        <a type="button" class="btn btn-block" href="{% url 'partner_register' %}">I am an partner</a>
-                       </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
+  <section class="reg-page">
+    <div class="container">
+      <div class="reg-page__title">
+        <h2>Регистрация</h2>
+      </div>
+      <div class="">
+        <div class="d-flex">
+          <a type="button" class="reg-page__block" href="{% url 'student_register' %}">
+              Для студента
+          </a>
+          <a type="button" class="reg-page__block" href="{% url 'partner_register' %}">Для организации</a>
         </div>
-      </section>
+      </div>
+    </div>
+  </section>
 {% endblock %}
 
 
