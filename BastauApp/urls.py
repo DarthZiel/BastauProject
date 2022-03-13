@@ -3,6 +3,8 @@ from .views import ShowCases, ShowPartners,detail_view, student_update, partner_
 from . import views
 from BastauSite import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
+
 urlpatterns = [
     path('', views.index, name='index'),
     path('about/', views.about, name='about'),
@@ -31,6 +33,11 @@ urlpatterns = [
     path('partner_register/', views.partner_register.as_view(), name='partner_register'),
     path('answer/<int:pk>', views.AnswerToCase.as_view(), name='answer'),
     path("search/", views.Search.as_view(), name='search'),
+
+    path('reset_password/', auth_views.PasswordResetView.as_view(template_name="reset_password/password_reset.html"), name='reset_password'),
+    path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name="reset_password/password_reset_sent.html"), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="reset_password/password_reset_form.html"), name='password_reset_confirm'),
+    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name="reset_password/password_reset_done.html"), name='password_reset_complete'),
 
 ]
 
