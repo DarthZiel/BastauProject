@@ -24,13 +24,27 @@
         <button type="submit">Найти</button>
       </form>
       {% for item in object_list %}
-      <div class="case">
-        <span class="case__title">
-        {{item}}
-        </span>
-        <p>{{item.category}}</p>
-          <a href="{% url 'detail_case' item.id %}"><button>Перейти к кейсу</button></a>
+              {% for tem in item.partners_info.all %}
+                    {{ tem.phone }}
+                      {% endfor %}
+      <div>
+        <div class="main-cases__item">
+          <div class="main-cases__item__header">
+            <img src="https://профстажировки.рф/upload/iblock/a8a/a8a1af131d6d3d84df14d02e89ccfb74.png" alt="стандартное">
+            <div class="main-cases__item__part-name">22</div>
+          </div>
+          <div class="main-cases__item__body">
+            <div class="main-cases__item__title"><h5>{{item}}</h5></div>
+            <div class="main-cases__item__tags">Юридическая клиника, Делопроизводство, Консультирование, Юридическая услуга</div>
+          </div>
+          <div class="main-cases__item__footer">
+            <div class="main-cases__item__city">{{item.category}}</div>
+            <div class="main-cases__item__link"><a href="{% url 'detail_case' item.id %}">Перейти к кейсу</a></div>
+          </div>
       </div>
+        <br>
+
+
       {% endfor %}
     </div>
   </div>
