@@ -10,7 +10,7 @@ from django.views.generic import ListView, UpdateView, DeleteView
 from .models import *
 from django.contrib.auth import logout, login
 import datetime
-from django.contrib.auth.views import PasswordResetView
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 menu = [
     {'title': 'Партнеры', 'url_name': 'partners'},
     {'title': 'Кейсы', 'url_name': 'showcases'},
@@ -259,4 +259,16 @@ class CaseFilter(Categories,ListView):
 
 class PasswordResetViewBastau(PasswordResetView):
     template_name = "reset_password/password_reset.html"
+    extra_context = {'menu': menu}
+
+class PasswordResetDoneViewBastau(PasswordResetDoneView):
+    template_name="reset_password/password_reset_sent.html"
+    extra_context = {'menu': menu}
+
+class PasswordResetConfirmViewBastau(PasswordResetConfirmView):
+    template_name="reset_password/password_reset_form.html"
+    extra_context = {'menu': menu}
+
+class PasswordResetCompleteViewBastau(PasswordResetCompleteView):
+    template_name = "reset_password/password_reset_done.html"
     extra_context = {'menu': menu}

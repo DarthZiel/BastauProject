@@ -35,9 +35,9 @@ urlpatterns = [
     path("search/", views.Search.as_view(), name='search'),
 
     path('reset_password/', views.PasswordResetViewBastau.as_view(), name='reset_password'),
-    path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name="reset_password/password_reset_sent.html"), name='password_reset_done'),
-    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="reset_password/password_reset_form.html"), name='password_reset_confirm'),
-    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name="reset_password/password_reset_done.html"), name='password_reset_complete'),
+    path('reset_password_sent/', views.PasswordResetDoneViewBastau.as_view(), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', views.PasswordResetConfirmViewBastau.as_view(), name='password_reset_confirm'),
+    path('reset_password_complete/', views.PasswordResetCompleteViewBastau.as_view(), name='password_reset_complete'),
 
 ]
 
