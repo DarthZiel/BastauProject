@@ -10,7 +10,7 @@ from django.views.generic import ListView, UpdateView, DeleteView
 from .models import *
 from django.contrib.auth import logout, login
 import datetime
-
+from django.contrib.auth.views import PasswordResetView
 menu = [
     {'title': 'Партнеры', 'url_name': 'partners'},
     {'title': 'Кейсы', 'url_name': 'showcases'},
@@ -121,8 +121,8 @@ def register(request):
 class student_register(CreateView):
     model = User
     form_class = StudentSignUpForm
-    template_name = 'student_register.html'
-    extra_context = {'menu': menu}
+    template_name = 'register.html'
+
 
     def form_valid(self, form):
         user = form.save()
@@ -256,3 +256,7 @@ class CaseFilter(Categories,ListView):
     def get_queryset(self):
         queryset = Case.objects.filter(category__in= self.request.GET.getlist('cat'))
         return queryset
+
+class PasswordResetViewBastau(PasswordResetView):
+    template_name = "reset_password/password_reset.html"
+    extra_context = {'menu': menu}

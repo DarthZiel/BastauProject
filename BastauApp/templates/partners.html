@@ -7,18 +7,12 @@
     {% for item in object_list %}
     <div class="case">
       <span class="case__title">
-        {{item}}
+        <p>{{item.name_of_partner}}</p>
       </span>
-      <p>{{item.name_of_partner}}</p>
-      <p><a href="{{item.site}}">{{item.site}}</a></p>
-        <p>{{item.user.phone}}</p>
-        <p>{{item.user.email}}</p>
-
-
       {% if item.avatar %}
             <p><img src="{{item.avatar.url}}"></p>
         {% else %}
-           <p></p>
+           <p><img src="https://audit.msu.ru/wp-content/themes/audit/images/noavatar.png"></p>
         {% endif %}
 
     </div>
