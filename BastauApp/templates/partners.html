@@ -6,11 +6,12 @@
   <div class="partner-page">
     {% for item in object_list %}
     <div class="case">
+      <br><br><br><br>
       <span class="case__title">
         <p>{{item.name_of_partner}}</p>
       </span>
       {% if item.avatar %}
-            <p><img src="{{item.avatar.url}}"></p>
+            <p><img src="{{item.avatar.url}}" width="250px" height="235px"></p>
         {% else %}
            <p><img src="https://audit.msu.ru/wp-content/themes/audit/images/noavatar.png"></p>
         {% endif %}

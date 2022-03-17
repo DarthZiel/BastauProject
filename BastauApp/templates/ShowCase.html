@@ -24,9 +24,9 @@
         <button type="submit">Найти</button>
       </form>
       {% for item in object_list %}
-              {% for tem in item.partners_info.all %}
+              {% for tem in item.partners.all %}
                     {{ tem.phone }}
-                      {% endfor %}
+      {% endfor %}
       <div>
         <div class="main-cases__item">
           <div class="main-cases__item__header">

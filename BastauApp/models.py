@@ -140,7 +140,7 @@ class Case(models.Model):
     date_of_edit = models.DateTimeField(auto_now_add=True, verbose_name='Дата последней редакции')
     date_of_close = models.DateTimeField(verbose_name='Дата закрытия')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категории')
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name ='partners_info')
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='partners')
     is_published = models.BooleanField(default=True, verbose_name='Опубликован')
 
     class Meta:
