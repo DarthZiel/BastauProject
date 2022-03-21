@@ -28,6 +28,7 @@
         <span class="case__title">
         {{item}}
         </span>
+        <p>{{ item.user_id }}</p>
         <p>{{item.category}}</p>
           <a href="{% url 'detail_case' item.id %}"><button>Перейти к кейсу</button></a>
       </div>

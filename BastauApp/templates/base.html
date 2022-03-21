@@ -28,7 +28,7 @@
             <li class="last"> {{user.email}} | <a href="{% url 'personal_partner' user.id %}">Личный кабинет</a></li>
             {%endif%}
         {% else %}
-        <li class="last"><a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login'%}">Войти</a></li>
+        <li class="last"><a href="{% url 'student_register' %}">Регистрация</a> | <a href="{% url 'login'%}">Войти</a></li>
         {% endif %}
         </ul>
         {% endblock mainmenu %}

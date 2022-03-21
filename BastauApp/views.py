@@ -114,15 +114,14 @@ class LoginUser(LoginView):
         return reverse_lazy('index')
 
 
-def register(request):
-    return render(request, 'register.html', {'menu': menu})
+
 
 
 class student_register(CreateView):
     model = User
     form_class = StudentSignUpForm
     template_name = 'register.html'
-
+    extra_context = {'menu':menu}
 
     def form_valid(self, form):
         user = form.save()
@@ -229,12 +228,6 @@ def detail_student(request, user_id):
     context["menu"] = menu
     return render(request, "Bio.html", context)
 
-class ChoiceWinner(UpdateView):
-    model = Answer
-    fields = ['is_won']
-    template_name = 'winner.html'
-    success_url = "/"
-    extra_context = {'menu': menu}
 
 class Search(ListView):
     """Поиск фильмов"""
@@ -272,3 +265,14 @@ class PasswordResetConfirmViewBastau(PasswordResetConfirmView):
 class PasswordResetCompleteViewBastau(PasswordResetCompleteView):
     template_name = "reset_password/password_reset_done.html"
     extra_context = {'menu': menu}
+
+
+def edit(request, pk):
+    answer = Answer.objects.get(id=pk)
+    if answer.is_won == False:
+        answer.is_won = True
+        answer.save()
+        return render(request, 'winner.html')
+    else:
+        return HttpResponse('ты дебил? ты уже его выбрал')
+
