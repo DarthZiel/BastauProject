@@ -172,11 +172,12 @@ class delete_case(DeleteView):
     success_url = "/mycases"
     extra_context = {'menu': menu}
 
-
+# def tecUser(request):
+#     x = request.user
+#     tecstudent = Student.objects.get(user=x)
+#     return tecstudent
 
 class AnswerToCase(FormMixin, DetailView):
-    STATUS = [
-        ('Участник', 'Участник'), ('Победитель', 'Победитель')]
     model = Case
     template_name = 'addanswer.html'
     form_class = AddAnswer
@@ -188,12 +189,13 @@ class AnswerToCase(FormMixin, DetailView):
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
+
     def form_valid(self, form):
 
         self.object = form.save(commit=False)
         self.object.id_case = self.get_object()
-        self.object.id_student = self.request.user
-        self.object.is_won = self.get_object()
+        self.object.id_student = Student.objects.get(user=self.request.user)
+        self.object.is_won = False
         self.object.save()
         return super().form_valid(form)
 

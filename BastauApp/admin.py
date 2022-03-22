@@ -14,7 +14,6 @@ class StudentAdmin(admin.ModelAdmin):
     list_display_links = ("user",)
     list_filter = ('Course','Education', 'Direction_of_study')
     search_fields = ("Fio", "Educational_institution")
-    readonly_fields = ("user",)
 
 
 @admin.register(Partner)
@@ -32,7 +31,7 @@ class PartnerAdmin(admin.ModelAdmin):
 class AnswerInline(admin.StackedInline):
     model = Answer
     extra = 0
-    readonly_fields = ("id_student",)
+
 
 
 @admin.register(Case)
