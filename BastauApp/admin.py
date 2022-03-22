@@ -24,7 +24,11 @@ class PartnerAdmin(admin.ModelAdmin):
     search_fields = ("Fio",)
     readonly_fields = ("user", "get_avatar")
     def get_avatar(self, obj):
-        return mark_safe(f'<img src={obj.avatar.url} width ="100" height ="110"')
+        if obj.avatar:
+            return mark_safe(f'<img src={obj.avatar.url} width ="100" height ="110"')
+        else:
+            return mark_safe('-')
+
     get_avatar.short_description = "Аватар"
 
 
