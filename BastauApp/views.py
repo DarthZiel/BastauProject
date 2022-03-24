@@ -32,7 +32,10 @@ def personal(request):
 
 
 def contacts(request):
-    return render(request, 'contacts.html', {'menu': menu})
+    context = {'menu': menu}
+    context['data'] = Answer.objects.filter(is_won=True)
+
+    return render(request, 'contacts.html',context)
 
 
 def index(request):
@@ -277,4 +280,5 @@ def edit(request, pk):
         return render(request, 'winner.html')
     else:
         return HttpResponse('ты дебил? ты уже его выбрал')
+
 

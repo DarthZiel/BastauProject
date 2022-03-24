@@ -1,2 +1,10 @@
 {% extends 'base.html' %}
 
+  {% block content %}
+<br><br><br><br>
+{% for item in data %}
+{{item.id_student}}
+{{item.id_student.user.email}}
+{{item.id_case}}
+{% endfor %}
+{% endblock %}
