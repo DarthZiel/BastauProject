@@ -24,21 +24,15 @@
         <button type="submit">Найти</button>
       </form>
       {% for item in object_list %}
-
-      <div class="case">
-        <span class="case__title">
-        {{item}}
-        </span>
-        <p>{{ item.user_id }}</p>
-        <p>{{item.category}}</p>
-          <a href="{% url 'detail_case' item.id %}"><button>Перейти к кейсу</button></a>
-
-
-      <div>
+        <!--Вывод Кейсов-->
         <div class="main-cases__item">
           <div class="main-cases__item__header">
-            <img src="https://профстажировки.рф/upload/iblock/a8a/a8a1af131d6d3d84df14d02e89ccfb74.png" alt="стандартное">
-            <div class="main-cases__item__part-name">22</div>
+            {% if item.user_id.avatar %}
+            <img src="{{item.user_id.avatar.url}}" alt="стандартное">
+            {% else %}
+              <img src="https://audit.msu.ru/wp-content/themes/audit/images/noavatar.png">
+            {% endif %}
+            <div class="main-cases__item__part-name">{{item.user_id.name_of_partner}}</div>
           </div>
           <div class="main-cases__item__body">
             <div class="main-cases__item__title"><h5>{{item}}</h5></div>
@@ -48,14 +42,12 @@
             <div class="main-cases__item__city">{{item.category}}</div>
             <div class="main-cases__item__link"><a href="{% url 'detail_case' item.id %}">Перейти к кейсу</a></div>
           </div>
-
-      </div>
+          <div>
+            </div>
+           </div>
         <br>
-
-
       {% endfor %}
-    </div>
-  </div>
+
   {% endblock %}
 
 

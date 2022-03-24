@@ -48,8 +48,8 @@ def about(request):
 
 
 def createcase(request):
-    active_user = {'user_id': request.user}
-
+    # active_user = {'user_id': Partner.objects.get(user=request.user)}
+    active_user = {'user_id': request.user.partner}
     form = AddCaseForm(active_user)
     if request.method == 'POST':
         form = AddCaseForm(request.POST)
@@ -68,9 +68,6 @@ class ShowCases(Categories, ListView):
     now = datetime.datetime.now()
     model = Case
     queryset = Case.objects.filter(date_of_close__gte=now)
-
-
-
     template_name = 'ShowCase.html'
     extra_context = {"name": 'Кейсы', 'menu': menu}
 

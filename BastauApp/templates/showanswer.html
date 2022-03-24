@@ -13,10 +13,12 @@
               <td><a href="{{item.File.url}}" download=""><button>Скачать файл</button></a></td>
               {% endif %}
               <td><a href="{% url 'delete_answer' item.id %}"><button>Удалить</button></a></td>
+                {%if item.is_won == False%}
               <td><a href="{% url 'winner' item.id %}"><button>Выбрать победителя</button></a></td>
-
+                {%else%}
+              <td><p>Победитель</p></td>
+                {%endif%}
           </tr>
-
         </table>
     {% endfor %}
 <br>
