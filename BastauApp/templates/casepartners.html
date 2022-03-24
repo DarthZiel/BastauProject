@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
   {% block content %}
-
+<br><br><br><br>
     {% for item in object_list %}
-    {% if item.user_id.email == request.user.email %}
+    {% if item.user_id.user.email == request.user.email %}
     <div class="case">
       <span class="case__title">
-
        {{item}}
       </span>
       <p>{{item.description}}</p>
