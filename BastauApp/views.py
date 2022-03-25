@@ -226,10 +226,16 @@ class ShowAnswerStudent(ListView):
 def detail_student(request, user_id):
     a = User.objects.get(pk=user_id)
     context = {}
-    context["b"] = Student.objects.get(user=a)
+    context["student_info"] = Student.objects.get(user=a)
     context["menu"] = menu
-    return render(request, "Bio.html", context)
+    return render(request, "Bio_student.html", context)
 
+def detail_partner(request, user_id):
+    a = User.objects.get(pk=user_id)
+    context = {}
+    context["partner_info"] = Partner.objects.get(user=a)
+    context["menu"] = menu
+    return render(request, "Bio_partner.html", context)
 
 class Search(ListView):
     """Поиск фильмов"""

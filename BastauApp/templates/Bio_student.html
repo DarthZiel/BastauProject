@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+  {% block content %}
+<br><br><br><br>
+    <div>Почта: {{student_info.user.email}}</div>
+    <div>ФИО: {{student_info.Fio}}</div>
+    <div>Место учебы: {{student_info.Educational_institution}}</div>
+    <div>Возраст: {{student_info.age}}</div>
+    <div>Регион: {{student_info.region}}</div>
+    <div>Специальность: {{student_info.Direction_of_study}}</div>
+    <div>Образование: {{student_info.Education}}</div>
+    <div>Курс: {{student_info.Course}}</div>
+    <div>Телефон: {{student_info.user.phone}}</div>
+
+
+
+  {% endblock %}
