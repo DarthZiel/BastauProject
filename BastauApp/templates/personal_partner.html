@@ -14,16 +14,6 @@
     <br>
        <input type="submit" value="Update">
 </form>
-{% for item in object_list %}
-    <div class="case">
-      <span class="case__title">
-       {{item}}
-      </span>
-      <p>{{item.description}}</p>
-      <p>{{item.category}}</p>
-        <a href="{{item.id}}"><button>Ответить на кейс</button></a>
-    </div>
-    {% endfor %}
 <a href='/logout/'>Выйти</a>?<br>
 <a href='{% url "mycases" %}'>Мои кейсы</a>
 

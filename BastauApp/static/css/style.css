@@ -331,8 +331,8 @@ body{
   text-align: center;
 }
 
-.d-flex{
+.d-flex {
   display: flex;
   justify-content: space-between;
-
+}
 

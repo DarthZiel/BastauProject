@@ -14,7 +14,7 @@ from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, 
 menu = [
     {'title': 'Партнеры', 'url_name': 'partners'},
     {'title': 'Кейсы', 'url_name': 'showcases'},
-    {'title': 'Контакты', 'url_name': 'contacts'},
+    {'title': 'Победители', 'url_name': 'ListWinners'},
 ]
 
 class Categories(ListView):
@@ -31,11 +31,11 @@ def personal(request):
     return render(request, 'personal.html', {'menu': menu})
 
 
-def contacts(request):
+def ListWinners(request):
     context = {'menu': menu}
     context['data'] = Answer.objects.filter(is_won=True)
 
-    return render(request, 'contacts.html',context)
+    return render(request, 'ListWinners.html',context)
 
 
 def index(request):
