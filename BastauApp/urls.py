@@ -38,6 +38,7 @@ urlpatterns = [
     path('reset_password_sent/', views.PasswordResetDoneViewBastau.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', views.PasswordResetConfirmViewBastau.as_view(), name='password_reset_confirm'),
     path('reset_password_complete/', views.PasswordResetCompleteViewBastau.as_view(), name='password_reset_complete'),
+    path('showcases/tags/<slug:tag_slug>/', views.TagIndexView.as_view(), name='case_by_tag'),
 
 ]
 

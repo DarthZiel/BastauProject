@@ -4,6 +4,7 @@ from django.dispatch import receiver
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import UserManager, PermissionsMixin, BaseUserManager
 from django.shortcuts import reverse
+from taggit.managers import TaggableManager
 
 
 class CustomUserManager(BaseUserManager):
@@ -142,7 +143,7 @@ class Case(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категории')
     user_id = models.ForeignKey(Partner, on_delete=models.CASCADE, related_name='partners')
     is_published = models.BooleanField(default=True, verbose_name='Опубликован')
-
+    tags = TaggableManager()
     class Meta:
         verbose_name = "Кейс"
         verbose_name_plural = "Кейсы"

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'BastauApp.apps.BastauappConfig',
     'widget_tweaks',
+    'taggit',
 ]
 
 MIDDLEWARE = [

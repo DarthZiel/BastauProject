@@ -36,7 +36,11 @@
           </div>
           <div class="main-cases__item__body">
             <div class="main-cases__item__title"><h5>{{item}}</h5></div>
-            <div class="main-cases__item__tags">Юридическая клиника, Делопроизводство, Консультирование, Юридическая услуга</div>
+            <div class="main-cases__item__tags">
+              {% for tag in item.tags.all %}
+              <a href="{% url 'case_by_tag' tag.slug %}">{{tag}}</a> ,
+              {% endfor %}
+            </div>
           </div>
           <div class="main-cases__item__footer">
             <div class="main-cases__item__city">{{item.category}}</div>

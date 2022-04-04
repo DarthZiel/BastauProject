@@ -40,7 +40,7 @@ class AnswerInline(admin.StackedInline):
 
 @admin.register(Case)
 class CaseAdmin(admin.ModelAdmin):
-    list_display = ("id","title", "date_of_create", "date_of_edit", "date_of_close", "category", "is_published",)
+    list_display = ("id","title", "date_of_create", "date_of_edit", "date_of_close", "category", "is_published","tags",)
     list_display_links = ("title",)
     list_filter = ('category','is_published')
     search_fields = ("title",)

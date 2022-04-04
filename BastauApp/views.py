@@ -62,7 +62,6 @@ def createcase(request):
     }
     return render(request, 'createcase.html', data)
 
-
 class ShowCases(Categories, ListView):
 
     now = datetime.datetime.now()
@@ -71,15 +70,10 @@ class ShowCases(Categories, ListView):
     template_name = 'ShowCase.html'
     extra_context = {"name": 'Кейсы', 'menu': menu}
 
-
-
 class ShowCasesPartner(ListView):
     model = Case
     template_name = 'casepartners.html'
     extra_context = {'menu': menu}
-
-
-
 
 def detail_view(request, case_id):
     # dictionary for initial data with
@@ -103,8 +97,6 @@ class ShowPartners(ListView):
     template_name = 'partners.html'
     extra_context = {'name': 'Партнеры', 'menu': menu}
 
-
-
 class LoginUser(LoginView):
     form = LoginUserForm
     template_name = "login.html"
@@ -112,10 +104,6 @@ class LoginUser(LoginView):
 
     def get_success_url(self):
         return reverse_lazy('index')
-
-
-
-
 
 class student_register(CreateView):
     model = User
@@ -256,6 +244,14 @@ class CaseFilter(Categories,ListView):
     extra_context = {'name': 'Партнеры', 'menu': menu}
     def get_queryset(self):
         queryset = Case.objects.filter(category__in= self.request.GET.getlist('cat'))
+        return queryset
+
+class TagIndexView(ListView):
+    template_name = 'ShowCase.html'
+    model = Case
+    extra_context = {'name': 'Партнеры', 'menu': menu}
+    def get_queryset(self):
+        queryset = Case.objects.filter(tags__slug= self.kwargs.get('tag_slug'))
         return queryset
 
 class PasswordResetViewBastau(PasswordResetView):
