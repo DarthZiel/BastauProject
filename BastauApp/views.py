@@ -28,7 +28,11 @@ def logout_user(request):
 
 
 def personal(request):
-    return render(request, 'personal.html', {'menu': menu})
+    context = {}
+    # add the dictionary during initialization
+    context["menu"] = menu
+
+    return render(request, "personal.html", context)
 
 
 def ListWinners(request):
