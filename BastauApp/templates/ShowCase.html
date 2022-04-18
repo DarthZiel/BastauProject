@@ -14,13 +14,14 @@
       <!--Вывод категорий-->
       <form action="{% url 'category' %}">
         <a href="{% url 'showcases'%}">все категории</a>
-        <ul>{% for item in view.get_cat%}
-          <li>
-            <input type="checkbox" name="cat" value="{{item.id}}">
-            <span>{{item}}</span>
-          </li>
+             <select name="cat" id="{{item.id}}">
+               {% for item in view.get_cat%}
+
+            <option value="{{item.id}}">{{item}}</option>
+          </select>
+
           {% endfor %}
-        </ul>
+        </>
         <button type="submit">Найти</button>
       </form>
       {% for item in object_list %}
