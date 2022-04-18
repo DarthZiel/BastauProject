@@ -3,8 +3,11 @@
 
 
   {% block content %}
+
+
+  {% for item in object_list %}
+<a href="{% url 'detail_partner' item.user_id %}">
   <div class="partner-page">
-    {% for item in object_list %}
     <div class="case">
       <br><br><br><br>
       <span class="case__title">
@@ -19,5 +22,6 @@
     </div>
     {% endfor %}
     </div>
+  </a>
   {% endblock %}
 

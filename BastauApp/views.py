@@ -14,7 +14,7 @@ from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, 
 menu = [
     {'title': 'Партнеры', 'url_name': 'partners'},
     {'title': 'Кейсы', 'url_name': 'showcases'},
-    {'title': 'Контакты', 'url_name': 'contacts'},
+    {'title': 'Победители', 'url_name': 'ListWinners'},
 ]
 
 class Categories(ListView):
@@ -28,14 +28,18 @@ def logout_user(request):
 
 
 def personal(request):
-    return render(request, 'personal.html', {'menu': menu})
+    context = {}
+    # add the dictionary during initialization
+    context["menu"] = menu
+
+    return render(request, "personal.html", context)
 
 
-def contacts(request):
+def ListWinners(request):
     context = {'menu': menu}
     context['data'] = Answer.objects.filter(is_won=True)
 
-    return render(request, 'contacts.html',context)
+    return render(request, 'ListWinners.html',context)
 
 
 def index(request):
@@ -62,7 +66,6 @@ def createcase(request):
     }
     return render(request, 'createcase.html', data)
 
-
 class ShowCases(Categories, ListView):
 
     now = datetime.datetime.now()
@@ -71,15 +74,10 @@ class ShowCases(Categories, ListView):
     template_name = 'ShowCase.html'
     extra_context = {"name": 'Кейсы', 'menu': menu}
 
-
-
 class ShowCasesPartner(ListView):
     model = Case
     template_name = 'casepartners.html'
     extra_context = {'menu': menu}
-
-
-
 
 def detail_view(request, case_id):
     # dictionary for initial data with
@@ -103,8 +101,6 @@ class ShowPartners(ListView):
     template_name = 'partners.html'
     extra_context = {'name': 'Партнеры', 'menu': menu}
 
-
-
 class LoginUser(LoginView):
     form = LoginUserForm
     template_name = "login.html"
@@ -112,10 +108,6 @@ class LoginUser(LoginView):
 
     def get_success_url(self):
         return reverse_lazy('index')
-
-
-
-
 
 class student_register(CreateView):
     model = User
@@ -226,10 +218,16 @@ class ShowAnswerStudent(ListView):
 def detail_student(request, user_id):
     a = User.objects.get(pk=user_id)
     context = {}
-    context["b"] = Student.objects.get(user=a)
+    context["student_info"] = Student.objects.get(user=a)
     context["menu"] = menu
-    return render(request, "Bio.html", context)
+    return render(request, "Bio_student.html", context)
 
+def detail_partner(request, user_id):
+    a = User.objects.get(pk=user_id)
+    context = {}
+    context["partner_info"] = Partner.objects.get(user=a)
+    context["menu"] = menu
+    return render(request, "Bio_partner.html", context)
 
 class Search(ListView):
     """Поиск фильмов"""
@@ -250,6 +248,14 @@ class CaseFilter(Categories,ListView):
     extra_context = {'name': 'Партнеры', 'menu': menu}
     def get_queryset(self):
         queryset = Case.objects.filter(category__in= self.request.GET.getlist('cat'))
+        return queryset
+
+class TagIndexView(ListView):
+    template_name = 'ShowCase.html'
+    model = Case
+    extra_context = {'name': 'Партнеры', 'menu': menu}
+    def get_queryset(self):
+        queryset = Case.objects.filter(tags__slug= self.kwargs.get('tag_slug'))
         return queryset
 
 class PasswordResetViewBastau(PasswordResetView):

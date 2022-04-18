@@ -115,7 +115,7 @@ class PartnerSignUpForm(UserCreationForm):
 class AddCaseForm(forms.ModelForm):
     class Meta:
         model = Case
-        fields = ['title', 'description', 'category', 'date_of_close', 'user_id']
+        fields = ['title', 'description', 'category', 'date_of_close','tags', 'user_id']
 
         widgets = {
             "title": TextInput(attrs={
@@ -137,6 +137,10 @@ class AddCaseForm(forms.ModelForm):
             "url": TextInput(attrs={
                 'class': '',
                 'placeholder': 'Название ссылки'
+            }),
+            "tags": TextInput(attrs={
+                'class': '',
+                'placeholder': 'Теги'
             }),
         }
 

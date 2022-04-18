@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+  {% block content %}
+<br><br><br><br>
+{% for item in data %}
+    <div class="container">
+      <div class="winner228">
+        <div class="main-cases__item">
+          <div class="main-cases__item__header">
+            <div class="main-cases__item__part-name">{{item.id_student}}</div>
+          </div>
+          <div class="main-cases__item__body">
+            <div class="main-cases__item__title"><h5>{{item.id_case}}</h5></div>
+            <div class="main-cases__item__city">Павлодар</div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endfor %}
+{% endblock %}

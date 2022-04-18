@@ -14,9 +14,10 @@ urlpatterns = [
     path('filter/', views.CaseFilter.as_view(), name='category'),
     path('showcases/', ShowCases.as_view(), name='showcases'),
     path('showcases/<case_id>', detail_view, name= 'detail_case' ),
-    path('bio/<user_id>', views.detail_student, name= 'detail_student' ),
+    path('bio/student/<user_id>', views.detail_student, name= 'detail_student' ),
+    path('bio/partner/<user_id>', views.detail_partner, name= 'detail_partner' ),
     path('mycases/<case_id>', detail_view_for_Partner, name= 'detail_view_for_Partner' ),
-    path('contacts/', views.contacts, name='contacts'),
+    path('ListWinners/', views.ListWinners, name='ListWinners'),
     path('partners/', ShowPartners.as_view(), name='partners'),
     path('login/', views.LoginUser.as_view(), name='login'),
     path('personal_partner/<int:pk>', partner_update.as_view(), name='personal_partner'),
@@ -37,6 +38,7 @@ urlpatterns = [
     path('reset_password_sent/', views.PasswordResetDoneViewBastau.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', views.PasswordResetConfirmViewBastau.as_view(), name='password_reset_confirm'),
     path('reset_password_complete/', views.PasswordResetCompleteViewBastau.as_view(), name='password_reset_complete'),
+    path('showcases/tags/<slug:tag_slug>/', views.TagIndexView.as_view(), name='case_by_tag'),
 
 ]
 
