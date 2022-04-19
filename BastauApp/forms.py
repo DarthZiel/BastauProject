@@ -32,7 +32,6 @@ REGIONS = [
 EDUCATION = [
     ('Высшее', 'Высшее'), ('ср-спе', 'Среднее-специальное'), ('среднее', 'Среднее')
 ]
-
 COURSE = [
         ('1', '1'),
         ('2', '2'),
@@ -41,14 +40,7 @@ COURSE = [
         ('5','5'),
         ('6','6'),
     ]
-# class RegisterUserForm(UserCreationForm):
-#     email = forms.CharField(label='Email',widget= forms.EmailInput(attrs={'class': 'form-input'}))
-#     phone = forms.CharField(label='Телефон', widget=forms.TextInput(attrs={'class': 'form-input'}))
-#     role = forms.ChoiceField(widget=forms.RadioSelect, choices=ROLES)
-# #
-#     class Meta:
-#         model = User
-#         fields = ['email', 'phone', 'role']
+''''Форма студента'''
 class StudentSignUpForm(UserCreationForm):
     Fio = forms.CharField(required=True)
     Educational_institution = forms.CharField(required=True)
@@ -62,7 +54,6 @@ class StudentSignUpForm(UserCreationForm):
         model = User
         fields = ['email','phone']
         field_classes = {'email': EmailField}
-
 
     @transaction.atomic
     def save(self):
@@ -84,13 +75,11 @@ class StudentSignUpForm(UserCreationForm):
         student.save()
         return user
 
-
+''''Форма Партнера'''
 class PartnerSignUpForm(UserCreationForm):
     Fio = forms.CharField(required=True)
     name_of_partner = forms.CharField(required=True)
     site = forms.URLField(required=True)
-
-
 
     class Meta(UserCreationForm.Meta):
         fields = ['email','phone']
@@ -112,11 +101,12 @@ class PartnerSignUpForm(UserCreationForm):
         partner.save()
         return user
 
+'''Форма создание кейса'''
+
 class AddCaseForm(forms.ModelForm):
     class Meta:
         model = Case
         fields = ['title', 'description', 'category', 'date_of_close','tags', 'user_id']
-
         widgets = {
             "title": TextInput(attrs={
                 'class': '',
@@ -144,22 +134,14 @@ class AddCaseForm(forms.ModelForm):
             }),
         }
 
+'''Форма добавления ответа'''
 class AddAnswer(forms.ModelForm):
-
     class Meta:
         model = Answer
         fields = ['File', 'Url', 'id_case', 'id_student']
 
+'''Форма авторизации ответа'''
 class LoginUserForm(AuthenticationForm):
     email = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
-#
-#
-# class WinnerForm(forms.ModelForm):
-#     region = forms.ChoiceField(required=True,widget=forms.Select)
-#     class Meta:
-#         model = Answer
-#         fields = ['is_won']
-#
-#
 
