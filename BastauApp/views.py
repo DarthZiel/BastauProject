@@ -72,6 +72,7 @@ class ShowCases(Categories, ListView):
     model = Case
     queryset = Case.objects.filter(date_of_close__gte=now)
     template_name = 'ShowCase.html'
+    paginate_by = 1
     extra_context = {"name": 'Кейсы', 'menu': menu}
 
 class ShowCasesPartner(ListView):
