@@ -5,7 +5,12 @@
     <div>ФИО: {{partner_info.Fio}}</div>
     <div>Название организации: {{partner_info.name_of_partner}}</div>
     <div>Сайт: {{partner_info.site}}</div>
-    <div>Аватар: <img src="{{partner_info.avatar.url}}" alt=""></div>
+      {% if item.partner_info.avatar %}
+            <div>Аватар: <img src="{{partner_info.avatar.url}}" alt="" width="250px" height="235px"></div>
+        {% else %}
+           <p><img src="https://audit.msu.ru/wp-content/themes/audit/images/noavatar.png" width="250px" height="235px"></p>
+        {% endif %}
+
     <div>О компании: {{partner_info.about_company}}</div>
     <div>Телефон: {{partner_info.user.phone}}</div>
 
