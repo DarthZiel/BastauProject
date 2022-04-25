@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'BastauApp.apps.BastauappConfig',
     'widget_tweaks',
     'taggit',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

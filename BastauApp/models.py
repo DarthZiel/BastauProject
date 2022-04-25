@@ -6,7 +6,22 @@ from django.contrib.auth.models import UserManager, PermissionsMixin, BaseUserMa
 from django.shortcuts import reverse
 from taggit.managers import TaggableManager
 
-
+REGIONS = [
+    ('Акмолинская', 'Акмолинская'),
+    ('Актюбинская', 'Актюбинская'),
+    ('Алматинская', 'Алматинская'),
+    ('Атырауская', 'Атырауская'),
+    ('Восточно-Казахстанская', 'Восточно-Казахстанская'),
+    ('Жамбылская', 'Жамбылская'),
+    ('Западно-Казахстанская', 'Западно-Казахстанская'),
+    ('Карагандинская', 'Карагандинская'),
+    ('Костанайская', 'Костанайская'),
+    ('Кызылординская', 'Кызылординская'),
+    ('Мангистауская', 'Мангистауская'),
+    ('Павлодарская', 'Павлодарская'),
+    ('Северо-Казахстанская', 'Северо-Казахстанская'),
+    ('Южно-Казахстанская', 'Южно-Казахстанская')
+]
 class CustomUserManager(BaseUserManager):
     def _create_user(self, email, password, phone, **extra_fields):
         if not email:
@@ -62,23 +77,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Student(models.Model):
     user = models.OneToOneField(User, verbose_name='id', on_delete=models.CASCADE, primary_key=True)
     Fio = models.CharField(max_length=100, blank=True, verbose_name='ФИО')
-    REGIONS = [
-        ('Акмолинская', 'Акмолинская'),
-        ('Актюбинская', 'Актюбинская'),
-        ('Алматинская', 'Алматинская'),
-        ('Атырауская', 'Атырауская'),
-        ('Восточно-Казахстанская', 'Восточно-Казахстанская'),
-        ('Жамбылская','Жамбылская'),
-        ('Жамбылская','Жамбылская'),
-        ('Западно-Казахстанская','Западно-Казахстанская'),
-        ('Карагандинская','Костанайская'),
-        ('Костанайская','Костанайская'),
-        ('Кызылординская','Кызылординская'),
-        ('Мангистауская','Мангистауская'),
-        ('Павлодарская','Павлодарская'),
-        ('Северо-Казахстанская','Северо-Казахстанская'),
-        ('Южно-Казахстанская','Южно-Казахстанская')
-    ]
     EDUCATION = [
         ('Высшее', 'Высшее'), ('ср-спе', 'Среднее-специальное'), ('среднее', 'Среднее')
     ]
@@ -141,6 +139,7 @@ class Case(models.Model):
     date_of_edit = models.DateTimeField(auto_now_add=True, verbose_name='Дата последней редакции')
     date_of_close = models.DateTimeField(verbose_name='Дата закрытия')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категории')
+    region = models.CharField(max_length=50, choices=REGIONS, default=REGIONS[0])
     user_id = models.ForeignKey(Partner, on_delete=models.CASCADE, related_name='partners')
     is_published = models.BooleanField(default=True, verbose_name='Опубликован')
     tags = TaggableManager()

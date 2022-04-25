@@ -9,6 +9,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import ListView, UpdateView, DeleteView
 from .models import *
 from django.contrib.auth import logout, login
+from .filters import CaseFilter
 import datetime
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 menu = [
@@ -66,14 +67,42 @@ def createcase(request):
     }
     return render(request, 'createcase.html', data)
 
-class ShowCases(Categories, ListView):
+class ShowCases(ListView):
 
     now = datetime.datetime.now()
     model = Case
-    queryset = Case.objects.filter(date_of_close__gte=now)
     template_name = 'ShowCase.html'
     paginate_by = 1
+    context_object_name = 'orders'
     extra_context = {"name": 'Кейсы', 'menu': menu}
+
+    # def get_context_data(self, **kwargs):
+    #     case222 = Case.objects.all()
+    #     context = super().get_context_data(object_list=case222, **kwargs)
+    #     context['filterset'] = CaseFilter(self.request.GET, queryset=case222)
+    #
+    #     return context
+
+    def get_queryset(self):
+        qs = Case.objects.all()
+        case = CaseFilter(self.request.GET, queryset=qs)
+        return case.qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = CaseFilter(self.request.GET, queryset=self.get_queryset())
+        return context
+
+
+# def ShowCases(request, case_id):
+#     case = Case.objects.get(id=case_id)
+#
+#     context = {}
+#     # add the dictionary during initialization
+#     context["data"] = Case.objects.get(pk=case_id)
+#     context["menu"] = menu
+#
+#     return render(request, "ShowCase.html", context)
 
 class ShowCasesPartner(ListView):
     model = Case
@@ -87,8 +116,8 @@ def detail_view(request, case_id):
     # add the dictionary during initialization
     context["data"] = Case.objects.get(pk=case_id)
     context["menu"] = menu
-
     return render(request, "DetailCase.html", context)
+
 def detail_view_for_Partner(request, case_id):
     context = {}
     # add the dictionary during initialization
@@ -198,23 +227,20 @@ class delete_answer(DeleteView):
     template_name = 'delete_answer.html'
     success_url = "/mycases"
     extra_context = {'menu': menu}
-#
-# class ShowAnswer(ListView):
-#     model = Answer
-#     template_name = 'showanswer.html'
-#     extra_context = {'name': 'Ответы', 'menu': menu}
+
 def ShowAnswer(request, case_id):
     context = {}
     # add the dictionary during initialization
     context["data"] = Case.objects.get(pk=case_id)
     context["menu"] = menu
 
-    return render(request, "showanswer.html", context)
 class ShowAnswerStudent(ListView):
     model = Answer
     template_name = 'showanswer_student.html'
     # queryset = Case.objects.get(pk=case_id)
     extra_context = {'name': 'Ответы', 'menu': menu}
+
+
 
 def detail_student(request, user_id):
     a = User.objects.get(pk=user_id)
@@ -231,7 +257,7 @@ def detail_partner(request, user_id):
     return render(request, "Bio_partner.html", context)
 
 class Search(ListView):
-    """Поиск фильмов"""
+    """Поиск кейсов"""
     paginate_by = 3
     template_name = 'ShowCase.html'
     extra_context = {'name': 'Партнеры', 'menu': menu}
@@ -243,13 +269,6 @@ class Search(ListView):
         context = super().get_context_data(*args, **kwargs)
         context["q"] = f'q={self.request.GET.get("q")}&'
         return context
-
-class CaseFilter(Categories,ListView):
-    template_name = 'ShowCase.html'
-    extra_context = {'name': 'Партнеры', 'menu': menu}
-    def get_queryset(self):
-        queryset = Case.objects.filter(category__in= self.request.GET.getlist('cat'))
-        return queryset
 
 class TagIndexView(ListView):
     template_name = 'ShowCase.html'
