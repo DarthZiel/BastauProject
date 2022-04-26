@@ -18,10 +18,10 @@
                {% for item in view.get_cat%}
 
             <option value="{{item.id}}">{{item}}</option>
-          </select>
-
+   
           {% endfor %}
-        </>
+        </select>
+
         <button type="submit">Найти</button>
       </form>
       {% for item in object_list %}

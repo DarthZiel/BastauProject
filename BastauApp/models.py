@@ -83,20 +83,12 @@ class Student(models.Model):
         ('Высшее', 'Высшее'), ('ср-спе', 'Среднее-специальное'), ('среднее', 'Среднее')
     ]
 
-    COURSE = [
-        ('1', '1'),
-        ('2', '2'),
-        ('3','3'),
-        ('4','4'),
-        ('5','5'),
-        ('6','6'),
-    ]
     Educational_institution = models.CharField(max_length=50, verbose_name='Место учебы')
     age = models.CharField(max_length=2,verbose_name='возраст')
     region = models.CharField(max_length=50, choices=REGIONS, default=REGIONS[0])
     Direction_of_study = models.CharField(max_length=50, verbose_name='Специальность')
     Education = models.CharField(max_length=50, verbose_name='Образование', choices=EDUCATION, default=EDUCATION[0])
-    Course = models.CharField(max_length=50, verbose_name='Курс', choices=COURSE, default=COURSE[0])
+
 
 
     class Meta:

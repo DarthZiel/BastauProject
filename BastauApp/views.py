@@ -29,7 +29,6 @@ def logout_user(request):
 
 def personal(request):
     context = {}
-    # add the dictionary during initialization
     context["menu"] = menu
 
     return render(request, "personal.html", context)
@@ -52,7 +51,6 @@ def about(request):
 
 
 def createcase(request):
-    # active_user = {'user_id': Partner.objects.get(user=request.user)}
     active_user = {'user_id': request.user.partner}
     form = AddCaseForm(active_user)
     if request.method == 'POST':
@@ -231,7 +229,6 @@ def detail_partner(request, user_id):
     return render(request, "Bio_partner.html", context)
 
 class Search(ListView):
-    """Поиск фильмов"""
     paginate_by = 3
     template_name = 'ShowCase.html'
     extra_context = {'name': 'Партнеры', 'menu': menu}
