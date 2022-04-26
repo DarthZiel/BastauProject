@@ -103,7 +103,7 @@ class PartnerSignUpForm(UserCreationForm):
 class AddCaseForm(forms.ModelForm):
     class Meta:
         model = Case
-        fields = ['title', 'description', 'category', 'date_of_close','tags', 'user_id']
+        fields = ['title', 'description', 'category', 'region', 'date_of_close','tags', 'user_id']
         widgets = {
             "title": TextInput(attrs={
                 'class': '',
@@ -116,6 +116,10 @@ class AddCaseForm(forms.ModelForm):
             "category": Select (attrs={
                 'class': '',
                 'placeholder': 'Выберите категорию'
+            }),
+            "region": Select(attrs={
+                'class': '',
+                'placeholder': 'Выберите регион'
             }),
             "date_of_close": DateTimeInput(attrs={
                 'class': '',

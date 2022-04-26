@@ -11,7 +11,6 @@ urlpatterns = [
 
     # path('register/',  views.register, name='register'),
     path('createcase/', views.createcase, name= 'createcase'),
-    path('filter/', views.CaseFilter.as_view(), name='category'),
     path('showcases/', ShowCases.as_view(), name='showcases'),
     path('showcases/<case_id>', detail_view, name= 'detail_case' ),
     path('bio/student/<user_id>', views.detail_student, name= 'detail_student' ),

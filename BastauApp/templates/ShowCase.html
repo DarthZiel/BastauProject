@@ -12,6 +12,7 @@
         </button>
       </form>
       <!--Вывод категорий-->
+
       <form action="{% url 'category' %}">
         <a href="{% url 'showcases'%}">все категории</a>
              <select name="cat" id="{{item.id}}">
@@ -22,30 +23,30 @@
           {% endfor %}
         </select>
 
+
         <button type="submit">Найти</button>
       </form>
-      {% for item in object_list %}
-        <!--Вывод Кейсов-->
-        <div class="main-cases__item">
+      {% for fil in orders %}
+              <div class="main-cases__item">
           <div class="main-cases__item__header">
-            {% if item.user_id.avatar %}
-            <img src="{{item.user_id.avatar.url}}" alt="стандартное">
+            {% if fil.user_id.avatar %}
+            <img src="{{fil.user_id.avatar.url}}" alt="стандартное">
             {% else %}
               <img src="https://audit.msu.ru/wp-content/themes/audit/images/noavatar.png">
             {% endif %}
-            <div class="main-cases__item__part-name">{{item.user_id.name_of_partner}}</div>
+            <div class="main-cases__item__part-name">{{fil.user_id.name_of_partner}}</div>
           </div>
           <div class="main-cases__item__body">
-            <div class="main-cases__item__title"><h5>{{item}}</h5></div>
+            <div class="main-cases__item__title"><h5>{{fil}}</h5></div>
             <div class="main-cases__item__tags">
-              {% for tag in item.tags.all %}
+              {% for tag in fil.tags.all %}
               <a href="{% url 'case_by_tag' tag.slug %}">{{tag}}</a> ,
               {% endfor %}
             </div>
           </div>
           <div class="main-cases__item__footer">
-            <div class="main-cases__item__city">{{item.category}}</div>
-            <div class="main-cases__item__link"><a href="{% url 'detail_case' item.id %}">Перейти к кейсу</a></div>
+            <div class="main-cases__item__city">{{fil.region}}</div>
+            <div class="main-cases__item__link"><a href="{% url 'detail_case' fil.id %}">Перейти к кейсу</a></div>
           </div>
           <div>
             </div>
