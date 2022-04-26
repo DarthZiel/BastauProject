@@ -72,16 +72,9 @@ class ShowCases(ListView):
     now = datetime.datetime.now()
     model = Case
     template_name = 'ShowCase.html'
-    paginate_by = 1
+    paginate_by = 3
     context_object_name = 'orders'
     extra_context = {"name": 'Кейсы', 'menu': menu}
-
-    # def get_context_data(self, **kwargs):
-    #     case222 = Case.objects.all()
-    #     context = super().get_context_data(object_list=case222, **kwargs)
-    #     context['filterset'] = CaseFilter(self.request.GET, queryset=case222)
-    #
-    #     return context
 
     def get_queryset(self):
         qs = Case.objects.all()
@@ -92,17 +85,6 @@ class ShowCases(ListView):
         context = super().get_context_data(**kwargs)
         context['filter'] = CaseFilter(self.request.GET, queryset=self.get_queryset())
         return context
-
-
-# def ShowCases(request, case_id):
-#     case = Case.objects.get(id=case_id)
-#
-#     context = {}
-#     # add the dictionary during initialization
-#     context["data"] = Case.objects.get(pk=case_id)
-#     context["menu"] = menu
-#
-#     return render(request, "ShowCase.html", context)
 
 class ShowCasesPartner(ListView):
     model = Case
@@ -150,7 +132,6 @@ class student_register(CreateView):
         login(self.request, user)
         return redirect('/')
 
-
 class partner_register(CreateView):
     model = User
     form_class = PartnerSignUpForm
@@ -161,7 +142,6 @@ class partner_register(CreateView):
         user = form.save()
         login(self.request, user)
         return redirect('/')
-
 
 class student_update(UpdateView):
     model = Student
@@ -186,18 +166,11 @@ class case_update(UpdateView):
     template_name = 'createcase.html'
     extra_context = {'menu': menu}
 
-
-
 class delete_case(DeleteView):
     model = Case
     template_name = 'delete_case.html'
     success_url = "/mycases"
     extra_context = {'menu': menu}
-
-# def tecUser(request):
-#     x = request.user
-#     tecstudent = Student.objects.get(user=x)
-#     return tecstudent
 
 class AnswerToCase(FormMixin, DetailView):
     model = Case
@@ -237,7 +210,6 @@ def ShowAnswer(request, case_id):
 class ShowAnswerStudent(ListView):
     model = Answer
     template_name = 'showanswer_student.html'
-    # queryset = Case.objects.get(pk=case_id)
     extra_context = {'name': 'Ответы', 'menu': menu}
 
 
