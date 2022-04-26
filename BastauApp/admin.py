@@ -10,9 +10,9 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ("user", "Fio", "Educational_institution", "age", "region", "Direction_of_study", "Education", "Course")
+    list_display = ("user", "Fio", "Educational_institution", "age", "region", "Direction_of_study", "Education")
     list_display_links = ("user",)
-    list_filter = ('Course','Education', 'Direction_of_study')
+    list_filter = ('Education', 'Direction_of_study')
     search_fields = ("Fio", "Educational_institution")
 
 
@@ -22,7 +22,7 @@ class PartnerAdmin(admin.ModelAdmin):
     list_display_links = ("user",)
     list_filter = ('name_of_partner',)
     search_fields = ("Fio",)
-    readonly_fields = ("user", "get_avatar")
+    # readonly_fields = ("user", "get_avatar")
     def get_avatar(self, obj):
         if obj.avatar:
             return mark_safe(f'<img src={obj.avatar.url} width ="100" height ="110"')
@@ -44,7 +44,7 @@ class CaseAdmin(admin.ModelAdmin):
     list_display_links = ("title",)
     list_filter = ('category','is_published')
     search_fields = ("title",)
-    readonly_fields = ("user_id",)
+   # readonly_fields = ("user_id",)
 
     inlines = [AnswerInline]
 
@@ -54,7 +54,7 @@ class AnswerAdmin(admin.ModelAdmin):
     list_display_links = ("id_student",)
     list_filter = ('is_won',)
     search_fields = ("id_student","id_case")
-    readonly_fields = ("id_student","id_case")
+    # readonly_fields = ("id_student","id_case")
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):

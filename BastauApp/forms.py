@@ -42,19 +42,16 @@ COURSE = [
     ]
 ''''Форма студента'''
 class StudentSignUpForm(UserCreationForm):
-    Fio = forms.CharField(required=True)
-    Educational_institution = forms.CharField(required=True)
-    age = forms.CharField(required=True)
-    region = forms.ChoiceField(required=True,widget=forms.Select, choices=REGIONS)
-    Direction_of_study = forms.CharField(required=True)
-    Education = forms.ChoiceField(required=True,widget=forms.Select, choices= EDUCATION)
-    Course = forms.ChoiceField(required=True,widget=forms.Select, choices= COURSE)
-
+    Fio = forms.CharField(required=True, label='ФИО')
+    Educational_institution = forms.CharField(required=True, label='Образовательное учреждение')
+    age = forms.CharField(required=True, label='Возраст')
+    region = forms.ChoiceField(required=True,widget=forms.Select, choices=REGIONS, label='Область')
+    Direction_of_study = forms.CharField(required=True, label='Специальность')
+    Education = forms.ChoiceField(required=True,widget=forms.Select, choices= EDUCATION, label='Образование')
     class Meta(UserCreationForm.Meta):
         model = User
         fields = ['email','phone']
         field_classes = {'email': EmailField}
-
     @transaction.atomic
     def save(self):
         user = super().save(commit=False)
@@ -77,9 +74,9 @@ class StudentSignUpForm(UserCreationForm):
 
 ''''Форма Партнера'''
 class PartnerSignUpForm(UserCreationForm):
-    Fio = forms.CharField(required=True)
-    name_of_partner = forms.CharField(required=True)
-    site = forms.URLField(required=True)
+    Fio = forms.CharField(required=True, label='ФИО')
+    name_of_partner = forms.CharField(required=True, label='название организации')
+    site = forms.URLField(required=True, label='Ваш сайт')
 
     class Meta(UserCreationForm.Meta):
         fields = ['email','phone']
