@@ -48,12 +48,9 @@ class StudentSignUpForm(UserCreationForm):
     region = forms.ChoiceField(required=True,widget=forms.Select, choices=REGIONS, label='Область')
     Direction_of_study = forms.CharField(required=True, label='Специальность')
     Education = forms.ChoiceField(required=True,widget=forms.Select, choices= EDUCATION, label='Образование')
-
-
     class Meta(UserCreationForm.Meta):
         model = User
         fields = ['email','phone']
-
         field_classes = {'email': EmailField}
     @transaction.atomic
     def save(self):
