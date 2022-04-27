@@ -31,7 +31,6 @@ urlpatterns = [
     path('register/', views.student_register.as_view(), name='student_register'),
     path('partner_register/', views.partner_register.as_view(), name='partner_register'),
     path('mycases/answers/answer/<int:pk>', views.AnswerToCase.as_view(), name='answer'),
-    path("search/", views.Search.as_view(), name='search'),
     path('winner/<int:pk>', views.edit, name='winner'),
     path('reset_password/', views.PasswordResetViewBastau.as_view(), name='reset_password'),
     path('reset_password_sent/', views.PasswordResetDoneViewBastau.as_view(), name='password_reset_done'),

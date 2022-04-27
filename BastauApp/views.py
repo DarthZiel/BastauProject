@@ -30,6 +30,7 @@ def logout_user(request):
 
 def personal(request):
     context = {}
+    # add the dictionary during initialization
     context["menu"] = menu
 
     return render(request, "personal.html", context)
@@ -52,6 +53,7 @@ def about(request):
 
 
 def createcase(request):
+    # active_user = {'user_id': Partner.objects.get(user=request.user)}
     active_user = {'user_id': request.user.partner}
     form = AddCaseForm(active_user)
     if request.method == 'POST':
@@ -205,7 +207,7 @@ def ShowAnswer(request, case_id):
     # add the dictionary during initialization
     context["data"] = Case.objects.get(pk=case_id)
     context["menu"] = menu
-
+    return render(request,'showanswer.html', context)
 class ShowAnswerStudent(ListView):
     model = Answer
     template_name = 'showanswer_student.html'
@@ -227,19 +229,6 @@ def detail_partner(request, user_id):
     context["menu"] = menu
     return render(request, "Bio_partner.html", context)
 
-class Search(ListView):
-
-    paginate_by = 3
-    template_name = 'ShowCase.html'
-    extra_context = {'name': 'Партнеры', 'menu': menu}
-
-    def get_queryset(self):
-        return Case.objects.filter(title__icontains=self.request.GET.get("q"))
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        context["q"] = f'q={self.request.GET.get("q")}&'
-        return context
 
 class TagIndexView(ListView):
     template_name = 'ShowCase.html'
