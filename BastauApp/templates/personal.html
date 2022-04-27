@@ -2,6 +2,7 @@
 
  {% block content %}
 <br><br><br><br>
+ <div class="container">
 <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
 
@@ -22,6 +23,6 @@
 </form>
 <a href="{% url 'show_answer_student'%}">Мои ответы</a>
 <a href='/logout/'>Выйти</a>?
-
+ </div>
   {% endblock %}
 

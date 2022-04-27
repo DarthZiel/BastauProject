@@ -5,6 +5,7 @@ from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import UserManager, PermissionsMixin, BaseUserManager
 from django.shortcuts import reverse
 from taggit.managers import TaggableManager
+import datetime
 
 REGIONS = [
     ('Акмолинская', 'Акмолинская'),
@@ -58,7 +59,7 @@ class CustomUserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(db_index=True, unique=True, max_length=254)
-    phone = models.CharField(max_length=20, help_text='Номер телефона')
+    phone = models.CharField(max_length=20, help_text='Номер телефона', verbose_name='Телефон')
     is_staff = models.BooleanField(default=True)  # must needed, otherwise you won't be at
     is_active = models.BooleanField(default=True)  # must needed, otherwise you won't be «
     is_superuser = models.BooleanField(default=False)  # this field we inherit from Permis
@@ -87,8 +88,6 @@ class Student(models.Model):
     Direction_of_study = models.CharField(max_length=50, verbose_name='Специальность')
     Education = models.CharField(max_length=50, verbose_name='Образование', choices=EDUCATION, default=EDUCATION[0])
 
-
-
     class Meta:
         verbose_name = "Студент"
         verbose_name_plural = "Студенты"
@@ -104,7 +103,6 @@ class Partner(models.Model):
     site = models.URLField(max_length=200)
     avatar = models.ImageField("Аватар", upload_to="img/", blank=True)
     about_company = models.TextField(max_length=1000,verbose_name='О компании')
-
 
     class Meta:
         verbose_name = "Партнер"
@@ -142,13 +140,15 @@ class Case(models.Model):
     def __str__(self):
         return self.title
 
+
+
 class Answer(models.Model):
 
     Url = models.URLField(verbose_name='Ссылка на ответ', blank=True)
     File = models.FileField(verbose_name='Файл', upload_to = "file",blank=True)
     id_case = models.ForeignKey(Case, verbose_name="Кейс", on_delete=models.CASCADE,blank=True,related_name='cases')
     id_student = models.ForeignKey(Student, verbose_name="Студент", on_delete=models.CASCADE,blank=True)
-    is_won = models.BooleanField(default=False)
+    is_won = models.BooleanField(default=False, verbose_name="Победитель")
     class Meta:
         verbose_name = "Ответ"
         verbose_name_plural = "Ответы"

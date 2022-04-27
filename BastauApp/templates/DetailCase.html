@@ -2,9 +2,10 @@
   {% block content %}
 <br><br><br><br>
     <div class="case">
-    <p>{{data.title}}</p>
+    <b><p>{{data.title}}</p></b>
     <p>{{data.description}}</p>
     <p>{{data.category}}</p>
+    <p>{{data.region}}</p>
     <a href="{% url 'answer' data.pk %}"><button>Ответить</button></a>
  </div>
 

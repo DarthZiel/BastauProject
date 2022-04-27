@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
   {% block content %}
 <br><br><br><br>
+ <div class="container">
         {% for item in object_list %}
         {% if item.id_student.user.email == request.user.email %}
         <table border = "1">
@@ -22,5 +23,5 @@
     {% endif %}
 
     {% endfor %}
-
+ </div>
   {% endblock %}

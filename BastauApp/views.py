@@ -176,6 +176,7 @@ class AnswerToCase(FormMixin, DetailView):
     form_class = AddAnswer
     success_url = '/'
     context_object_name = 'get_case'
+    extra_context = {'menu': menu}
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         if form.is_valid():
@@ -196,7 +197,7 @@ class AnswerToCase(FormMixin, DetailView):
 class delete_answer(DeleteView):
     model = Answer
     template_name = 'delete_answer.html'
-    success_url = "/mycases"
+    success_url = "/answers"
     extra_context = {'menu': menu}
 
 def ShowAnswer(request, case_id):
@@ -264,7 +265,6 @@ class PasswordResetCompleteViewBastau(PasswordResetCompleteView):
     template_name = "reset_password/password_reset_done.html"
     extra_context = {'menu': menu}
 
-
 def edit(request, pk):
     answer = Answer.objects.get(id=pk)
     if answer.is_won == False:
@@ -273,5 +273,4 @@ def edit(request, pk):
         return render(request, 'winner.html')
     else:
         return HttpResponse('ты дебил? ты уже его выбрал')
-
 

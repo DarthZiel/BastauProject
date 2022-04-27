@@ -5,28 +5,17 @@
       {%if request.user.is_partner%}
         <a href="{% url 'createcase' %}"><button>Создать кейс</button></a>
       {%endif%}
-      <form action="{% url 'search' %}" method="get" class="">
-        <input type="search" placeholder="Введите название..." name="q" required="" class="input-case">
-        <button type="submit" class="btn-search">
-          <span class="" aria-hidden="true">Искать</span>
-        </button>
-      </form>
       <!--Вывод категорий-->
-
-      <form action="{% url 'category' %}">
-        <a href="{% url 'showcases'%}">все категории</a>
-             <select name="cat" id="{{item.id}}">
-               {% for item in view.get_cat%}
-
-            <option value="{{item.id}}">{{item}}</option>
-   
-          {% endfor %}
-        </select>
-
+        <form method="get">
+        Поиск: {{filter.form.title}}
+         Категория: {{filter.form.category}}
+          Регион: {{filter.form.region}}
 
         <button type="submit">Найти</button>
       </form>
+        <a href="{% url 'showcases' %}">Отменить фильтрацию</a>
       {% for fil in orders %}
+        {% if fil.is_published %}
               <div class="main-cases__item">
           <div class="main-cases__item__header">
             {% if fil.user_id.avatar %}
@@ -40,7 +29,7 @@
             <div class="main-cases__item__title"><h5>{{fil}}</h5></div>
             <div class="main-cases__item__tags">
               {% for tag in fil.tags.all %}
-              <a href="{% url 'case_by_tag' tag.slug %}">{{tag}}</a> ,
+               {{tag}} |
               {% endfor %}
             </div>
           </div>
@@ -52,6 +41,7 @@
             </div>
            </div>
         <br>
+        {%endif%}
       {% endfor %}
               <div class="grid-img-right mt-4 text-right bg bg1" >
             {% include 'include/pagination.html' %}

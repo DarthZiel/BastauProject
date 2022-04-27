@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
   {% block content %}
+ <div class="container">
 <br><br><br><br>
     <div>Почта: {{student_info.user.email}}</div>
     <div>ФИО: {{student_info.Fio}}</div>
@@ -10,7 +11,7 @@
     <div>Образование: {{student_info.Education}}</div>
     <div>Курс: {{student_info.Course}}</div>
     <div>Телефон: {{student_info.user.phone}}</div>
-
+ </div>
 
 
   {% endblock %}

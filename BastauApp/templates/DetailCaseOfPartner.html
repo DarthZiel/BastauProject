@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
   {% block content %}
 <br><br><br><br>
+ <div class="container">
     <div class="case">
     <p>{{data.title}}</p>
     <p>{{data.description}}</p>
@@ -15,5 +16,6 @@
     <div><a href="{{item.Url}}">{{item.Url}}</a></div>
     <div>{{item.is_won}}</div>
     <br>
+ </div>
     {% endfor %}
   {% endblock %}
