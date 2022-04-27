@@ -44,7 +44,7 @@ class CaseAdmin(admin.ModelAdmin):
     list_display_links = ("title",)
     list_filter = ('category','is_published')
     search_fields = ("title",)
-   # readonly_fields = ("user_id",)
+    # readonly_fields = ("user_id",)
 
     inlines = [AnswerInline]
 
@@ -58,6 +58,7 @@ class AnswerAdmin(admin.ModelAdmin):
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
+    fields = ('email','phone','password')
     list_display = ("email", "phone")
     search_fields = ("email",)
 

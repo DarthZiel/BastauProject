@@ -57,11 +57,11 @@ class CustomUserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(db_index=True, unique=True, max_length=254)
-    phone = models.CharField(max_length=20, help_text='Номер телефона')
-    is_staff = models.BooleanField(default=True)  # must needed, otherwise you won't be at
-    is_active = models.BooleanField(default=True)  # must needed, otherwise you won't be «
-    is_superuser = models.BooleanField(default=False)  # this field we inherit from Permis
+    email = models.EmailField(db_index=True, unique=True, max_length=254, verbose_name='Почта')
+    phone = models.CharField(max_length=20, help_text='Номер телефона', verbose_name='Телефон')
+    is_staff = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True)
+    is_superuser = models.BooleanField(default=False)
     is_student = models.BooleanField(default=False)
     is_partner = models.BooleanField(default=False)
 
@@ -81,6 +81,14 @@ class Student(models.Model):
         ('Высшее', 'Высшее'), ('ср-спе', 'Среднее-специальное'), ('среднее', 'Среднее')
     ]
 
+    COURSE = [
+        ('1', '1'),
+        ('2', '2'),
+        ('3','3'),
+        ('4','4'),
+        ('5','5'),
+        ('6','6'),
+    ]
     Educational_institution = models.CharField(max_length=50, verbose_name='Место учебы')
     age = models.CharField(max_length=2,verbose_name='возраст')
     region = models.CharField(max_length=50, choices=REGIONS, default=REGIONS[0])

@@ -5,24 +5,12 @@
       {%if request.user.is_partner%}
         <a href="{% url 'createcase' %}"><button>Создать кейс</button></a>
       {%endif%}
-      <form action="{% url 'search' %}" method="get" class="">
-        <input type="search" placeholder="Введите название..." name="q" required="" class="input-case">
-        <button type="submit" class="btn-search">
-          <span class="" aria-hidden="true">Искать</span>
-        </button>
-      </form>
+
       <!--Вывод категорий-->
-
-      <form action="{% url 'category' %}">
-        <a href="{% url 'showcases'%}">все категории</a>
-             <select name="cat" id="{{item.id}}">
-               {% for item in view.get_cat%}
-
-            <option value="{{item.id}}">{{item}}</option>
-   
-          {% endfor %}
-        </select>
-
+      <form method="get">
+        Поиск: {{filter.form.title}}
+         Категория: {{filter.form.category}}
+          Регион: {{filter.form.region}}
 
         <button type="submit">Найти</button>
       </form>
