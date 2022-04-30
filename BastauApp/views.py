@@ -72,7 +72,7 @@ class ShowCases(ListView):
     now = datetime.datetime.now()
     model = Case
     template_name = 'ShowCase.html'
-    paginate_by = 3
+    paginate_by = 1
     context_object_name = 'orders'
     extra_context = {"name": 'Кейсы', 'menu': menu}
 
