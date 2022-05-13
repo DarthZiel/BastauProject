@@ -104,37 +104,36 @@ class PartnerSignUpForm(UserCreationForm):
 '''Форма создание кейса'''
 
 class AddCaseForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['category'].empty_label = "Категория не выбрана"
     class Meta:
         model = Case
-        fields = ['title', 'description', 'category', 'region', 'date_of_close','tags', 'user_id']
+        fields = ['title', 'description', 'category', 'region', 'date_of_close','tags']
         widgets = {
             "title": TextInput(attrs={
-                'class': '',
+                'class': 'form-control',
                 'placeholder': 'Название кейса'
             }),
             "description": Textarea(attrs={
-                'class': '',
+                'class': 'form-control',
                 'placeholder': 'Описание кейса'
             }),
             "category": Select (attrs={
-                'class': '',
+                'class': 'form-control',
                 'placeholder': 'Выберите категорию'
             }),
             "region": Select(attrs={
-                'class': '',
+                'class': 'form-control',
                 'placeholder': 'Выберите регион'
             }),
             "date_of_close": DateTimeInput(attrs={
-                'class': '',
+                'class': 'form-control',
                 'placeholder': 'Дата завершения кейса'
             }),
-            "url": TextInput(attrs={
-                'class': '',
-                'placeholder': 'Название ссылки'
-            }),
             "tags": TextInput(attrs={
-                'class': '',
-                'placeholder': 'Теги'
+                'class': 'form-control',
+                'placeholder': 'Теги',
             }),
         }
 

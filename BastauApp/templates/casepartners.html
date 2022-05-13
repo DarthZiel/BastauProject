@@ -2,22 +2,30 @@
   {% block content %}
 <br><br><br><br>
  <div class="container">
+     <h1>Кейсы: {{case.all.count}}</h1>
     {% for item in object_list %}
     {% if item.user_id.user.email == request.user.email %}
-    <div class="case">
-      <span class="case__title">
-       {{item}}
-      </span>
-      <p>{{item.description}}</p>
+        <div class="row">
+         <div class="main-cases__item">
+            <span class="case__title">
+                {{item}}
+            </span>
+
       <p>{{item.category}}</p>
-      <a href="{% url 'detail_view_for_Partner' item.id %}"><button>Открыть</button></a>
-      <a href="{% url 'show_answer' item.id %}"><button>Ответы</button></a>
-      <a href="{% url 'case_update' item.id %}"><button>Редактировать</button></a>
-      <a href="{% url 'delete_case' item.id %}"><button>Удалить</button></a>
-    </div>
-    {% endif %}
+      <a href="{% url 'detail_view_for_Partner' item.id %}"><button class="btn btn-secondary">Открыть</button></a>
+      <a href="{% url 'show_answer' item.id %}"><button class="btn btn-secondary">Ответы</button></a>
+      <a href="{% url 'case_update' item.id %}"><button class="btn btn-secondary">Редактировать</button></a>
+      <a href="{% url 'delete_case' item.id %}"><button class="btn btn-secondary">Удалить</button></a>
+             </div>
+         </div>
+     <br>
+         {% endif %}
     {% endfor %}
+
  </div>
+      <div class="grid-img-right mt-4 text-right bg bg1" >
+          {% include 'include/pagination.html' %}
+      </div>
   {% endblock %}
 
 

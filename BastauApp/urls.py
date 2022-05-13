@@ -10,7 +10,7 @@ urlpatterns = [
     path('about/', views.about, name='about'),
 
     # path('register/',  views.register, name='register'),
-    path('createcase/', views.createcase, name= 'createcase'),
+    path('createcase/', views.createcase.as_view(), name= 'createcase'),
     path('showcases/', ShowCases.as_view(), name='showcases'),
     path('showcases/<case_id>', detail_view, name= 'detail_case' ),
     path('bio/student/<user_id>', views.detail_student, name= 'detail_student' ),

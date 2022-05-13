@@ -5,19 +5,11 @@
 }
 
 body{
+  background-color: #f1f1f1 !important;
   height: 100%;
 }
 html{
   height: 100%;
-}
-input{
-  outline: 0;
-  margin-bottom: 5px;
-  height: 35px;
-  border: none;
-  background-color: #bbbbbb;
-  border-radius: 12px;
-  padding-left: 15px;
 }
 .container{
   max-width: 1170px;
@@ -45,7 +37,6 @@ input{
   width: 100%;
   top: 0;
   left: 0;
-  border-bottom: 1px solid rgb(14, 14, 14);
  }
 .nav {
   display: flex;
@@ -67,11 +58,11 @@ input{
   text-decoration: none;
   color: rgb(0, 0, 0);
 }
-.nav__logo{
-}
-.nav__logo-logo{
-  height: 80px;
 
+.nav__logo-logo{
+    margin:0;
+    max-height:2500px;
+    padding:0;
 }
 .case{
   background-color: #fff;
@@ -170,6 +161,7 @@ input{
 }
 body{
   position: relative;
+
 }
 .footer{
   width: 100%;
@@ -438,3 +430,11 @@ body{
 }
 
 /* --/Pagination */
+.sticky{
+  position: -webkit-sticky;
+  position: sticky;
+  top: 20px;
+}
+#id_category{
+placeholder: 'Все категории'
+}

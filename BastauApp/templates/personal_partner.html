@@ -1,21 +1,34 @@
 {% extends 'base.html' %}
-
+{% load widget_tweaks %}
  {% block content %}
 <br><br><br><br>
-<form action="" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="prikol">ФИО: {{form.user}}</div>
-    <div>ФИО: {{form.Fio}}</div>
-    <div>Название организации: {{form.name_of_partner}}</div>
-    <div>Сайт: {{form.site}}</div>
-    <div>Аватар: {{form.avatar}}</div>
-    <div>О компании: {{form.about_company}}</div>
-    <div class="prikol">{{form.user_id}}</div>
-    <br>
-       <input type="submit" value="Update">
-</form>
-<a href='/logout/'>Выйти</a>?<br>
-<a href='{% url "mycases" %}'>Мои кейсы</a>
+{% if request.user == request.user %}
+    <div class="container">
+        <div class="row">
+            <div class="main-cases__item col-8">
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        {% for field in form %}
 
-  {% endblock %}
+                                {{ field.label_tag }}
+                                {% render_field field class="form-control" %}
+                                {% for error in field.errors %}
+                                    <span style="color:red">{{ error }}</span>
+                                {% endfor %}
+                        {% endfor %}<br>
+                    <input type="submit" value="Сохранить" class="btn btn-block btn-primary">
+
+                </form>
+                <a href='/logout/'>Выйти</a>?<br>
+                <a href='{% url "mycases" %}'>Мои кейсы</a>
+            </div>
+            <div class="col main-cases__item ">
+
+                {{partner.Fio}}
+            </div>
+       </div>
+    </div>
+{% endif%}
+
+{% endblock %}
 

@@ -1,52 +1,73 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
   {% block content %}
   <div class="case-page">
     <div class="container">
-      {%if request.user.is_partner%}
-        <a href="{% url 'createcase' %}"><button>Создать кейс</button></a>
-      {%endif%}
-      <!--Вывод категорий-->
-      <form method="get">
-        Поиск: {{filter.form.title}}
-         Категория: {{filter.form.category}}
-          Регион: {{filter.form.region}}
-            Теги: {{filter.form.tags}}
+        <div class="row">
+            <div class="col-9">
+                 <form method="get">
+                    {% csrf_token %}
+                     <div class="row">
+                        <div class="col-10">
+                            {{ filter.form.search }}
+                        </div>
+                            <button type="submit" class="btn btn-success" >Поиск</button><br>
+                       </div>
+                 </form>
+                     <br>
+                      {% for fil in orders %}
 
-        <button type="submit">Найти</button>
-      </form>
-        <a href="{% url 'showcases' %}">Отменить фильтрацию</a>
-      {% for fil in orders %}
-        {% if fil.is_published %}
-              <div class="main-cases__item">
-          <div class="main-cases__item__header">
-            {% if fil.user_id.avatar %}
-            <img src="{{fil.user_id.avatar.url}}" alt="стандартное">
-            {% else %}
-              <img src="https://audit.msu.ru/wp-content/themes/audit/images/noavatar.png">
-            {% endif %}
-            <div class="main-cases__item__part-name">{{fil.user_id.name_of_partner}}</div>
-          </div>
-          <div class="main-cases__item__body">
-            <div class="main-cases__item__title"><h5>{{fil}}</h5></div>
-            <div class="main-cases__item__tags">
-              {% for tag in fil.tags.all %}
-               {{tag}} |
-              {% endfor %}
+                        <div class="main-cases__item">
+                          <div class="main-cases__item__header">
+                            {% if fil.user_id.avatar %}
+                            <img src="{{fil.user_id.avatar.url}}" alt="стандартное">
+                            {% else %}
+                              <img src="https://audit.msu.ru/wp-content/themes/audit/images/noavatar.png">
+                            {% endif %}
+                            <div class="main-cases__item__part-name">{{fil.user_id.name_of_partner}}</div>
+                        </div>
+                          <div class="main-cases__item__body">
+                            <div class="main-cases__item__title"><h5>{{fil}}</h5></div>
+                            <div class="main-cases__item__tags">
+                              {% for tag in fil.tags.all %}
+                               {{tag}} |
+                              {% endfor %}
+                            </div>
+                          </div>
+                          <div class="main-cases__item__footer">
+                            <div class="main-cases__item__city">{{fil.region}}</div>
+                            <div class="main-cases__item__link"><a href="{% url 'detail_case' fil.id %}">Перейти к кейсу</a></div>
+                          </div>
+                          <div>
+                            </div>
+                           </div>
+                        <br>
+                      {% endfor %}
+                        </div>
+                            <div class="col">
+                                <div class="sticky">
+                              <form method="get">
+                                {% csrf_token %}
+                                <div class="row">
+                                  <div class="col-6">
+                                    {{ filter.form.category|as_crispy_field }}
+                                  </div>
+                                  <div class="col-6">
+                                    {{ filter.form.region|as_crispy_field }}
+                                  </div>
+                                </div>
+                                {{ filter.form.tags}}<br>
+                                <button type="submit" class="btn btn-success">Фильтровать</button>
+                              </form>
+                                    <a href="{% url 'showcases' %}">Отменить фильтрацию</a>
+                                </div>
+                </div>
             </div>
-          </div>
-          <div class="main-cases__item__footer">
-            <div class="main-cases__item__city">{{fil.region}}</div>
-            <div class="main-cases__item__link"><a href="{% url 'detail_case' fil.id %}">Перейти к кейсу</a></div>
-          </div>
-          <div>
-            </div>
-           </div>
-        <br>
-        {%endif%}
-      {% endfor %}
-              <div class="grid-img-right mt-4 text-right bg bg1" >
-            {% include 'include/pagination.html' %}
         </div>
+      <div class="grid-img-right mt-4 text-right bg bg1" >
+          {% include 'include/pagination.html' %}
+      </div>
+  </div>
   {% endblock %}
 
 

@@ -5,34 +5,54 @@
     <meta charset="UTF-8">
     <link type="text/css" href="{% static 'css/style.css' %}" rel="stylesheet" />
     <link type="text/css" href="{% static 'css/zero.css' %}" rel="stylesheet" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css" integrity="sha512-T584yQ/tdRR5QwOpfvDfVQUidzfgc2339Lc8uBDtcp/wYu80d7jwBgAxbyMh0a9YM9F8N3tdErpFI8iaGx6x5g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <!-- jQuery (Cloudflare CDN) -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- Bootstrap Bundle JS (Cloudflare CDN) -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.min.js" integrity="sha512-UR25UO94eTnCVwjbXozyeVd6ZqpaAE9naiEUBK/A+QDbfSTQFhPGj5lOR6d8tsgbBk84Ggb5A3EkjsOgPRPcKA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   </head>
 
   <body>
+
     <header class="header">
-      <nav class="nav">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
         {% block mainmenu %}
-        <div class="nav__logo"> <a href="{% url 'index' %}"><img class="nav__logo-logo" src="{% static 'logo/Bastausvg.svg' %}" alt=""></a> </div>
-        <ul class="nav__menu">
-          {% for item in menu %}
-          {% if not forloop.last %}
-          <li><a href="{% url item.url_name %}">{{item.title}}</a></li>
-          {% else %}
-          <li><a href="{% url item.url_name %}">{{item.title}}</a></li>
-          {% endif%}
-        {% endfor %}
-        {% if request.user.is_authenticated %}
-            {% if request.user.is_student %}
-            <li class="last"> {{user.email}} | <a href="{% url 'personal' user.id %}">Личный кабинет</a></li>
-            {% elif request.user.is_partner %}
-            <li class="last"> {{user.email}} | <a href="{% url 'personal_partner' user.id %}">Личный кабинет</a></li>
-            {%endif%}
-        {% else %}
-        <li class="last"><a href="{% url 'student_register' %}">Регистрация</a> | <a href="{% url 'login'%}">Войти</a></li>
-        {% endif %}
-        </ul>
-        {% endblock mainmenu %}
+
+        <nav class="nav-item"> <a href="{% url 'index' %}" class="navbar-brand"><!--<img class="nav__logo-logo" src="{% static 'logo/Bastausvg.svg' %}" alt="" >-->BASTAU PROJECT</a> </nav>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Переключатель навигации">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+              {% for item in menu %}
+              {% if not forloop.last %}
+              <li class="nav-item "><a href="{% url item.url_name %}" class="nav-link">{{item.title}}</a></li>
+              {% else %}
+              <li class="nav-item"><a href="{% url item.url_name %}" class="nav-link">{{item.title}}</a></li>
+              {% endif%}
+            {% endfor %}
+            </ul>
+            <ul class="navbar-nav  mt-3 mt-lg-0">
+            {% if request.user.is_authenticated %}
+                {% if request.user.is_student %}
+                <li class="nav-item nav-link"> {{user.email}} </li>
+                <li class="nav-item"><a href="{% url 'personal' user.id %}"  class="nav-link">Личный кабинет</a></li>
+                {% elif request.user.is_partner %}
+              <li class=""><a href="{% url 'createcase' %}"><button type="submit" class="btn btn-success mr-4" >Создать кейс</button></a></li>
+                <li class="nav-item nav-link"> {{user.email}} | </li>
+                <li class="nav-item"><a href="{% url 'personal_partner' user.id %}"  class="nav-link">Личный кабинет</a></li>
+                {%endif%}
+            {% else %}
+            <li class="nav-item"><a href="{% url 'student_register' %}"  class="nav-link">Регистрация</a></li>
+              <li class="nav-item"><a href="{% url 'login'%}"  class="nav-link">Войти</a></li>
+            {% endif %}
+            </ul>
+          </div>
+
       </nav>
+        {% endblock mainmenu %}
+
     </header>
     <div class="main-content">
       {% block content %}

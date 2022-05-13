@@ -136,7 +136,7 @@ class Case(models.Model):
     date_of_edit = models.DateTimeField(auto_now_add=True, verbose_name='Дата последней редакции')
     date_of_close = models.DateTimeField(verbose_name='Дата закрытия')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категории')
-    region = models.CharField(max_length=50, choices=REGIONS, default=REGIONS[0])
+    region = models.CharField(max_length=50, choices=REGIONS, default=REGIONS[0],verbose_name='Область')
     user_id = models.ForeignKey(Partner, on_delete=models.CASCADE, related_name='partners')
     is_published = models.BooleanField(default=True, verbose_name='Опубликован')
     tags = TaggableManager()

@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
   {% block content %}
 <br><br><br><br>
-    <div class="case">
-    <b><p>{{data.title}}</p></b>
-    <p>{{data.description}}</p>
-    <p>{{data.category}}</p>
-    <p>{{data.region}}</p>
-    <a href="{% url 'answer' data.pk %}"><button>Ответить</button></a>
+ <div class="container">
+     <div class="main-cases">
+        <div class="main-cases__item">
+            <b><p>{{data.title}}</p></b>
+            <p>{{data.description}}</p>
+            <p>{{data.category}}</p>
+            <p>{{data.region}}</p>
+            <a href="{% url 'answer' data.pk %}"><button>Ответить</button></a>
+         </div>
+     </div>
+     <br><br><br><br><br>
  </div>
-
  {% endblock %}

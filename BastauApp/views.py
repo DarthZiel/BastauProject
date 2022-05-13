@@ -51,33 +51,49 @@ def index(request):
 def about(request):
     return render(request, 'about.html')
 
-
-def createcase(request):
-    # active_user = {'user_id': Partner.objects.get(user=request.user)}
-    active_user = {'user_id': request.user.partner}
-    form = AddCaseForm(active_user)
-    if request.method == 'POST':
-        form = AddCaseForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('showcases')
-    data = {
-        'form': form,
-        'menu': menu
+# def createcase(request):
+#     active_user = {'user_id': request.user.partner}
+#
+#     form = AddCaseForm(active_user)
+#     if request.method == 'POST':
+#         form = AddCaseForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('showcases')
+#     data = {
+#         'form': form,
+#         'menu': menu,
+#
+#     }
+#     return render(request, 'createcase.html', data)
+class createcase(CreateView, ListView):
+    model = Case
+    form_class = AddCaseForm
+    template_name = 'createcase.html'
+    success_url = "/showcases"
+    context_object_name = "partners"
+    extra_context = {
+        'menu': menu,
     }
-    return render(request, 'createcase.html', data)
+
+    def form_valid(self, form):
+
+        self.object = form.save(commit=False)
+        self.object.user_id = Partner.objects.get(user=self.request.user)
+        self.object.save()
+        return super().form_valid(form)
 
 class ShowCases(ListView):
 
     now = datetime.datetime.now()
     model = Case
     template_name = 'ShowCase.html'
-    paginate_by = 3
+    paginate_by = 6
     context_object_name = 'orders'
     extra_context = {"name": 'Кейсы', 'menu': menu}
 
     def get_queryset(self):
-        qs = Case.objects.all()
+        qs = Case.objects.all().filter(is_published=True)
         case = CaseFilter(self.request.GET, queryset=qs)
         return case.qs
 
@@ -88,8 +104,16 @@ class ShowCases(ListView):
 
 class ShowCasesPartner(ListView):
     model = Case
+    context_object_name = 'case'
     template_name = 'casepartners.html'
     extra_context = {'menu': menu}
+    paginate_by = 6
+    def get_queryset(self):
+        queryset = Case.objects.filter(user_id=self.request.user.partner)
+        return queryset
+
+
+
 
 def detail_view(request, case_id):
     # dictionary for initial data with
@@ -153,8 +177,9 @@ class student_update(UpdateView):
 
 class partner_update(UpdateView):
     model = Partner
-    fields = '__all__'
+    fields = ['Fio', 'name_of_partner', 'site', 'avatar', 'about_company']
     success_url = "/"
+    context_object_name = 'partner'
     template_name = 'personal_partner.html'
     extra_context = {'menu': menu}
 
@@ -163,7 +188,7 @@ class case_update(UpdateView):
     model = Case
     fields = '__all__'
     success_url = "/mycases"
-    template_name = 'createcase.html'
+    template_name = 'updatecase.html'
     extra_context = {'menu': menu}
 
 class delete_case(DeleteView):
@@ -208,11 +233,15 @@ def ShowAnswer(request, case_id):
     context["data"] = Case.objects.get(pk=case_id)
     context["menu"] = menu
     return render(request,'showanswer.html', context)
+
 class ShowAnswerStudent(ListView):
     model = Answer
     template_name = 'showanswer_student.html'
     extra_context = {'name': 'Ответы', 'menu': menu}
 
+    def get_queryset(self):
+        queryset = Answer.objects.filter(id_student=self.request.user.student)
+        return queryset
 
 
 def detail_student(request, user_id):

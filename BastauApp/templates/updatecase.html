@@ -1,18 +1,27 @@
 {% extends 'base.html' %}
-{% block content %}
+  {% block content %}
 
+<br><br><br><br><br>
  <div class="container">
-<form action="" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
+    <form method="post">
+      {% if request.user.is_authenticated %}
+      {% csrf_token %}
+      <div>Название: {{ form.title }} </div>
+        <div>Описание: {{ form.description }}</div>
+        <div>Категория: {{ form.category }}</div>
+        <div>Область: {{ form.region }}</div>
+        <div>Теги: {{ form.tags }}</div>
+        <div>Дата закрытия: {{ form.date_of_close }}</div>
+        <div>Опубликован: {{ form.is_published }}</div>
 
-    <div>title: {{form.title}}</div>
-    <div>description: {{form.description}}</div>
-    <div>category: {{form.category}}</div>
-    <div>user_id: {{form.user_id}}</div>
-
-    <br>
-       <input type="submit" value="Update">
-</form>
+      {{ form.date_of_close }} <br>
+      <div class="prikol">{{form.user_id}}</div>
+        <span>{{error}}</span>
+        <button type="submit">Сохранить</button>
+    </form>
+      {% else %}
+      <p>Вы не авторизированы!</p>
  </div>
+{% endif %}
+  {% endblock %}
 
-{% endblock %}
