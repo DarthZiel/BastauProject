@@ -25,9 +25,13 @@
 
 
          <div class="col main-cases__item">
-
-        <p>{{partners.user_id.Fio}}</p>
-
+          {% for item in partners%}
+          {% if request.user.is_authenticated == item.user_id.user_id.email %}
+        <p>
+         {{item}}
+        </p>
+        {% endif %}
+          {% endfor %}
 
          </div>
           {% else %}

@@ -84,8 +84,7 @@ class createcase(CreateView, ListView):
         return super().form_valid(form)
 
 class ShowCases(ListView):
-
-    now = datetime.datetime.now()
+    # now = datetime.datetime.now()
     model = Case
     template_name = 'ShowCase.html'
     paginate_by = 6
@@ -93,7 +92,8 @@ class ShowCases(ListView):
     extra_context = {"name": 'Кейсы', 'menu': menu}
 
     def get_queryset(self):
-        qs = Case.objects.all().filter(is_published=True)
+        now = datetime.datetime.now()
+        qs = Case.objects.all().filter(is_published=True, date_of_close__gte=now)
         case = CaseFilter(self.request.GET, queryset=qs)
         return case.qs
 
