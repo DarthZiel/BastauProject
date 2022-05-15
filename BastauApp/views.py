@@ -51,21 +51,7 @@ def index(request):
 def about(request):
     return render(request, 'about.html')
 
-# def createcase(request):
-#     active_user = {'user_id': request.user.partner}
-#
-#     form = AddCaseForm(active_user)
-#     if request.method == 'POST':
-#         form = AddCaseForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('showcases')
-#     data = {
-#         'form': form,
-#         'menu': menu,
-#
-#     }
-#     return render(request, 'createcase.html', data)
+
 class createcase(CreateView, ListView):
     model = Case
     form_class = AddCaseForm
