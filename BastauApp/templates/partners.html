@@ -6,22 +6,31 @@
 {% extends 'base.html' %}
 {% load static %}
   {% block content %}
+<br><br><br><br><br><br><br>
+<div class="card-deck">
   {% for item in object_list %}
-<a href="{% url 'detail_partner' item.user_id %}">
 
-    <div class="case">
-      <br><br><br><br>
-      <span class="case__title">
-        <p>{{item.name_of_partner}}</p>
-      </span>
-      {% if item.avatar %}
-            <p align="center"><img src="{{item.avatar.url}}" width="250px" height="235px" ></p>
+  <div class="card ">
+
+          {% if item.avatar %}
+            <img src="{{item.avatar.url}}" width="244px" height="244px" class="card-img-top"  >
         {% else %}
-           <p align="center"><img src="https://audit.msu.ru/wp-content/themes/audit/images/noavatar.png"></p>
+           <img src="https://audit.msu.ru/wp-content/themes/audit/images/noavatar.png">
         {% endif %}
+    <div class="card-body">
+      <h5 class="card-title">{{item.name_of_partner}}</h5>
+      <p class="card-text">{{item.about_company}}</p>
     </div>
-    {% endfor %}
+    <div class="card-footer">
+      <small class="text-muted"> <a href="{% url 'detail_partner' item.user_id %}">Подробнее...</a></small>
     </div>
-  </a>
+
+  </div>
+
+{% endfor %}
+    </div>
+      <div class="grid-img-right mt-4 text-right bg bg1" >
+          {% include 'include/pagination.html' %}
+      </div>
   {% endblock %}
 </html>

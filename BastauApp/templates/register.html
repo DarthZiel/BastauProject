@@ -1,48 +1,35 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
 {% block content %}
+{% load static %}
 
   <section class="reg-page">
-    <div class="container">
       <div class="reg-page__title">
-        <h2>Регистрация</h2>
-      </div>
-      <div class="">
-        <div class="d-flex">
-          <a type="button" class="reg-page__block" href="{% url 'student_register' %}">
-              Для студента
-          </a>
-          <a type="button" class="reg-page__block" href="{% url 'partner_register' %}">Для организации</a>
-        </div>
-      </div>
-    </div>
+
+        <h2 class="mb-5">Регистрация</h2>
+
  <div class="container">
-      <div class="row">
-        <div class="col-md-6 mx-auto">
-          <div class="card">
-            <div class="card-header text-black">
-              <h2>Register</h2>
-            </div>
-            <div class="card-body">
-                <form action="{% url 'student_register' %}" method="POST" novalidate>
-                  {% csrf_token %}
-                     {% for field in form %}
-                       <div class="form-group">
-                           {{ field.label_tag }}
-                              {% render_field field class="form-control" %}
-                                {% for error in field.errors %}
-                                  <span style="color:red">{{ error }}</span>
-                                {% endfor %}
-                     {% endfor %}
-                         <input type="submit" value="Register" class="btn btn-block btn-primary">
-                       </div>
-                </form>
-             </div>
-                </div>
-            </div>
-          </div>
-        </div>
+     <div class="card-deck">
+  <div class="card">
+    <img class="card-img-top" src="{% static 'img_register/img_partner_register.png' %}" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">Партнер</h5>
+      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+      <p class="card-text "><div class="main-cases__item__link"><a href="{% url 'partner_register' %}">Перейти к регистрации</a></div></p>
     </div>
+  </div>
+
+  <div class="card">
+    <img class="card-img-top" src="{% static 'img_register/img_student_register.png' %}" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">Студент</h5>
+      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+      <p class="card-text "><div class="main-cases__item__link"><a href="{% url 'student_register' %}">Перейти к регистрации</a></div></p>
+    </div>
+  </div>
+</div>
+
+ </div>
   </section>
 
 
