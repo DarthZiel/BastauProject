@@ -17,6 +17,12 @@ menu = [
     {'title': 'Кейсы', 'url_name': 'showcases'},
     {'title': 'Победители', 'url_name': 'ListWinners'},
 ]
+def register(request):
+    context = {}
+    # add the dictionary during initialization
+    context["menu"] = menu
+
+    return render(request, "register.html", context)
 
 class Categories(ListView):
     def get_cat(self):
@@ -112,9 +118,6 @@ class ShowCasesPartner(ListView):
         queryset = Case.objects.filter(user_id=self.request.user.partner)
         return queryset
 
-
-
-
 def detail_view(request, case_id):
     # dictionary for initial data with
     # field names as keys
@@ -135,6 +138,7 @@ def detail_view_for_Partner(request, case_id):
 class ShowPartners(ListView):
     model = Partner
     template_name = 'partners.html'
+    paginate_by = 5
     extra_context = {'name': 'Партнеры', 'menu': menu}
 
 class LoginUser(LoginView):
@@ -148,7 +152,7 @@ class LoginUser(LoginView):
 class student_register(CreateView):
     model = User
     form_class = StudentSignUpForm
-    template_name = 'register.html'
+    template_name = 'student_register.html'
     extra_context = {'menu':menu}
 
     def form_valid(self, form):
