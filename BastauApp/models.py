@@ -119,7 +119,7 @@ class Partner(models.Model):
         return self.Fio
 
 class Category(models.Model):
-    title = models.CharField(max_length=100, verbose_name='Название')
+    title = models.CharField(max_length=30, verbose_name='Название')
 
     class Meta:
         verbose_name = "Категория"
@@ -130,7 +130,7 @@ class Category(models.Model):
 
 
 class Case(models.Model):
-    title = models.CharField(max_length=300, verbose_name='Название')
+    title = models.CharField(max_length=200, verbose_name='Название')
     description = models.TextField(verbose_name='Описание кейса')
     date_of_create = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
     date_of_edit = models.DateTimeField(auto_now_add=True, verbose_name='Дата последней редакции')

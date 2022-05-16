@@ -57,13 +57,28 @@ def index(request):
 def about(request):
     return render(request, 'about.html')
 
+# def createcase(request):
+#     active_user = {'user_id': request.user.partner}
+#
+#     form = AddCaseForm(active_user)
+#     if request.method == 'POST':
+#         form = AddCaseForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('showcases')
+#     data = {
+#         'form': form,
+#         'menu': menu,
+#
+#     }
+#     return render(request, 'createcase.html', data)
 
-class createcase(CreateView, ListView):
+class createcase(CreateView):
     model = Case
     form_class = AddCaseForm
     template_name = 'createcase.html'
     success_url = "/showcases"
-    context_object_name = "partners"
+    # context_object_name = "partners"
     extra_context = {
         'menu': menu,
     }
@@ -279,6 +294,3 @@ def edit(request, pk):
         answer.is_won = True
         answer.save()
         return render(request, 'winner.html')
-    else:
-        return HttpResponse('ты дебил? ты уже его выбрал')
-
