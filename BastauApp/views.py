@@ -50,8 +50,9 @@ def ListWinners(request):
 
 
 def index(request):
-
-    return render(request, 'index.html', {'menu': menu})
+    context = {'menu': menu}
+    context['data'] = Case.objects.order_by("-id")[0:2]
+    return render(request, 'index.html', context)
 
 
 def about(request):

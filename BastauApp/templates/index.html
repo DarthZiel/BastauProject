@@ -130,5 +130,12 @@
     </div>
   </div>
 </div>
+<div>{% for item in data %}
+{{item.title}}
+  {{item.description}}
+  {{item.category.title}}
+
+  <img src="{{ item.user_id.avatar.url }}" alt="">
+{% endfor %}</div>
 
 {% endblock %}
