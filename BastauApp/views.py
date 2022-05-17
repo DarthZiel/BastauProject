@@ -44,7 +44,7 @@ def personal(request):
 
 def ListWinners(request):
     context = {'menu': menu}
-    context['data'] = Answer.objects.filter(is_won=True)
+    context['data'] = Answer.objects.order_by("-id")[0:9]
 
     return render(request, 'ListWinners.html',context)
 
