@@ -6,20 +6,28 @@
  <div class="container">
 <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    <div>ФИО: {{form.Fio}}</div>
-    <div>Место учебы: {{form.Educational_institution}}</div>
-    <div>Возраст: {{form.age}}</div>
-    <div>Регион: {{form.region}}</div>
-    <div>Специальность: {{form.Direction_of_study}}</div>
-    <div>Образование: {{form.Education}}</div>
-    <div>Курс: {{form.Course}}</div>
+    <div class="student-form">ФИО: {{form.Fio}}</div>
+    <div class="student-form">Место учебы: {{form.Educational_institution}}</div>
+    <div class="student-form">Возраст: {{form.age}}</div>
+    <div class="student-form">Регион: {{form.region}}</div>
+    <div class="student-form">Специальность: {{form.Direction_of_study}}</div>
+    <div class="student-form">Образование: {{form.Education}}</div>
     <div class="prikol"> {{form.user}}</div>
-       <input type="submit" value="Update">
+       <input type="submit" value="Изменить" class=" my-4 btn btn-outline-secondary">
 </form>
-<a href="{% url 'show_answer_student'%}">Мои ответы</a>
-<a href='/logout/'>Выйти</a>?
+<a href="{% url 'show_answer_student'%}" class="mt-2 btn btn-primary">Мои ответы</a><br>
+<a href='/logout/' class="mt-2 btn btn-primary">Выйти</a>
  </div>
  {% endif %}
-
+ <script>
+    let formField = document.querySelectorAll("body > div > div > form > div:nth-child(1n) input")
+    formField.forEach(element => {
+        element.classList.add('form-control');
+    });
+    let formSelect1 = document.querySelector("#id_region")
+    let formSelect2 = document.querySelector("#id_Education")
+    formSelect1.classList.add('custom-select');
+    formSelect2.classList.add('custom-select');
+</script>
   {% endblock %}
 
