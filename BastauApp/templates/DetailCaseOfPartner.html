@@ -5,8 +5,9 @@
     <div class="case">
     <p>{{data.title}}</p>
     <p>{{data.description}}</p>
+         {% if data.file  is True %}
         <p>Файл кейса: <a href="{{data.file.url}}" download=""><button>Скачать файл</button></a></p>
-
+     {% endif %}
     <p>{{data.category}}</p>
     </div>
  </div>

@@ -7,7 +7,9 @@
             <b><p>{{data.title}}</p></b>
             <p>{{data.description}}</p>
             <p>{{data.file}}</p>
+            {% if data.file is True %}
              <p>Файл кейса: <a href="{{data.file.url}}" download=""><button>Скачать файл</button></a></p>
+            {% endif %}
             <p>{{data.category}}</p>
             <p>{{data.region}}</p> 
             <a href="{% url 'answer' data.pk %}"><button class="btn btn-outline-secondary">Ответить</button></a>

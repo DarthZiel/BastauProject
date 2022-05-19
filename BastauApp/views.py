@@ -44,7 +44,7 @@ def personal(request):
 
 def ListWinners(request):
     context = {'menu': menu}
-    context['data'] = Answer.objects.order_by("-id")[0:9]
+    context['data'] = Answer.objects.filter(status='Победа')
 
     return render(request, 'ListWinners.html',context)
 
@@ -243,7 +243,8 @@ def ShowAnswer(request, case_id):
 class ShowAnswerStudent(ListView):
     model = Answer
     template_name = 'showanswer_student.html'
-    extra_context = {'name': 'Ответы', 'menu': menu}
+    now = datetime.datetime.now()
+    extra_context = {'name': 'Ответы', 'menu': menu, 'now': now}
 
     def get_queryset(self):
         queryset = Answer.objects.filter(id_student=self.request.user.student)

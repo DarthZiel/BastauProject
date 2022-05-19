@@ -13,11 +13,15 @@
               <td><a href="{{item.File.url}}" download=""><button>скачать файл</button></a></td>
               {% endif %}
               <td><a href="{% url 'delete_answer' item.id %}"><button>Удалить</button></a></td>
-                {%if item.is_won == False%}
+                {%if item.status == 'Ожидание'%}
               <td>Ваш ответ еще не рассмотрели</td>
-                {%else%}
-              <td><p>Победитель</p></td>
-                {%endif%}
+                 {%elif item.status == 'Отказ'%}
+              <td>К сожалению вы проиралии</td>
+               {%elif item.status == 'Победа'%}
+              <td>Поздравляем, вы выиграли</td>
+              {%endif%}
+
+
           </tr>
         </table>
     {% endif %}
