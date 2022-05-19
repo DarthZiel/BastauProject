@@ -5,6 +5,7 @@
 {% if request.user %}
  <div class="container">
 <form action="" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
     {% csrf_token %}
     <div>ФИО: {{form.Fio}}</div>
     <div>Место учебы: {{form.Educational_institution}}</div>
@@ -15,6 +16,7 @@
     <div>Курс: {{form.Course}}</div>
     <div class="prikol"> {{form.user}}</div>
        <input type="submit" value="Update">
+        </div>
 </form>
 <a href="{% url 'show_answer_student'%}">Мои ответы</a>
 <a href='/logout/'>Выйти</a>?
