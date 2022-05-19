@@ -6,9 +6,11 @@
         <div class="main-cases__item">
             <b><p>{{data.title}}</p></b>
             <p>{{data.description}}</p>
+            <p>{{data.file}}</p>
+             <p>Файл кейса: <a href="{{data.file.url}}" download=""><button>Скачать файл</button></a></p>
             <p>{{data.category}}</p>
-            <p>{{data.region}}</p>
-            <a href="{% url 'answer' data.pk %}"><button>Ответить</button></a>
+            <p>{{data.region}}</p> 
+            <a href="{% url 'answer' data.pk %}"><button class="btn btn-outline-secondary">Ответить</button></a>
          </div>
      </div>
      <br><br><br><br><br>

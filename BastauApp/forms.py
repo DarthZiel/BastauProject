@@ -49,6 +49,7 @@ class StudentSignUpForm(UserCreationForm):
     Direction_of_study = forms.CharField(required=True,label='Специальность')
     Education = forms.ChoiceField(required=True,widget=forms.Select, choices= EDUCATION,label='Образование')
 
+    Fio.widget.attrs.update({'class': 'form-control'})
 
     class Meta(UserCreationForm.Meta):
         model = User
@@ -109,7 +110,7 @@ class AddCaseForm(forms.ModelForm):
         self.fields['category'].empty_label = "Категория не выбрана"
     class Meta:
         model = Case
-        fields = ['title', 'description', 'category', 'region', 'date_of_close','tags']
+        fields = ['title', 'description','file', 'category', 'region', 'date_of_close','tags']
         widgets = {
             "title": TextInput(attrs={
                 'class': 'form-control',

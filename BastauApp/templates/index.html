@@ -13,7 +13,7 @@
      Created by potrace 1.15, written by Peter Selinger 2001-2017
      </metadata>
      <g transform="translate(0.000000,1276.000000) scale(0.100000,-0.100000)"
-     fill="red" stroke="none">
+     fill="#FFF" stroke="none">
      <path d="M5975 12749 c-86 -6 -144 -14 -151 -22 -6 -6 -36 -95 -67 -197 -30
      -102 -119 -396 -197 -655 -78 -258 -156 -516 -173 -571 l-30 -102 -188 -46
      c-213 -52 -475 -135 -658 -208 -68 -27 -130 -47 -137 -44 -7 3 -301 221 -653
@@ -130,12 +130,6 @@
     </div>
   </div>
 </div>
-<div>{% for item in data %}
-{{item.title}}
-  {{item.description}}
-  {{item.category.title}}
-
-  <img src="{{ item.user_id.avatar.url }}" alt="">
-{% endfor %}</div>
+<div>
 
 {% endblock %}
