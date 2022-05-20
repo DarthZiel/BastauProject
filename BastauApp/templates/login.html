@@ -3,6 +3,7 @@
 {% load widget_tweaks %}
 
 <div class="login-page">
+    <div class="content-wrapper">
   <div class="container">
     <form method="post" action="">
 {% csrf_token %}
@@ -19,6 +20,7 @@
     <a href="{% url 'reset_password' %}">Забыли пароль?</a>
   </div>
 </div>
+    </div>
 
 
 {% endblock %}

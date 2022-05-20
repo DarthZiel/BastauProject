@@ -6,11 +6,13 @@
 {% extends 'base.html' %}
 {% load static %}
   {% block content %}
-<br><br><br><br><br><br><br>
-<div class="card-deck">
+<br><br><br>
+<div class="container">
+<div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-3">
+
   {% for item in object_list %}
 
-  <div class="card ">
+  <div class="card col">
 
           {% if item.avatar %}
             <img src="{{item.avatar.url}}" width="244px" height="244px" class="card-img-top"  >
@@ -29,6 +31,8 @@
 
 {% endfor %}
     </div>
+</div>
+</div>
       <div class="grid-img-right mt-4 text-right bg bg1" >
           {% include 'include/pagination.html' %}
       </div>
