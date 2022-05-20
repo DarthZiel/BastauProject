@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load widget_tweaks %}
   {% block content %}
   <div class="case-page">
     <div class="container">
@@ -11,7 +12,7 @@
                         <div class="col">
                             {{ filter.form.search }}
                         </div>
-                            <button type="submit" class="btn btn-success" >Поиск</button><br>
+                            <button type="submit" class="btn btn-secondary" >Поиск</button><br>
                        </div>
                  </form>
                      <br>
@@ -44,8 +45,10 @@
                         <br>
                       {% endfor %}
                         </div>
+
                             <div class="col">
                                 <div class="sticky">
+                                    <h2>Фильтрация</h2>
                               <form method="get">
                                 {% csrf_token %}
                                 <div class="row">
@@ -54,10 +57,11 @@
                                   </div>
                                   <div class="col-6">
                                     {{ filter.form.region|as_crispy_field }}
-                                  </div>
+                                  </div >
+                                    <div class="col">{{ filter.form.user_id|as_crispy_field }}</div>
                                 </div>
                                 {{ filter.form.tags}}<br>
-                                <button type="submit" class="btn btn-success">Фильтровать</button>
+                                <button type="submit" class="btn btn-secondary">Фильтровать</button>
                               </form>
                                     <a href="{% url 'showcases' %}">Отменить фильтрацию</a>
                                 </div>
@@ -68,6 +72,16 @@
           {% include 'include/pagination.html' %}
       </div>
   </div>
+ <script>
+    let formField = document.querySelectorAll("body > div > div > form > div:nth-child(1n) input")
+    formField.forEach(element => {
+        element.classList.add('form-control');
+    });
+    let formSelect1 = document.querySelector("#user_id")
+    let formSelect2 = document.querySelector("#user_id")
+    formSelect1.classList.add('custom-select');
+    formSelect2.classList.add('custom-select');
+</script>
   {% endblock %}
 
 

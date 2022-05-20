@@ -81,55 +81,57 @@
   </div>
 </div>
 <div class="container">
+    <h1 class="sertificats__title">Партнеры</h1>
+    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-3">
+          {% for partner in partners %}
+          <div class="card mb-5 main-cases__item animation" style="max-width: 300px; margin-right: 7%; border-radius: 25px; display:inline-table;">
+              <a href="{% url 'detail_partner' partner.user_id %}">
+                  {% if partner.avatar %}
+                    <img src="{{partner.avatar.url}}" class="card-img-top img_partners" height="250px"  >
+                {% else %}
+                   <img src="https://audit.msu.ru/wp-content/themes/audit/images/noavatar.png"  height="250px">
+                {% endif %}
+                  </a>
+            <div class="card-body">
+              <h5 class="card-title d-flex justify-content-center">{{partner.name_of_partner}}</h5>
+            </div>
+              <span class=" d-flex justify-content-center">
+                  Кейсы: 0
+              </span>
+          </div>
+{% endfor %}
+        </div>
 <div class="sertificats__title">Кейсы</div>
-
   <div class="main-cases">
-    <div class="main-cases__item">
-      <div class="main-cases__item__header">
-        <img src="https://img.championat.com/s/735x490/news/big/x/e/v-znachit-virtus-pro-organizacija-predstavila-novyj-logotip_15422783561214372278.jpg" alt="стандартное">
-        <div class="main-cases__item__part-name">ГПОУ "Профессиональный колледж г.Новокузнецка"</div>
+{% for item in data %}
+     <div class="main-cases__item">
+         <div class="main-cases__item__header">
+             {% if item.user_id.avatar %}
+             <img src="{{item.user_id.avatar.url}}" alt="стандартное">
+             {% else %}
+             <img src="https://audit.msu.ru/wp-content/themes/audit/images/noavatar.png">
+             {% endif %}
+             <div class="main-cases__item__part-name">{{item.user_id.name_of_partner}}</div>
+         </div>
+         <div class="main-cases__item__body">
+             <div class="main-cases__item__title"><h5>{{item}}</h5></div>
+             <div class="main-cases__item__tags">
+                 {% for tag in item.tags.all %}
+                 {{tag}} |
+                 {% endfor %}
+             </div>
+         </div>
+         <div class="main-cases__item__footer">
+             <div class="main-cases__item__city">{{item.region}}</div>
+             <div class="main-cases__item__link"><a href="{% url 'detail_case' item.id %}">Перейти к кейсу</a></div>
+         </div>
+         <div>
+         </div>
       </div>
-      <div class="main-cases__item__body">
-        <div class="main-cases__item__title"><h5>Студенческий центр бесплатной юридической помощи</h5></div>
-        <div class="main-cases__item__tags">Юридическая клиника, Делопроизводство, Консультирование, Юридическая услуга</div>
-      </div>  
-      <div class="main-cases__item__footer">
-        <div class="main-cases__item__city">Павлодар</div>
-        <div class="main-cases__item__link">Перейти к кейсу</div>
-      </div>
+    {% endfor %}
     </div>
 
-    <div class="main-cases__item">
-      <div class="main-cases__item__header">
-        <img src="https://профстажировки.рф/upload/iblock/a8a/a8a1af131d6d3d84df14d02e89ccfb74.png" alt="стандартное">
-        <div class="main-cases__item__part-name">ГПОУ "Профессиональный колледж г.Новокузнецка"</div>
-      </div>
-      <div class="main-cases__item__body">
-        <div class="main-cases__item__title"><h5>Студенческий центр бесплатной юридической помощи</h5></div>
-        <div class="main-cases__item__tags">Юридическая клиника, Делопроизводство, Консультирование, Юридическая услуга</div>
-      </div>  
-      <div class="main-cases__item__footer">
-        <div class="main-cases__item__city">Павлодар</div>
-        <div class="main-cases__item__link">Перейти к кейсу</div>
-      </div>
-    </div>
-
-    <div class="main-cases__item">
-      <div class="main-cases__item__header">
-        <img src="https://профстажировки.рф/upload/iblock/a8a/a8a1af131d6d3d84df14d02e89ccfb74.png" alt="стандартное">
-        <div class="main-cases__item__part-name">ГПОУ "Профессиональный колледж г.Новокузнецка"</div>
-      </div>
-      <div class="main-cases__item__body">
-        <div class="main-cases__item__title"><h5>Студенческий центр бесплатной юридической помощи</h5></div>
-        <div class="main-cases__item__tags">Юридическая клиника, Делопроизводство, Консультирование, Юридическая услуга</div>
-      </div>  
-      <div class="main-cases__item__footer">
-        <div class="main-cases__item__city">Павлодар</div>
-        <div class="main-cases__item__link">Перейти к кейсу</div>
-      </div>
-    </div>
-  </div>
 </div>
 <div>
 
-{% endblock %}
+        {% endblock %}
