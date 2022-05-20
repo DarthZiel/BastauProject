@@ -50,8 +50,9 @@ def ListWinners(request):
 
 
 def index(request):
-
-    return render(request, 'index.html', {'menu': menu})
+    context = {'menu': menu}
+    context['data'] = Case.objects.order_by("-id")[0:2]
+    return render(request, 'index.html', context)
 
 
 def about(request):
@@ -72,12 +73,13 @@ def about(request):
 #
 #     }
 #     return render(request, 'createcase.html', data)
-class createcase(CreateView, ListView):
+
+class createcase(CreateView):
     model = Case
     form_class = AddCaseForm
     template_name = 'createcase.html'
     success_url = "/showcases"
-    context_object_name = "partners"
+    # context_object_name = "partners"
     extra_context = {
         'menu': menu,
     }
@@ -293,6 +295,3 @@ def edit(request, pk):
         answer.is_won = True
         answer.save()
         return render(request, 'winner.html')
-    else:
-        return HttpResponse('ты дебил? ты уже его выбрал')
-

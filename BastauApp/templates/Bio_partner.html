@@ -1,17 +1,30 @@
 {% extends 'base.html' %}
   {% block content %}
 <br><br><br><br>
-    <div>Почта: {{partner_info.user.email}}</div>
-    <div>ФИО: {{partner_info.Fio}}</div>
-    <div>Название организации: {{partner_info.name_of_partner}}</div>
-    <div>Сайт: {{partner_info.site}}</div>
-      {% if partner_info.avatar %}
-            <div>Аватар: <img src="{{partner_info.avatar.url}}" alt="" width="250px" height="235px"></div>
-        {% else %}
-           <p><img src="https://audit.msu.ru/wp-content/themes/audit/images/noavatar.png" width="250px" height="235px"></p>
-        {% endif %}
+    <div class="container card">
+      <div class="row bio-flex card-header"">
+        <div>
+          <div>Почта: {{partner_info.user.email}}</div>
+          <div>ФИО: {{partner_info.Fio}}</div>
+          <div>Название организации: {{partner_info.name_of_partner}}</div>
+          <div>Сайт: {{partner_info.site}}</div>
+        </div>
+        <div>
+          {% if partner_info.avatar %}
+          <div>Аватар: <img src="{{partner_info.avatar.url}}" alt="" width="250px" height="235px" style="border-radius: 10px;"></div>
+      {% else %}
+         <p><img src="https://audit.msu.ru/wp-content/themes/audit/images/noavatar.png" width="250px" height="235px" style="border-radius: 10px;"></p>
+      {% endif %}
+        </div>
+      </div>
+      <div class="row card-body">
+        <div>О компании: {{partner_info.about_company}}</div>
+        <div>Телефон: {{partner_info.user.phone}}</div>
+      </div>
+    </div>
+    
+     
 
-    <div>О компании: {{partner_info.about_company}}</div>
-    <div>Телефон: {{partner_info.user.phone}}</div>
+    
 
   {% endblock %}

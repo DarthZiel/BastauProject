@@ -52,6 +52,7 @@ class StudentSignUpForm(UserCreationForm):
     Direction_of_study = forms.CharField(required=True,label='Специальность')
     Education = forms.ChoiceField(required=True,widget=forms.Select, choices= EDUCATION,label='Образование')
 
+    Fio.widget.attrs.update({'class': 'form-control'})
 
     class Meta(UserCreationForm.Meta):
         model = User
