@@ -9,7 +9,7 @@
 <div class="container">
     <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-3">
           {% for item in object_list %}
-          <div class="card mb-5 main-cases__item animation" style="max-width: 300px; margin-right: 7%; border-radius: 25px; display:inline-table;">
+          <div class="card mb-5 main-cases__item animation block" style="max-width: 300px; margin-right: 7%; border-radius: 25px; display:inline-table;">
               <a href="{% url 'detail_partner' item.user_id %}">
                   {% if item.avatar %}
                     <img src="{{item.avatar.url}}" class="card-img-top img_partners" height="250px"  >
@@ -26,7 +26,7 @@
           </div>
 {% endfor %}
         </div>
-          <div class="grid-img-right mt-4 text-right bg bg1 pb-4" >
+          <div class="grid-img-right text-right bg bg1 pb-4" >
           {% include 'include/pagination.html' %}
       </div>
     </div>
