@@ -10,14 +10,9 @@
               <td>{{item.id_student_id}}</td>
               <td><a href="{% url 'detail_student' item.id_student_id %}">{{item.id_student}}</a></td>
               <td><a href="{{item.Url}}">Ссылка на файл</a></td>
-              {% if item.File %}
-              <td><a href="{{item.File.url}}" download=""><button>Скачать файл</button></a></td>
-              {% endif %}
-                {%if item.status == 'Ваш ответ еще не просмотрен'%}
-              <td><a href="{% url 'winner' item.id %}"><button>Выбрать победителя</button></a></td>
-               {%else%}
+              <td><a href="{% url 'updatewinner' item.id %}"><button>Выбрать победителя</button></a></td>
+
               <td>Победитель</td>
-                {%endif%}
 
           </tr>
 

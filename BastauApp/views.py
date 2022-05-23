@@ -275,9 +275,11 @@ class PasswordResetCompleteViewBastau(PasswordResetCompleteView):
     template_name = "reset_password/password_reset_done.html"
     extra_context = {'menu': menu}
 
-def edit(request, pk):
-    answer = Answer.objects.get(id=pk)
-    if answer.is_won == False:
-        answer.is_won = True
-        answer.save()
-        return render(request, 'winner.html')
+
+class Winner(UpdateView):
+    model = Answer
+    fields = ['status',]
+    success_url = "/"
+    context_object_name = 'partner'
+    template_name = 'updatewinner.html'
+    extra_context = {'menu': menu}
