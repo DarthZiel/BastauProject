@@ -136,6 +136,7 @@ class Case(models.Model):
     date_of_edit = models.DateTimeField(auto_now_add=True, verbose_name='Дата последней редакции')
     date_of_close = models.DateTimeField(verbose_name='Дата закрытия')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категории')
+    file = models.FileField(verbose_name='Файл', upload_to="file",blank=True)
     region = models.CharField(max_length=50, choices=REGIONS, default=REGIONS[0],verbose_name='Область')
     user_id = models.ForeignKey(Partner, on_delete=models.CASCADE, related_name='partners', verbose_name='Организации')
     is_published = models.BooleanField(default=True, verbose_name='Опубликован')
@@ -147,7 +148,11 @@ class Case(models.Model):
     def __str__(self):
         return self.title
 
-
+STATUS = [
+    ('Ожидание', 'Ожидание'),
+    ('Отказ', 'Отказ'),
+    ('Победа', 'Победа'),
+]
 
 class Answer(models.Model):
 
@@ -155,7 +160,7 @@ class Answer(models.Model):
     File = models.FileField(verbose_name='Файл', upload_to = "file",blank=True)
     id_case = models.ForeignKey(Case, verbose_name="Кейс", on_delete=models.CASCADE,blank=True,related_name='cases')
     id_student = models.ForeignKey(Student, verbose_name="Студент", on_delete=models.CASCADE,blank=True)
-    is_won = models.BooleanField(default=False, verbose_name="Победитель")
+    status = models.CharField(max_length=50, choices=STATUS, default=STATUS[0],verbose_name='Статус')
     class Meta:
         verbose_name = "Ответ"
         verbose_name_plural = "Ответы"

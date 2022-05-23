@@ -13,7 +13,7 @@
               {% if item.File %}
               <td><a href="{{item.File.url}}" download=""><button>Скачать файл</button></a></td>
               {% endif %}
-                {%if item.is_won == False%}
+                {%if item.status == 'Ваш ответ еще не просмотрен'%}
               <td><a href="{% url 'winner' item.id %}"><button>Выбрать победителя</button></a></td>
                {%else%}
               <td>Победитель</td>

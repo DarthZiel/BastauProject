@@ -117,7 +117,7 @@ class AddCaseForm(forms.ModelForm):
         self.fields['category'].empty_label = "Категория не выбрана"
     class Meta:
         model = Case
-        fields = ['title', 'description', 'category', 'region', 'date_of_close','tags']
+        fields = ['title', 'description','file', 'category', 'region', 'date_of_close','tags']
         widgets = {
             "title": TextInput(attrs={
                 'class': 'form-control',
