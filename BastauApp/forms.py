@@ -42,7 +42,10 @@ COURSE = [
     ]
 ''''Форма студента'''
 class StudentSignUpForm(UserCreationForm):
-    Fio = forms.CharField(required=True, label='ФИО')
+    Fio = forms.CharField(required=True, label='ФИО', widget=forms.TextInput(attrs={'class': 'form-control',
+                                  'type': 'text',
+                                  'required': 'true',
+    }),)
     Educational_institution = forms.CharField(required=True,label='Учебное учрежедение')
     age = forms.CharField(required=True,label='Возраст')
     region = forms.ChoiceField(required=True,widget=forms.Select, choices=REGIONS,label='Область')
@@ -55,6 +58,8 @@ class StudentSignUpForm(UserCreationForm):
         model = User
         fields = ['email','phone']
         field_classes = {'email': EmailField}
+
+
 
     @transaction.atomic
     def save(self):
@@ -86,6 +91,8 @@ class PartnerSignUpForm(UserCreationForm):
         fields = ['email','phone']
         field_classes = {'email': EmailField}
         model = User
+
+
 
     @transaction.atomic
     def save(self):

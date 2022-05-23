@@ -5,6 +5,7 @@
 {% if request.user %}
  <div class="container">
 <form action="" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
     {% csrf_token %}
     <div class="student-form">ФИО: {{form.Fio}}</div>
     <div class="student-form">Место учебы: {{form.Educational_institution}}</div>
@@ -21,6 +22,7 @@
 <a href='/logout/' class="mt-2 btn btn-primary">Выйти</a>
  </div>
  {% endif %}
+
  <script>
     let formField = document.querySelectorAll("body > div > div > form > div:nth-child(1n) input")
     formField.forEach(element => {

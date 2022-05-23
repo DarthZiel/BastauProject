@@ -449,3 +449,10 @@ placeholder: 'Все категории'
   justify-content: space-between;
   align-items: center;
 }
+.card{
+border-radius: 50px;
+}
+.animation:hover{
+box-shadow: 0 0 5px 2px rgb(39, 138, 99);;
+transition: .5s;
+color:rgb(39, 138, 99);;}

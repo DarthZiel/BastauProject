@@ -18,13 +18,10 @@
                   {{ form.tags }} </span><br>
                   {{ form.date_of_close }} <br>
 
-          {{form.user_id}}
             <span>{{error}}</span>
             <button type="submit" class="btn btn-secondary" data-toggle="tooltip">Сохранить</button>
             </form>
           </div>
-
-
          <div class="col main-cases__item">
           {% for item in partners%}
           {% if request.user.is_authenticated == item.user_id.user_id.email %}
@@ -33,7 +30,6 @@
         </p>
         {% endif %}
           {% endfor %}
-
          </div>
           {% else %}
           <p>Вы не авторизированы!</p>

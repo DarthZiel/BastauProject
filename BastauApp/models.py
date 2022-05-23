@@ -116,7 +116,7 @@ class Partner(models.Model):
         verbose_name_plural = "Партнеры"
 
     def __str__(self):
-        return self.Fio
+        return self.name_of_partner
 
 class Category(models.Model):
     title = models.CharField(max_length=30, verbose_name='Название')
@@ -138,7 +138,7 @@ class Case(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категории')
     file = models.FileField(verbose_name='Файл', upload_to="file",blank=True)
     region = models.CharField(max_length=50, choices=REGIONS, default=REGIONS[0],verbose_name='Область')
-    user_id = models.ForeignKey(Partner, on_delete=models.CASCADE, related_name='partners')
+    user_id = models.ForeignKey(Partner, on_delete=models.CASCADE, related_name='partners', verbose_name='Организации')
     is_published = models.BooleanField(default=True, verbose_name='Опубликован')
     tags = TaggableManager()
     class Meta:

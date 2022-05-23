@@ -51,28 +51,13 @@ def ListWinners(request):
 
 def index(request):
     context = {'menu': menu}
-    context['data'] = Case.objects.order_by("-id")[0:2]
+    context['data'] = Case.objects.order_by("-id")[0:3]
+    context['partners'] = Partner.objects.order_by("-Fio")[0:3]
     return render(request, 'index.html', context)
 
 
 def about(request):
     return render(request, 'about.html')
-
-# def createcase(request):
-#     active_user = {'user_id': request.user.partner}
-#
-#     form = AddCaseForm(active_user)
-#     if request.method == 'POST':
-#         form = AddCaseForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('showcases')
-#     data = {
-#         'form': form,
-#         'menu': menu,
-#
-#     }
-#     return render(request, 'createcase.html', data)
 
 class createcase(CreateView):
     model = Case
@@ -140,7 +125,7 @@ def detail_view_for_Partner(request, case_id):
 class ShowPartners(ListView):
     model = Partner
     template_name = 'partners.html'
-    paginate_by = 5
+    paginate_by = 6
     extra_context = {'name': 'Партнеры', 'menu': menu}
 
 class LoginUser(LoginView):
