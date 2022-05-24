@@ -468,8 +468,8 @@ color:rgb(39, 138, 99);;}
 .block img {
   display: block;
   position: relative;
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
 }
 
 .block__text {
@@ -491,4 +491,7 @@ color:rgb(39, 138, 99);;}
 
 .block:hover .block__text {
   opacity: 1;
+}
+.row{
+margin-right:0 !important;
 }

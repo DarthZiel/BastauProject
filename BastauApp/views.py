@@ -103,7 +103,7 @@ class ShowCasesPartner(ListView):
     paginate_by = 6
 
     def get_queryset(self):
-        queryset = Case.objects.filter(user_id=self.request.user.partner)
+        queryset = Case.objects.filter(user_id=self.request.user.partner,is_published=True)
         return queryset
 
     def get_context_data(self, **kwargs):

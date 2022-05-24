@@ -82,9 +82,9 @@
 </div>
 <div class="container">
     <h1 class="sertificats__title">Партнеры</h1>
-    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-3">
+    <div class="row justify-content-center ml-1">
           {% for partner in partners %}
-          <div class="card mb-5 main-cases__item animation" style="max-width: 300px; margin-right: 7%; border-radius: 25px; display:inline-table;">
+          <div class="card mb-5 main-cases__item animation" style="max-width: 300px; margin-left: 3%;margin-right: 3%; border-radius: 25px; display:inline-table;">
               <a href="{% url 'detail_partner' partner.user_id %}">
                   {% if partner.avatar %}
                     <img src="{{partner.avatar.url}}" class="card-img-top img_partners" height="250px"  >
@@ -95,9 +95,6 @@
             <div class="card-body">
               <h5 class="card-title d-flex justify-content-center">{{partner.name_of_partner}}</h5>
             </div>
-              <span class=" d-flex justify-content-center">
-                  Кейсы: 0
-              </span>
           </div>
 {% endfor %}
         </div>

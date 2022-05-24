@@ -3,6 +3,7 @@
 <br><br><br><br>
  <div class="container">
      <h1>Опубликовано кейсов: {{total_active_records}}</h1>
+     
     {% for item in object_list %}
     {% if item.user_id.user.email == request.user.email %}
         <div class="row">
@@ -10,12 +11,11 @@
             <span class="case__title">
                 {{item}}
             </span>
-
-      <p>{{item.category}}</p>
-      <a href="{% url 'detail_view_for_Partner' item.id %}"><button class="btn btn-secondary">Открыть</button></a>
-      <a href="{% url 'show_answer' item.id %}"><button class="btn btn-secondary">Ответы</button></a>
-      <a href="{% url 'case_update' item.id %}"><button class="btn btn-secondary">Редактировать</button></a>
-      <a href="{% url 'delete_case' item.id %}"><button class="btn btn-secondary">Удалить</button></a>
+                  <p>{{item.category}}</p>
+                  <a href="{% url 'detail_view_for_Partner' item.id %}"><button class="btn btn-secondary">Открыть</button></a>
+                  <a href="{% url 'show_answer' item.id %}"><button class="btn btn-secondary">Ответы</button></a>
+                  <a href="{% url 'case_update' item.id %}"><button class="btn btn-secondary">Редактировать</button></a>
+                  <a href="{% url 'delete_case' item.id %}"><button class="btn btn-secondary">Удалить</button></a>
              </div>
          </div>
      <br>
