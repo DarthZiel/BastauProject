@@ -2,7 +2,7 @@
   {% block content %}
 <br><br><br><br>
  <div class="container">
-     <h1>Кейсы: {{case.all.count}}</h1>
+     <h1>Опубликовано кейсов: {{total_active_records}}</h1>
     {% for item in object_list %}
     {% if item.user_id.user.email == request.user.email %}
         <div class="row">

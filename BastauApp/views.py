@@ -101,9 +101,15 @@ class ShowCasesPartner(ListView):
     template_name = 'casepartners.html'
     extra_context = {'menu': menu}
     paginate_by = 6
+
     def get_queryset(self):
         queryset = Case.objects.filter(user_id=self.request.user.partner)
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['total_active_records'] = Case.objects.filter(user_id=self.request.user.partner,is_published=True).count()
+        return context
 
 def detail_view(request, case_id):
     # dictionary for initial data with

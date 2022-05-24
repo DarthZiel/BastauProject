@@ -5,37 +5,11 @@
 {% extends 'base.html' %}
 {% load static %}
   {% block content %}
-<<<<<<< HEAD
-<br><br><br><br><br><br><br>
-<div class="card-deck card-padding">
-  {% for item in object_list %}
-
-
-  <div class="card " style="max-width: 25%">
-
-
-
-          {% if item.avatar %}
-            <img src="{{item.avatar.url}}" class="card-img-top img_partners"  >
-        {% else %}
-           <img src="https://audit.msu.ru/wp-content/themes/audit/images/noavatar.png" class="img_partners">
-        {% endif %}
-    <div class="card-body">
-      <h5 class="card-title">{{item.name_of_partner}}</h5>
-
-    </div>
-    <div class="card-footer">
-      <small class="text-muted"> <a href="{% url 'detail_partner' item.user_id %}">Подробнее...</a></small>
-    </div>
-
-  </div>
-
-=======
 <br><br><br><br>
 <div class="container">
-    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-3">
+    <div class="row d-flex justify-content-center ">
           {% for item in object_list %}
-          <div class="card mb-5 main-cases__item animation block" style="max-width: 300px; margin-right: 7%; border-radius: 25px; display:inline-table;">
+          <div class="card mb-3 main-cases__item animation block" style="max-width: 300px; margin-right: 7%; border-radius: 25px; display:inline-table;">
               <a href="{% url 'detail_partner' item.user_id %}">
                   {% if item.avatar %}
                     <img src="{{item.avatar.url}}" class="card-img-top img_partners" height="250px"  >
@@ -50,7 +24,6 @@
                   Кейсы: 0
               </span>
           </div>
->>>>>>> b8b7e49607a3b1a22a36ef92e49c9571aa529d5a
 {% endfor %}
         </div>
           <div class="grid-img-right text-right bg bg1 pb-4" >
