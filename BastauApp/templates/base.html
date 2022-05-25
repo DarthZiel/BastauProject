@@ -10,7 +10,8 @@
   <!-- jQuery (Cloudflare CDN) -->
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- Bootstrap Bundle JS (Cloudflare CDN) -->
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.min.js" integrity="sha512-UR25UO94eTnCVwjbXozyeVd6ZqpaAE9naiEUBK/A+QDbfSTQFhPGj5lOR6d8tsgbBk84Ggb5A3EkjsOgPRPcKA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link type="text/css" href="{% static 'select2/select2.css' %}" rel="stylesheet" />
+    <script src="{% static 'select2/select2.js'%}"></script>
   </head>
 
   <body>
@@ -40,7 +41,7 @@
                 <li class="nav-item nav-link"> {{user.email}} </li>
                 <li class="nav-item"><a href="{% url 'personal' user.id %}"  class="nav-link">Личный кабинет</a></li>
                 {% elif request.user.is_partner %}
-              <li class=""><a href="{% url 'createcase' %}"><button type="submit" class="btn btn-success mr-4" >Создать кейс</button></a></li>
+              <li class=""><a href="{% url 'createcase' %}"><button type="submit" class="btn btn-secondary mr-4" >Создать кейс</button></a></li>
                 <li class="nav-item nav-link"> {{user.email}} | </li>
                 <li class="nav-item"><a href="{% url 'personal_partner' user.id %}"  class="nav-link">Личный кабинет</a></li>
                 {%endif%}
@@ -62,5 +63,28 @@
     <footer class="footer">
       Ссылки и соц. сети
     </footer>
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script>
+ $(document).ready(function() {
+    $('#id_category').select2();
+});
+</script>
+    <script>
+  $("#id_category").select2({
+  placeholder: "Выберите категорию",
+  maximumSelectionLength: 2, 
+                    });
+  $("#id_region").select2({
+  placeholder: "Выберите область",
+  maximumSelectionLength: 2,
+                    });
+
+  $("#id_user_id").select2({
+  placeholder: "Выберите организацию",
+  maximumSelectionLength: 2,
+                    });
+
+</script>
   </body>
 </html>

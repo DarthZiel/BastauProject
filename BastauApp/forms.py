@@ -7,6 +7,7 @@ from .models import *
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
+
 class AddCaseForm(forms.Form):
     class Meta:
         model = Case
@@ -110,7 +111,8 @@ class PartnerSignUpForm(UserCreationForm):
         return user
 
 '''Форма создание кейса'''
-
+class DateInput(forms.DateInput):
+    input_type = 'date'
 class AddCaseForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -135,7 +137,7 @@ class AddCaseForm(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Выберите регион'
             }),
-            "date_of_close": DateTimeInput(attrs={
+            "date_of_close": DateInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Дата завершения кейса'
             }),

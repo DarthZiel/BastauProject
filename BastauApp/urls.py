@@ -22,6 +22,7 @@ urlpatterns = [
     path('personal_partner/<int:pk>', partner_update.as_view(), name='personal_partner'),
     path('personal/student/<int:pk>', student_update.as_view(), name='personal'),
     path('mycases/', views.ShowCasesPartner.as_view(), name='mycases'),
+    path('mycases/archive/', views.ShowArchive.as_view(), name='mycasesArchive'),
     path('mycases/edit/<int:pk>', views.case_update.as_view(), name='case_update'),
     path('delete/<int:pk>', views.delete_case.as_view(), name='delete_case'),
     path('mycases/answers/<case_id>', views.ShowAnswer, name='show_answer'),

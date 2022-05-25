@@ -97,7 +97,7 @@ class ShowCases(ListView):
 
 class ShowCasesPartner(ListView):
     model = Case
-    context_object_name = 'case'
+    context_object_name = 'cases'
     template_name = 'casepartners.html'
     extra_context = {'menu': menu}
     paginate_by = 6
@@ -109,6 +109,26 @@ class ShowCasesPartner(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['total_active_records'] = Case.objects.filter(user_id=self.request.user.partner,is_published=True).count()
+        context['all_cases'] = Case.objects.filter(user_id=self.request.user.partner).count()
+        context['case_isnt_published'] = Case.objects.filter(user_id=self.request.user.partner,is_published=False).count()
+        return context
+
+class ShowArchive(ListView):
+    model = Case
+    context_object_name = 'cases'
+    template_name = 'casepartnersnotpub.html'
+    extra_context = {'menu': menu}
+    paginate_by = 6
+
+    def get_queryset(self):
+        queryset = Case.objects.filter(user_id=self.request.user.partner,is_published=False)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['total_active_records'] = Case.objects.filter(user_id=self.request.user.partner,is_published=True).count()
+        context['all_cases'] = Case.objects.filter(user_id=self.request.user.partner).count()
+        context['case_isnt_published'] = Case.objects.filter(user_id=self.request.user.partner,is_published=False).count()
         return context
 
 def detail_view(request, case_id):

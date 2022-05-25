@@ -75,6 +75,7 @@ html{
 .case__title{
   font-size: 20px;
   font-weight: bold;
+
 }
 
 .content{
@@ -205,12 +206,21 @@ body{
 .main-cases__item{
   padding: 20px;
   box-shadow: rgb(12 6 91 / 31%) 0px 5px 27px 0px;
+  max-width:100%;
+  width:400px;
+
+}
+.hidden{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .main-cases__item__header{
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+
 }
 .main-cases__item__header img{
   width: 100px;
@@ -236,6 +246,9 @@ body{
   color: #2e4554;
   line-height: 1.0625rem;
 }
+.main_cases_title_height{
+  max-height:100%;
+  height:120px;}
 
 .main-cases__item__tags{
   margin: 0px;
@@ -494,4 +507,10 @@ color:rgb(39, 138, 99);;}
 }
 .row{
 margin-right:0 !important;
+}
+.cases_public{
+max-height:50%}
+
+#select2-data-5-eeqh{
+margin-left:300px!important;
 }

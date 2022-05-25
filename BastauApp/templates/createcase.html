@@ -1,32 +1,38 @@
 {% extends 'base.html' %}
-  {% block content %}
+{% block content %}
 {% load widget_tweaks %}
-<br><br><br><br><br>
- <div class="container">
-      <div class="row">
-          <div class="main-cases__item col-lg-9 p-5">
-            <form action="{% url 'createcase' %}"method="post" class="form-group">
 
-
-                  {% if request.user.is_authenticated %}
-                  {% csrf_token %}
-                  {{ form.title }} <br>
-                  {{ form.description }} <br>
-                {{form.file}} <br>
-                  {{ form.category }} <br>
-                  {{ form.region }} <br>
-                  {{ form.tags }} </span><br>
-                  {{ form.date_of_close }} <br>
-
-            <span>{{error}}</span>
-            <button type="submit" class="btn btn-secondary" data-toggle="tooltip">Сохранить</button>
-            </form>
+<section>
+  <div class="container pt-4">
+    <div class="row ">
+      <div class="col-md-6 mx-auto">
+        <div class="card my-5">
+          <div class="card-header text-black ">
+            <h2>Создание кейса</h2>
           </div>
-          {% else %}
-          <p>Вы не авторизированы!</p>
-    {% endif %}
-     </div>
-    </div>
-</div>
-  {% endblock %}
+              <div class="card-body">
+                  <form action="" method="POST" novalidate>
+                    {% csrf_token %}
+                       {% for field in form %}
+                         <div class="form-group mt-4">
+                             {{ field.label_tag }}
+                                {% render_field field class="form-control" %}
+                                  {% for error in field.errors %}
+                                    <span style="color:red">{{ error }}</span>
+                                  {% endfor %}
+                       {% endfor %}
+                           <input type="submit" value="Создать кейс" class="mt-4 btn btn-block btn-outline-secondary">
+                           <input type="hidden" name="next" value="{{ next }}" />
+                         </div>
+                  </form>
+               </div>
+              </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</section>
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+{% endblock %}

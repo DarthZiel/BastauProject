@@ -8,10 +8,10 @@
 <br><br><br><br>
     <div class="row d-flex justify-content-center ">
           {% for item in object_list %}
-          <div class="card mb-3 main-cases__item animation block" style="max-width: 300px; margin-left: 3%;margin-right: 3%; border-radius: 25px; display:inline-table;">
+          <div class="card mb-3 main-cases__item animation block" style="max-width: 300px; margin-left: 5%;margin-right: 5%; border-radius: 25px; display:inline-table;">
               <a href="{% url 'detail_partner' item.user_id %}">
                   {% if item.avatar %}
-                    <img src="{{item.avatar.url}}" class="card-img-top img_partners" height="250px"  >
+                    <img src="{{item.avatar.url}}" class="card-img-top " height="250px"  >
                 {% else %}
                    <img src="https://audit.msu.ru/wp-content/themes/audit/images/noavatar.png"  height="250px">
                 {% endif %}
