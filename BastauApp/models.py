@@ -91,7 +91,7 @@ class Student(models.Model):
     ]
     Educational_institution = models.CharField(max_length=50, verbose_name='Место учебы')
     age = models.CharField(max_length=2,verbose_name='возраст')
-    region = models.CharField(max_length=50, choices=REGIONS, default=REGIONS[0])
+    region = models.CharField(max_length=50, choices=REGIONS, default=REGIONS[0], verbose_name='Регион')
     Direction_of_study = models.CharField(max_length=50, verbose_name='Специальность')
     Education = models.CharField(max_length=50, verbose_name='Образование', choices=EDUCATION, default=EDUCATION[0])
 
@@ -107,7 +107,7 @@ class Partner(models.Model):
     user = models.OneToOneField(User, verbose_name='id', on_delete=models.CASCADE, primary_key=True)
     Fio = models.CharField(max_length=100, verbose_name='ФИО', blank=True)
     name_of_partner = models.CharField(max_length=100, verbose_name='Название организации')
-    site = models.URLField(max_length=200)
+    site = models.URLField(max_length=200, verbose_name='Сайт')
     avatar = models.ImageField("Аватар", upload_to="img/", blank=True)
     about_company = models.TextField(max_length=1000,verbose_name='О компании')
 
@@ -156,10 +156,10 @@ STATUS = [
 
 class Answer(models.Model):
 
-    Url = models.URLField(verbose_name='Ссылка на ответ', blank=True)
+    Url = models.URLField(verbose_name='Ссылка на ответ')
     File = models.FileField(verbose_name='Файл', upload_to = "file",blank=True)
     id_case = models.ForeignKey(Case, verbose_name="Кейс", on_delete=models.CASCADE,blank=True,related_name='cases')
-    id_student = models.ForeignKey(Student, verbose_name="Студент", on_delete=models.CASCADE,blank=True)
+    id_student = models.OneToOneField(Student, verbose_name="Студент", on_delete=models.CASCADE,blank=True)
     status = models.CharField(max_length=50, choices=STATUS, default=STATUS[0],verbose_name='Статус')
     class Meta:
         verbose_name = "Ответ"

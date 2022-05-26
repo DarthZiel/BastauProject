@@ -21,7 +21,7 @@
                       {% for fil in orders %}
                         <div class=" col-lg-6">
                              <div class="row">
-                        <div class="main-cases__item mb-2">
+                        <div class="main-cases__item mb-2 h-50">
 
                           <div class="main-cases__item__header">
                             {% if fil.user_id.avatar %}
@@ -32,8 +32,8 @@
                             <div class="main-cases__item__part-name ">{{fil.user_id.name_of_partner}}</div>
                         </div>
                           <div class="main-cases__item__body">
-                            <div class="main-cases__item__title main_cases_title_height"><h5>{{fil}}</h5></div>
-                            <div class="main-cases__item__tags">
+                            <div class="main-cases__item__title hidden"><h5>{{fil}}</h5></div>
+                            <div class="main-cases__item__tags hidden">
                               {% for tag in fil.tags.all %}
                                #{{tag}}
                               {% endfor %}

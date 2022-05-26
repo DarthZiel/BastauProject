@@ -1,36 +1,62 @@
 {% extends 'base.html' %}
-
+{% load widget_tweaks %}
  {% block content %}
 <br><br><br><br>
-{% if request.user %}
- <div class="container">
-<form action="" method="POST" enctype="multipart/form-data">
-    <div class="form-group">
-    {% csrf_token %}
-    <div class="student-form">ФИО: {{form.Fio}}</div>
-    <div class="student-form">Место учебы: {{form.Educational_institution}}</div>
-    <div class="student-form">Возраст: {{form.age}}</div>
-    <div class="student-form">Регион: {{form.region}}</div>
-    <div class="student-form">Специальность: {{form.Direction_of_study}}</div>
-    <div class="student-form">Образование: {{form.Education}}</div>
-    <div class="prikol"> {{form.user}}</div>
-      <input type="submit" value="Изменить" class=" my-4 btn btn-outline-secondary">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 main-cases__item mb-1 mr-2 ml-2 h-100">
+                <div class="d-flex justify-content-center"><img src="https://cdn-icons-png.flaticon.com/512/843/843341.png"  height="200px"></div>
+                <div class="text-center">{{student.Fio}}</div>
+                <hr>
+                <table  class="w-100 table_info_partners">
+                    <tr class="">
+                        <td class="text-secondary ml-3">Место учебы</td>
+                        <td class="fs-1 font-s-info-parners mt-2">{{student.Educational_institution}}</td>
+                    </tr>
+                    <tr class="">
+                        <td class="text-secondary align-items-start">Возраст</td>
+                        <td class="fs-1 font-s-info-parners mt-2">{{student.age}}</td>
+                    </tr>
+                        <tr class="">
+                        <td class="text-secondary align-items-start">Регион</td>
+                        <td class="fs-1 font-s-info-parners mt-2">{{student.region}}</td>
+                    </tr>
+                    <tr class="">
+                        <td class="text-secondary align-items-start">Специальность</td>
+                        <td class="fs-1 font-s-info-parners mt-2">
+                               {{student.Direction_of_study}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-secondary ml-3">Образование</td>
+                        <td class="fs-1 font-s-info-parners mt-2">
+                               {{student.Education}}
+                        </td>
+                    </tr>
 
-</form>
-<a href="{% url 'show_answer_student'%}" class="mt-2 btn btn-primary">Мои ответы</a><br>
-<a href='/logout/' class="mt-2 btn btn-primary">Выйти</a>
- </div>
- {% endif %}
+                </table>
+                <a href='{% url "show_answer_student" %}'><button class="btn btn-block btn-primary btn-success">Мои ответы</button></a>
+                <a href='/logout/'><button class="btn btn-block btn-primary mt-1 btn-danger">Выйти</button></a>
+            </div>
 
- <script>
-    let formField = document.querySelectorAll("body > div > div > form > div:nth-child(1n) input")
-    formField.forEach(element => {
-        element.classList.add('form-control');
-    });
-    let formSelect1 = document.querySelector("#id_region")
-    let formSelect2 = document.querySelector("#id_Education")
-    formSelect1.classList.add('custom-select');
-    formSelect2.classList.add('custom-select');
-</script>
-  {% endblock %}
+            <div class="main-cases__item col-lg h-100">
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        {% for field in form %}
+                                {{ field.label_tag }}
+                                {% render_field field class="form-control" %}
+                                {% for error in field.errors %}
+                                    <span style="color:red">{{ error }}</span>
+                                {% endfor %}
+                        {% endfor %}<br>
+                    <input type="submit" value="Сохранить" class="btn btn-block btn-primary">
+
+                </form>
+
+            </div>
+
+       </div>
+    </div>
+
+{% endblock %}
 

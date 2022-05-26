@@ -246,9 +246,12 @@ body{
   color: #2e4554;
   line-height: 1.0625rem;
 }
-.main_cases_title_height{
-  max-height:100%;
-  height:120px;}
+.text_hidden {
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
 
 .main-cases__item__tags{
   margin: 0px;

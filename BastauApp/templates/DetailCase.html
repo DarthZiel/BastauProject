@@ -5,7 +5,7 @@
 <br><br><br><br>
     <div class="container">
         <div class="row">
-            <div class="col-lg-3 main-cases__item mb-1 mr-2 ml-2 ">
+            <div class="col-lg-3 main-cases__item mb-1 mr-2 ml-2 h-100">
                 {% if data.user_id.avatar %}
                     <div class="d-flex justify-content-center"><img src="{{data.user_id.avatar.url}}" alt="" width="200px"></div>
                 {% else %}
@@ -28,7 +28,7 @@
                         <td class="text-secondary align-items-start">Дата закрытия</td>
                         <td class="fs-1 font-s-info-parners mt-2">{{data.date_of_close}}</td>
                     </tr>
-                        <tr class="">
+                    <tr class="">
                         <td class="text-secondary align-items-start">Теги</td>
                         <td class="fs-1 font-s-info-parners mt-2">
                             {% for tag in data.tags.all %}

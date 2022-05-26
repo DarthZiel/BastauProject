@@ -188,8 +188,9 @@ class partner_register(CreateView):
 
 class student_update(UpdateView):
     model = Student
-    fields = '__all__'
+    fields = ['Fio', 'Educational_institution', 'age', 'region', 'Direction_of_study', 'Education']
     template_name = 'personal.html'
+    context_object_name = 'student'
     success_url = "/"
     extra_context = {'menu': menu}
 
@@ -202,13 +203,18 @@ class partner_update(UpdateView):
     template_name = 'personal_partner.html'
     extra_context = {'menu': menu}
 
-
-
 class case_update(UpdateView):
     model = Case
-    fields = '__all__'
+    fields = ['title', 'description', 'date_of_close', 'category', 'file', 'region', 'is_published', 'tags']
     success_url = "/mycases"
     template_name = 'updatecase.html'
+    extra_context = {'menu': menu}
+
+class answer_update(UpdateView):
+    model = Answer
+    fields = ['Url', 'File']
+    success_url = "/answers"
+    template_name = 'updateAnswer.html'
     extra_context = {'menu': menu}
 
 class delete_case(DeleteView):
@@ -237,8 +243,11 @@ class AnswerToCase(FormMixin, DetailView):
         self.object.id_case = self.get_object()
         self.object.id_student = Student.objects.get(user=self.request.user)
         self.object.is_won = False
+        self.object.status = 'Ожидание'
         self.object.save()
         return super().form_valid(form)
+
+
 
 
 class delete_answer(DeleteView):
@@ -264,6 +273,13 @@ class ShowAnswerStudent(ListView):
         queryset = Answer.objects.filter(id_student=self.request.user.student)
         return queryset
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['answer_victory'] = Answer.objects.filter(id_student=self.request.user.student,status='Победа').count()
+        context['answer_waiting'] = Answer.objects.filter(id_student=self.request.user.student, status='Ожидание').count()
+        context['all_answer'] = Answer.objects.filter(id_student=self.request.user.student).count()
+        context['answer_defeat'] = Answer.objects.filter(id_student=self.request.user.student,status='Отказ').count()
+        return context
 
 def detail_student(request, user_id):
     a = User.objects.get(pk=user_id)

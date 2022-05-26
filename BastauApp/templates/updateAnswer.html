@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+  {% block content %}
+<br><br><br><br>
+    <div class="container">
+  <form action="" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+        <div>Ссылка: {{form.Url}}</div>
+        <div>Файл: {{form.File}}</div>
+        
+         <input type="submit" value="Отправить" class="btn btn-block btn-primary">
+        </form>
+    </div>
+</div>
+
+  {% endblock %}
