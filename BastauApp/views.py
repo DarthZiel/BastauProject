@@ -281,6 +281,60 @@ class ShowAnswerStudent(ListView):
         context['answer_defeat'] = Answer.objects.filter(id_student=self.request.user.student,status='Отказ').count()
         return context
 
+class ShowAnswerStudentStatusVictory(ListView):
+    model = Answer
+    template_name = 'answers_status/status_victory.html'
+    now = datetime.datetime.now()
+    extra_context = {'name': 'Ответы', 'menu': menu, 'now': now}
+
+    def get_queryset(self):
+        queryset = Answer.objects.filter(id_student=self.request.user.student, status='Победа')
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['answer_victory'] = Answer.objects.filter(id_student=self.request.user.student,status='Победа').count()
+        context['answer_waiting'] = Answer.objects.filter(id_student=self.request.user.student, status='Ожидание').count()
+        context['all_answer'] = Answer.objects.filter(id_student=self.request.user.student).count()
+        context['answer_defeat'] = Answer.objects.filter(id_student=self.request.user.student,status='Отказ').count()
+        return context
+
+class ShowAnswerStudentStatusDefeat(ListView):
+    model = Answer
+    template_name = 'answers_status/status_defeat.html'
+    now = datetime.datetime.now()
+    extra_context = {'name': 'Ответы', 'menu': menu, 'now': now}
+
+    def get_queryset(self):
+        queryset = Answer.objects.filter(id_student=self.request.user.student, status='Отказ')
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['answer_victory'] = Answer.objects.filter(id_student=self.request.user.student,status='Победа').count()
+        context['answer_waiting'] = Answer.objects.filter(id_student=self.request.user.student, status='Ожидание').count()
+        context['all_answer'] = Answer.objects.filter(id_student=self.request.user.student).count()
+        context['answer_defeat'] = Answer.objects.filter(id_student=self.request.user.student,status='Отказ').count()
+        return context
+
+class ShowAnswerStudentStatusWaiting(ListView):
+    model = Answer
+    template_name = 'answers_status/status_waiting.html'
+    now = datetime.datetime.now()
+    extra_context = {'name': 'Ответы', 'menu': menu, 'now': now}
+
+    def get_queryset(self):
+        queryset = Answer.objects.filter(id_student=self.request.user.student, status='Ожидание')
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['answer_victory'] = Answer.objects.filter(id_student=self.request.user.student,status='Победа').count()
+        context['answer_waiting'] = Answer.objects.filter(id_student=self.request.user.student, status='Ожидание').count()
+        context['all_answer'] = Answer.objects.filter(id_student=self.request.user.student).count()
+        context['answer_defeat'] = Answer.objects.filter(id_student=self.request.user.student,status='Отказ').count()
+        return context
+
 def detail_student(request, user_id):
     a = User.objects.get(pk=user_id)
     context = {}

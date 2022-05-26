@@ -76,8 +76,11 @@ select {
 
 a{
     color:rgb(47, 148, 136) ;
-    text-decoration: none
+    text-decoration: none;
 }
 a:after{
-    text-decoration: none
+    text-decoration: none;
+}
+a:hover{
+text-decoration: none !important;
 }
