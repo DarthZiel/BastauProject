@@ -136,8 +136,10 @@ def detail_view(request, case_id):
     # field names as keys
     context = {}
     # add the dictionary during initialization
+
     context["data"] = Case.objects.get(pk=case_id)
     context["menu"] = menu
+
     return render(request, "DetailCase.html", context)
 
 def detail_view_for_Partner(request, case_id):
@@ -199,6 +201,7 @@ class partner_update(UpdateView):
     context_object_name = 'partner'
     template_name = 'personal_partner.html'
     extra_context = {'menu': menu}
+
 
 
 class case_update(UpdateView):

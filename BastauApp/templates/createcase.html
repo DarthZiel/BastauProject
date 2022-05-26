@@ -11,7 +11,7 @@
             <h2>Создание кейса</h2>
           </div>
               <div class="card-body">
-                  <form action="" method="POST" novalidate>
+                  <form action="" method="POST" novalidate enctype="multipart/form-data">
                     {% csrf_token %}
                        {% for field in form %}
                          <div class="form-group mt-4">
@@ -22,7 +22,6 @@
                                   {% endfor %}
                        {% endfor %}
                            <input type="submit" value="Создать кейс" class="mt-4 btn btn-block btn-outline-secondary">
-                           <input type="hidden" name="next" value="{{ next }}" />
                          </div>
                   </form>
                </div>
