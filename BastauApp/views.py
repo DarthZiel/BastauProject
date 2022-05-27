@@ -1,16 +1,16 @@
-from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render, redirect, get_object_or_404
+import datetime
+from .permissions import *
+from .models import *
+from .forms import *
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView
 from django.views.generic.edit import FormMixin
-from .forms import AddCaseForm, StudentSignUpForm, PartnerSignUpForm, LoginUserForm, AddAnswer
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView
 from django.views.generic import ListView, UpdateView, DeleteView
-from .models import *
+
 from django.contrib.auth import logout, login
 from .filters import CaseFilter
-import datetime
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 menu = [
     {'title': 'Партнеры', 'url_name': 'partners'},
@@ -59,7 +59,7 @@ def index(request):
 def about(request):
     return render(request, 'about.html')
 
-class createcase(CreateView):
+class createcase( CreateView):
     model = Case
     form_class = AddCaseForm
     template_name = 'createcase.html'
@@ -103,14 +103,19 @@ class ShowCasesPartner(ListView):
     paginate_by = 6
 
     def get_queryset(self):
-        queryset = Case.objects.filter(user_id=self.request.user.partner,is_published=True)
+        now = datetime.datetime.now()
+        queryset = Case.objects.filter(user_id=self.request.user.partner,is_published=True, date_of_close__gte=now)
         return queryset
 
     def get_context_data(self, **kwargs):
+        now = datetime.datetime.now()
+        queryset = Case.objects.filter(user_id=self.request.user.partner, is_published=False)
+        qs = Case.objects.filter(user_id=self.request.user.partner, date_of_close__lte=now)
+        superqs = queryset | qs
         context = super().get_context_data(**kwargs)
-        context['total_active_records'] = Case.objects.filter(user_id=self.request.user.partner,is_published=True).count()
+        context['total_active_records'] = Case.objects.filter(user_id=self.request.user.partner,is_published=True, date_of_close__gte=now).count()
         context['all_cases'] = Case.objects.filter(user_id=self.request.user.partner).count()
-        context['case_isnt_published'] = Case.objects.filter(user_id=self.request.user.partner,is_published=False).count()
+        context['case_isnt_published'] = superqs.count()
         return context
 
 class ShowArchive(ListView):
@@ -121,14 +126,22 @@ class ShowArchive(ListView):
     paginate_by = 6
 
     def get_queryset(self):
+        now = datetime.datetime.now()
         queryset = Case.objects.filter(user_id=self.request.user.partner,is_published=False)
-        return queryset
+        qs = Case.objects.filter(user_id=self.request.user.partner, date_of_close__lte=now)
+
+        return queryset | qs
 
     def get_context_data(self, **kwargs):
+        now = datetime.datetime.now()
+        queryset = Case.objects.filter(user_id=self.request.user.partner, is_published=False)
+        qs = Case.objects.filter(user_id=self.request.user.partner, date_of_close__lte=now)
+        superqs = queryset | qs
+
         context = super().get_context_data(**kwargs)
         context['total_active_records'] = Case.objects.filter(user_id=self.request.user.partner,is_published=True).count()
         context['all_cases'] = Case.objects.filter(user_id=self.request.user.partner).count()
-        context['case_isnt_published'] = Case.objects.filter(user_id=self.request.user.partner,is_published=False).count()
+        context['case_isnt_published'] = superqs.count()
         return context
 
 def detail_view(request, case_id):
@@ -186,7 +199,7 @@ class partner_register(CreateView):
         login(self.request, user)
         return redirect('/')
 
-class student_update(UpdateView):
+class student_update(PartnerPermissionMixin, UpdateView):
     model = Student
     fields = ['Fio', 'Educational_institution', 'age', 'region', 'Direction_of_study', 'Education']
     template_name = 'personal.html'
@@ -195,7 +208,7 @@ class student_update(UpdateView):
     extra_context = {'menu': menu}
 
 
-class partner_update(UpdateView):
+class partner_update(PartnerPermissionMixin,UpdateView):
     model = Partner
     fields = ['Fio', 'name_of_partner', 'site', 'avatar', 'about_company']
     success_url = "/"
@@ -203,21 +216,21 @@ class partner_update(UpdateView):
     template_name = 'personal_partner.html'
     extra_context = {'menu': menu}
 
-class case_update(UpdateView):
+class case_update(CaseCreateUpdateDeletePermissionMixin, UpdateView):
     model = Case
     fields = ['title', 'description', 'date_of_close', 'category', 'file', 'region', 'is_published', 'tags']
     success_url = "/mycases"
     template_name = 'updatecase.html'
     extra_context = {'menu': menu}
 
-class answer_update(UpdateView):
+class answer_update(AnswerCreateUpdateDeletePermissionMixin, UpdateView):
     model = Answer
     fields = ['Url', 'File']
     success_url = "/answers"
     template_name = 'updateAnswer.html'
     extra_context = {'menu': menu}
 
-class delete_case(DeleteView):
+class delete_case(CaseCreateUpdateDeletePermissionMixin, DeleteView):
     model = Case
     template_name = 'delete_case.html'
     success_url = "/mycases"
@@ -250,7 +263,7 @@ class AnswerToCase(FormMixin, DetailView):
 
 
 
-class delete_answer(DeleteView):
+class delete_answer(AnswerCreateUpdateDeletePermissionMixin, DeleteView):
     model = Answer
     template_name = 'delete_answer.html'
     success_url = "/answers"

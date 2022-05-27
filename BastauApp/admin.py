@@ -3,6 +3,7 @@ from django.utils.safestring import mark_safe
 
 from BastauApp.models import *
 
+
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ("id", "title")
