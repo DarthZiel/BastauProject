@@ -31,20 +31,27 @@ html{
   filter: brightness(80%)
 }
  /* ===== NAV ===== */
-.header{
-  position: absolute;
-  z-index: 1;
-  width: 100%;
-  top: 0;
-  left: 0;
+ .header {
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   width: 100%;
+   height: 100px;
  }
-.nav {
+.navbar {
   display: flex;
   align-items: center;
-  padding: 0 15px;
   width: 100%;
-  height: 64px;
+  height: 100%;
+  height: 100px;
   backdrop-filter: blur(5px);
+}
+.navbar-brand{
+  font-size: 1.8rem!important;
+  margin-right: 20px;
+}
+.nav-link{
+  font-size: 1.2rem;
 }
 .nav__menu{
   width: 100%;
