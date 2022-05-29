@@ -18,17 +18,49 @@ html{
 }
 
 .main-page{
+  padding-top: 100px;
   width: 100%;
   height: 100vh;
-  background-image: url(https://grantist.com/wp-content/uploads/2015/06/stazhirovka-v-nacionalnom-agentstve-finansovyx-issledovanij-v-moskve.jpg);
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-attachment: fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
+  background-image: url(../img_register/картинка\ лэндинга\ png.png);
   background-size: cover;
-  filter: brightness(80%)
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
+}
+.main-page__block {
+  width: 40%;
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: rgb(12 6 91 / 31%) 0px 5px 27px 0px;
+}
+.main-page__counter{
+  display: flex;
+  justify-content: center;
+  box-shadow: rgb(12 6 91 / 31%) 0px 5px 27px 0px;
+  font-size: 6rem;
+  padding: 0 10px;
+  border-radius: 20px;
+  width: 20%;
+  color: rgb(25, 119, 123);
+}
+.line{
+  height: 4px;
+  border-radius: 3px;
+  width: 100%;
+  background-color: #333333;
+}
+.main-page__button{
+  margin-top: 50px;
+  box-shadow: rgb(12 6 91 / 31%) 0px 5px 27px 0px;
+  border: none;
+  outline: 0;
+  width: 45%;
+  padding: 10px 0;
+  border-radius: 15px;
+  font-size: 2rem;
+  cursor: pointer;
+  color: rgb(25, 119, 123);
 }
  /* ===== NAV ===== */
  .header {
@@ -37,6 +69,9 @@ html{
    justify-content: space-between;
    width: 100%;
    height: 100px;
+   background: -webkit-linear-gradient(45deg, rgb(25, 119, 123), rgb(30, 92, 119));
+   background: -moz-linear-gradient(45deg, rgb(25, 119, 123), rgb(30, 92, 119));
+   background: linear-gradient(45deg, rgb(25, 119, 123), rgb(30, 92, 119));
  }
 .navbar {
   display: flex;
@@ -45,6 +80,9 @@ html{
   height: 100%;
   height: 100px;
   backdrop-filter: blur(5px);
+  background: -webkit-linear-gradient(45deg, rgb(25, 119, 123), rgb(30, 92, 119));
+background: -moz-linear-gradient(45deg, rgb(25, 119, 123), rgb(30, 92, 119));
+background: linear-gradient(45deg, rgb(25, 119, 123), rgb(30, 92, 119));
 }
 .navbar-brand{
   font-size: 1.8rem!important;
@@ -104,17 +142,7 @@ html{
   backdrop-filter: blur(5px);
   width: 30%;
 }
-.main-page__footer{
-  color: rgb(0, 0, 0);
-  font-size: 15px;
-  position: absolute;
-  right: 15px;
-  bottom: 15px;
-  text-decoration: underline;
-}
-.main-page__footer:hover{
-  cursor: pointer;
-}
+
 
 .main-btn{
   align-self: flex-end;
@@ -172,36 +200,52 @@ body{
 }
 .footer{
   width: 100%;
-  background-color: rgb(0, 0, 0);
-  height: 64px;
+  background: linear-gradient(45deg, rgb(25, 119, 123), rgb(30, 92, 119));;  padding-top: 100px;
+  padding-bottom: 100px;
   color: #fff;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+}
+.footer__item{
+  width: 30%;
 }
 .prikol{
   display: none;
 }
 
 .sertificats{
-  height: 450px;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
+
 }
 .sertificats__item{
-  height: 300px;
+  height: 200px;
+  width: 25%;
+  border-radius: 20px;
   margin: 20px;
-}
-.sertificats__item img{
-  height: 100%;
+  box-shadow: rgb(12 6 91 / 31%) 0px 5px 27px 0px;
+  background-color: #fff;
 }
 .sertificats__title{
   text-align: center;
   margin-top: 80px;
   font-size: 25px;
 }
-
+.sertificats__btns{
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+}
+.sertificats__btns button {
+  margin: 10px;
+  font-size: 1rem;
+  border: none;
+  box-shadow: rgb(12 6 91 / 31%) 0px 5px 27px 0px;
+  padding: 20px 80px;
+  border-radius: 50px;
+}
 .main-cases{
   display: flex;
   justify-content: center;
@@ -455,4 +499,40 @@ placeholder: 'Все категории'
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.mutnyy{
+  width: 100%;
+  height: 500px;
+  box-shadow: rgb(12 6 91 / 31%) 0px 5px 27px 0px;
+  margin: 100px 0;
+  
+}
+.mutnyy__block{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.content-myntogo{
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.content-myntogo button{
+  border: 0;
+  outline: 0;
+  color: #fff;
+  margin-bottom: 30px;
+  padding: 20px 40px;
+  border-radius: 50px;
+  background: linear-gradient(45deg, rgb(25, 119, 123), rgb(30, 92, 119));;
+}
+.span{
+  font-size: 0.9 rem;
+}
+
+.infa{
+  width: 100%;
+  margin: 100px 0;
 }

@@ -15,7 +15,7 @@
   <body>
 
     <header class="header"> 
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav class="navbar navbar-expand-lg navbar-dark">
 
         {% block mainmenu %}
 
@@ -60,7 +60,38 @@
       {% endblock %}
     </div>
     <footer class="footer">
-      Ссылки и соц. сети
+      <div class="container d-flex">
+        <div class="footer__item">
+          <div class="mb-3">Уважаемый посетитель сайта</div> 
+          <p>При использовании материалов активная ссылка на источник https://www.bastau.kz/ обязательна</p>
+        </div>
+        <div class="footer__item d-flex flex-column">
+          <a href="">
+            О проекте
+          </a>
+          <a href="">
+            Кейсы
+          </a>
+          <a href="">
+            Партнерам
+          </a>
+          <a href="">
+            Личный кабтинет
+          </a>
+          <a href="">
+            Версия для слабовидящих
+        </div>
+        <div class="footer__item">
+          <p>Центр обслужтивания</p>
+          <a href="">+7 (701) 700-11-11</a>
+          <p>Прием обращений</p>
+          <a href="">+7 (707) 707-00-00</a>
+          <p>Улица Ломова 45,</p>
+          <a href="">Павлодар 140000</a>
+          <p>Все контакты</p>
+        </div>
+      </div>
+      
     </footer>
   </body>
 </html>
