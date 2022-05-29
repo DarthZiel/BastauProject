@@ -1,36 +1,42 @@
 {% extends 'base.html' %}
+{% block title %}Кейсы{% endblock %}
 {% load crispy_forms_tags %}
+{% load widget_tweaks %}
   {% block content %}
+
   <div class="case-page">
     <div class="container">
         <div class="row">
-            <div class="col-9">
+            <div class="col-lg-9">
                  <form method="get">
                     {% csrf_token %}
                      <div class="row">
-                        <div class="col-10">
+                        <div class="col">
                             {{ filter.form.search }}
                         </div>
-                            <button type="submit" class="btn btn-success" >Поиск</button><br>
+                            <button type="submit" class="btn btn-secondary" >Поиск</button><br>
                        </div>
                  </form>
                      <br>
+                        <div class="row">
                       {% for fil in orders %}
+                        <div class=" col-lg-6">
+                             <div class="row">
+                        <div class="main-cases__item mb-2 h-50">
 
-                        <div class="main-cases__item">
                           <div class="main-cases__item__header">
                             {% if fil.user_id.avatar %}
                             <img src="{{fil.user_id.avatar.url}}" alt="стандартное">
                             {% else %}
                               <img src="https://audit.msu.ru/wp-content/themes/audit/images/noavatar.png">
                             {% endif %}
-                            <div class="main-cases__item__part-name">{{fil.user_id.name_of_partner}}</div>
+                            <div class="main-cases__item__part-name ">{{fil.user_id.name_of_partner}}</div>
                         </div>
                           <div class="main-cases__item__body">
-                            <div class="main-cases__item__title"><h5>{{fil}}</h5></div>
-                            <div class="main-cases__item__tags">
+                            <div class="main-cases__item__title hidden"><h5>{{fil}}</h5></div>
+                            <div class="main-cases__item__tags hidden">
                               {% for tag in fil.tags.all %}
-                               {{tag}} |
+                               #{{tag}}
                               {% endfor %}
                             </div>
                           </div>
@@ -42,22 +48,24 @@
                             </div>
                            </div>
                         <br>
+                            </div>
+                            </div>
+
                       {% endfor %}
                         </div>
-                            <div class="col">
+                             </div>
+                            <div class="col-lg">
                                 <div class="sticky">
+                                    <h2>Фильтрация</h2>
                               <form method="get">
                                 {% csrf_token %}
-                                <div class="row">
-                                  <div class="col-6">
+
                                     {{ filter.form.category|as_crispy_field }}
-                                  </div>
-                                  <div class="col-6">
                                     {{ filter.form.region|as_crispy_field }}
-                                  </div>
-                                </div>
+                                    {{ filter.form.user_id|as_crispy_field }}
+
                                 {{ filter.form.tags}}<br>
-                                <button type="submit" class="btn btn-success">Фильтровать</button>
+                                <button type="submit" class="btn btn-secondary">Фильтровать</button>
                               </form>
                                     <a href="{% url 'showcases' %}">Отменить фильтрацию</a>
                                 </div>
@@ -68,6 +76,23 @@
           {% include 'include/pagination.html' %}
       </div>
   </div>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+ <script>
+    let formField = document.querySelectorAll("body > div > div > form > div:nth-child(1n) input")
+    formField.forEach(element => {
+        element.classList.add('form-control');
+    });
+    let formSelect1 = document.querySelector("#user_id")
+    let formSelect2 = document.querySelector("#user_id")
+    formSelect1.classList.add('custom-select');
+    formSelect2.classList.add('custom-select');
+
+
+</script>
   {% endblock %}
 
 

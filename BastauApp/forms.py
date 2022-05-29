@@ -7,28 +7,34 @@ from .models import *
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
+
 class AddCaseForm(forms.Form):
     class Meta:
         model = Case
         fields = '__all__'
 
 REGIONS = [
-        ('Акмолинская', 'Акмолинская'),
-        ('Актюбинская', 'Актюбинская'),
-        ('Алматинская', 'Алматинская'),
-        ('Атырауская', 'Атырауская'),
-        ('Восточно-Казахстанская', 'Восточно-Казахстанская'),
-        ('Жамбылская','Жамбылская'),
-        ('Жамбылская','Жамбылская'),
-        ('Западно-Казахстанская','Западно-Казахстанская'),
-        ('Карагандинская','Костанайская'),
-        ('Костанайская','Костанайская'),
-        ('Кызылординская','Кызылординская'),
-        ('Мангистауская','Мангистауская'),
-        ('Павлодарская','Павлодарская'),
-        ('Северо-Казахстанская','Северо-Казахстанская'),
-        ('Южно-Казахстанская','Южно-Казахстанская')
-    ]
+    ('Нур-Султан', 'Нур-Султан'),
+    ('Алматы', 'Алматы'),
+    ('Шымкент','Шымкент'),
+    ('Абаевская', 'Абаевская'),
+    ('Акмолинская', 'Акмолинская'),
+    ('Актюбинская', 'Актюбинская'),
+    ('Алматинская', 'Алматинская'),
+    ('Атырауская', 'Атырауская'),
+    ('Восточно-Казахстанская', 'Восточно-Казахстанская'),
+    ('Жамбылская', 'Жамбылская'),
+    ('Жетысуская', 'Жетысуская'),
+    ('Западно-Казахстанская', 'Западно-Казахстанская'),
+    ('Карагандинская', 'Карагандинская'),
+    ('Костанайская', 'Костанайская'),
+    ('Кызылординская', 'Кызылординская'),
+    ('Мангистауская', 'Мангистауская'),
+    ('Павлодарская', 'Павлодарская'),
+    ('Северо-Казахстанская', 'Северо-Казахстанская'),
+    ('Улытауская','Улытауская'),
+    ('Южно-Казахстанская', 'Южно-Казахстанская')
+]
 EDUCATION = [
     ('Высшее', 'Высшее'), ('ср-спе', 'Среднее-специальное'), ('среднее', 'Среднее')
 ]
@@ -42,7 +48,10 @@ COURSE = [
     ]
 ''''Форма студента'''
 class StudentSignUpForm(UserCreationForm):
-    Fio = forms.CharField(required=True, label='ФИО')
+    Fio = forms.CharField(required=True, label='ФИО', widget=forms.TextInput(attrs={'class': 'form-control',
+                                  'type': 'text',
+                                  'required': 'true',
+    }),)
     Educational_institution = forms.CharField(required=True,label='Учебное учрежедение')
     age = forms.CharField(required=True,label='Возраст')
     region = forms.ChoiceField(required=True,widget=forms.Select, choices=REGIONS,label='Область')
@@ -55,6 +64,8 @@ class StudentSignUpForm(UserCreationForm):
         model = User
         fields = ['email','phone']
         field_classes = {'email': EmailField}
+
+
 
     @transaction.atomic
     def save(self):
@@ -87,6 +98,8 @@ class PartnerSignUpForm(UserCreationForm):
         field_classes = {'email': EmailField}
         model = User
 
+
+
     @transaction.atomic
     def save(self):
         user = super().save(commit=False)
@@ -103,14 +116,15 @@ class PartnerSignUpForm(UserCreationForm):
         return user
 
 '''Форма создание кейса'''
-
+class DateInput(forms.DateInput):
+    input_type = 'date'
 class AddCaseForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['category'].empty_label = "Категория не выбрана"
     class Meta:
         model = Case
-        fields = ['title', 'description', 'category', 'region', 'date_of_close','tags']
+        fields = ['title', 'description','file', 'category', 'region', 'date_of_close','tags']
         widgets = {
             "title": TextInput(attrs={
                 'class': 'form-control',
@@ -128,7 +142,7 @@ class AddCaseForm(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Выберите регион'
             }),
-            "date_of_close": DateTimeInput(attrs={
+            "date_of_close": DateInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Дата завершения кейса'
             }),

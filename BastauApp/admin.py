@@ -3,6 +3,7 @@ from django.utils.safestring import mark_safe
 
 from BastauApp.models import *
 
+
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ("id", "title")
@@ -50,9 +51,9 @@ class CaseAdmin(admin.ModelAdmin):
 
 @admin.register(Answer)
 class AnswerAdmin(admin.ModelAdmin):
-    list_display = ("id", "id_student","id_case", "is_won")
+    list_display = ("id", "id_student","id_case", "status")
     list_display_links = ("id_student",)
-    list_filter = ('is_won',)
+    list_filter = ('status',)
     search_fields = ("id_student","id_case")
     # readonly_fields = ("id_student","id_case")
 

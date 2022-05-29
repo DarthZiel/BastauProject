@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% block title %}Bastau Project{% endblock %}
 {% block content %}
 <div class="main-page">
   <div class="container">
@@ -48,6 +48,7 @@
     </div>
   </div>
 </div>
+<<<<<<< HEAD
 <div class="mutnyy">
   <div class="container">
     <div class="mutnyy__block">
@@ -73,6 +74,56 @@
       </div>
     </div>
   </div>
+=======
+<div class="container">
+    <h1 class="sertificats__title">Партнеры</h1>
+    <div class="row justify-content-center ml-1">
+          {% for partner in partners %}
+          <div class="card mb-5 main-cases__item animation" style="max-width: 300px; margin-left: 3%;margin-right: 3%; border-radius: 25px; display:inline-table;">
+              <a href="{% url 'detail_partner' partner.user_id %}">
+                  {% if partner.avatar %}
+                    <img src="{{partner.avatar.url}}" class="card-img-top img_partners" height="250px"  >
+                {% else %}
+                   <img src="https://audit.msu.ru/wp-content/themes/audit/images/noavatar.png"  height="250px">
+                {% endif %}
+                  </a>
+            <div class="card-body">
+              <h5 class="card-title d-flex justify-content-center">{{partner.name_of_partner}}</h5>
+            </div>
+          </div>
+{% endfor %}
+        </div>
+<div class="sertificats__title">Кейсы</div>
+  <div class="main-cases">
+{% for item in data %}
+     <div class="main-cases__item">
+         <div class="main-cases__item__header">
+             {% if item.user_id.avatar %}
+             <img src="{{item.user_id.avatar.url}}" alt="стандартное">
+             {% else %}
+             <img src="https://audit.msu.ru/wp-content/themes/audit/images/noavatar.png">
+             {% endif %}
+             <div class="main-cases__item__part-name">{{item.user_id.name_of_partner}}</div>
+         </div>
+         <div class="main-cases__item__body">
+             <div class="main-cases__item__title"><h5>{{item}}</h5></div>
+             <div class="main-cases__item__tags">
+                 {% for tag in item.tags.all %}
+                 {{tag}} |
+                 {% endfor %}
+             </div>
+         </div>
+         <div class="main-cases__item__footer">
+             <div class="main-cases__item__city">{{item.region}}</div>
+             <div class="main-cases__item__link"><a href="{% url 'detail_case' item.id %}">Перейти к кейсу</a></div>
+         </div>
+         <div>
+         </div>
+      </div>
+    {% endfor %}
+    </div>
+
+>>>>>>> d6638dee5dfcd4bf7b834d86bee3ee247cbd761e
 </div>
 
-{% endblock %}
+        {% endblock %}

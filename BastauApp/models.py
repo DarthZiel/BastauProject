@@ -8,12 +8,17 @@ from taggit.managers import TaggableManager
 import datetime
 
 REGIONS = [
+    ('Нур-Султан', 'Нур-Султан'),
+    ('Алматы', 'Алматы'),
+    ('Шымкент','Шымкент'),
+    ('Абаевская', 'Абаевская'),
     ('Акмолинская', 'Акмолинская'),
     ('Актюбинская', 'Актюбинская'),
     ('Алматинская', 'Алматинская'),
     ('Атырауская', 'Атырауская'),
     ('Восточно-Казахстанская', 'Восточно-Казахстанская'),
     ('Жамбылская', 'Жамбылская'),
+    ('Жетысуская', 'Жетысуская'),
     ('Западно-Казахстанская', 'Западно-Казахстанская'),
     ('Карагандинская', 'Карагандинская'),
     ('Костанайская', 'Костанайская'),
@@ -21,6 +26,7 @@ REGIONS = [
     ('Мангистауская', 'Мангистауская'),
     ('Павлодарская', 'Павлодарская'),
     ('Северо-Казахстанская', 'Северо-Казахстанская'),
+    ('Улытауская','Улытауская'),
     ('Южно-Казахстанская', 'Южно-Казахстанская')
 ]
 class CustomUserManager(BaseUserManager):
@@ -91,7 +97,7 @@ class Student(models.Model):
     ]
     Educational_institution = models.CharField(max_length=50, verbose_name='Место учебы')
     age = models.CharField(max_length=2,verbose_name='возраст')
-    region = models.CharField(max_length=50, choices=REGIONS, default=REGIONS[0])
+    region = models.CharField(max_length=50, choices=REGIONS, default=REGIONS[0], verbose_name='Регион')
     Direction_of_study = models.CharField(max_length=50, verbose_name='Специальность')
     Education = models.CharField(max_length=50, verbose_name='Образование', choices=EDUCATION, default=EDUCATION[0])
 
@@ -107,7 +113,7 @@ class Partner(models.Model):
     user = models.OneToOneField(User, verbose_name='id', on_delete=models.CASCADE, primary_key=True)
     Fio = models.CharField(max_length=100, verbose_name='ФИО', blank=True)
     name_of_partner = models.CharField(max_length=100, verbose_name='Название организации')
-    site = models.URLField(max_length=200)
+    site = models.URLField(max_length=200, verbose_name='Сайт')
     avatar = models.ImageField("Аватар", upload_to="img/", blank=True)
     about_company = models.TextField(max_length=1000,verbose_name='О компании')
 
@@ -116,7 +122,7 @@ class Partner(models.Model):
         verbose_name_plural = "Партнеры"
 
     def __str__(self):
-        return self.Fio
+        return self.name_of_partner
 
 class Category(models.Model):
     title = models.CharField(max_length=30, verbose_name='Название')
@@ -136,8 +142,9 @@ class Case(models.Model):
     date_of_edit = models.DateTimeField(auto_now_add=True, verbose_name='Дата последней редакции')
     date_of_close = models.DateTimeField(verbose_name='Дата закрытия')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категории')
+    file = models.FileField(verbose_name='Файл', upload_to="file",blank=True)
     region = models.CharField(max_length=50, choices=REGIONS, default=REGIONS[0],verbose_name='Область')
-    user_id = models.ForeignKey(Partner, on_delete=models.CASCADE, related_name='partners')
+    user_id = models.ForeignKey(Partner, on_delete=models.CASCADE, related_name='partners', verbose_name='Организации')
     is_published = models.BooleanField(default=True, verbose_name='Опубликован')
     tags = TaggableManager()
     class Meta:
@@ -147,15 +154,19 @@ class Case(models.Model):
     def __str__(self):
         return self.title
 
-
+STATUS = [
+    ('Ожидание', 'Ожидание'),
+    ('Отказ', 'Отказ'),
+    ('Победа', 'Победа'),
+]
 
 class Answer(models.Model):
 
-    Url = models.URLField(verbose_name='Ссылка на ответ', blank=True)
+    Url = models.URLField(verbose_name='Ссылка на ответ')
     File = models.FileField(verbose_name='Файл', upload_to = "file",blank=True)
     id_case = models.ForeignKey(Case, verbose_name="Кейс", on_delete=models.CASCADE,blank=True,related_name='cases')
-    id_student = models.ForeignKey(Student, verbose_name="Студент", on_delete=models.CASCADE,blank=True)
-    is_won = models.BooleanField(default=False, verbose_name="Победитель")
+    id_student = models.OneToOneField(Student, verbose_name="Студент", on_delete=models.CASCADE,blank=True)
+    status = models.CharField(max_length=50, choices=STATUS, default=STATUS[0],verbose_name='Статус')
     class Meta:
         verbose_name = "Ответ"
         verbose_name_plural = "Ответы"

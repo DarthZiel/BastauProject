@@ -1,22 +1,26 @@
 {% extends 'base.html' %}
-
+{% block title %}Победители{% endblock %}
   {% block content %}
 <br><br><br><br>
-      <h1 align="center">Победители</h1>
-{% for item in data %}
-<br>
-    <div class="container">
-      <div class="winner228">
-        <div class="main-cases__item">
-          <div class="main-cases__item__header">
-            <div class="main-cases__item__part-name">{{item.id_student}}</div>
+<div class="container">
+    <h1 class="text-center mb-5">Победители</h1>
+    <div class="row d-flex justify-content-center ">
+          {% for item in object_list %}
+          <div class="card mb-3 main-cases__item w-100" style=";max-height:300px; margin-left: 2%;margin-right: 2%; border-radius: 25px; display:inline-table;">
+              {{item.id_student}}
+              <div class="card-body">
+                  <h5 class="card-title d-flex justify-content-center ">{{item.id_case}}</h5>
+              </div>
+              <div class="card-body">
+                  <h5 class="card-title d-flex text-align-right font-weight-light  float-right">{{item.id_case.user_id}}</h5>
+              </div>
           </div>
-          <div class="main-cases__item__body">
-            <div class="main-cases__item__title"><h5>{{item.id_case}}</h5></div>
-            <div class="main-cases__item__city">Павлодар</div>
-          </div>
-        </div>
-      </div>
-    </div>
 {% endfor %}
+    </div>
+    <div class="grid-img-right text-right bg bg1 pb-4" >
+        {% include 'include/pagination.html' %}
+    </div>
+</div>
+
+
 {% endblock %}

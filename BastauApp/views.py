@@ -1,16 +1,16 @@
-from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render, redirect, get_object_or_404
+import datetime
+from .permissions import *
+from .models import *
+from .forms import *
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView
 from django.views.generic.edit import FormMixin
-from .forms import AddCaseForm, StudentSignUpForm, PartnerSignUpForm, LoginUserForm, AddAnswer
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView
 from django.views.generic import ListView, UpdateView, DeleteView
-from .models import *
+
 from django.contrib.auth import logout, login
 from .filters import CaseFilter
-import datetime
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 menu = [
     {'title': 'Партнеры', 'url_name': 'partners'},
@@ -41,40 +41,31 @@ def personal(request):
 
     return render(request, "personal.html", context)
 
+class ListWinners(ListView):
+    # now = datetime.datetime.now()
+    model = Answer
+    template_name = 'ListWinners.html'
+    paginate_by = 6
+    extra_context = {"name": 'Победители', 'menu': menu}
 
-def ListWinners(request):
-    context = {'menu': menu}
-    context['data'] = Answer.objects.filter(is_won=True)
+    def get_queryset(self):
+        queryset = Answer.objects.filter(status='Победа')
+        return queryset
 
-    return render(request, 'ListWinners.html',context)
+
 
 
 def index(request):
     context = {'menu': menu}
-    context['data'] = Case.objects.order_by("-id")[0:2]
+    context['data'] = Case.objects.order_by("-id")[0:3]
+    context['partners'] = Partner.objects.order_by("-Fio")[0:3]
     return render(request, 'index.html', context)
 
 
 def about(request):
     return render(request, 'about.html')
 
-# def createcase(request):
-#     active_user = {'user_id': request.user.partner}
-#
-#     form = AddCaseForm(active_user)
-#     if request.method == 'POST':
-#         form = AddCaseForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('showcases')
-#     data = {
-#         'form': form,
-#         'menu': menu,
-#
-#     }
-#     return render(request, 'createcase.html', data)
-
-class createcase(CreateView):
+class createcase( CreateView):
     model = Case
     form_class = AddCaseForm
     template_name = 'createcase.html'
@@ -112,21 +103,62 @@ class ShowCases(ListView):
 
 class ShowCasesPartner(ListView):
     model = Case
-    context_object_name = 'case'
+    context_object_name = 'cases'
     template_name = 'casepartners.html'
     extra_context = {'menu': menu}
     paginate_by = 6
+
     def get_queryset(self):
-        queryset = Case.objects.filter(user_id=self.request.user.partner)
+        now = datetime.datetime.now()
+        queryset = Case.objects.filter(user_id=self.request.user.partner,is_published=True, date_of_close__gte=now)
         return queryset
+
+    def get_context_data(self, **kwargs):
+        now = datetime.datetime.now()
+        queryset = Case.objects.filter(user_id=self.request.user.partner, is_published=False)
+        qs = Case.objects.filter(user_id=self.request.user.partner, date_of_close__lte=now)
+        superqs = queryset | qs
+        context = super().get_context_data(**kwargs)
+        context['total_active_records'] = Case.objects.filter(user_id=self.request.user.partner,is_published=True, date_of_close__gte=now).count()
+        context['all_cases'] = Case.objects.filter(user_id=self.request.user.partner).count()
+        context['case_isnt_published'] = superqs.count()
+        return context
+
+class ShowArchive(ListView):
+    model = Case
+    context_object_name = 'cases'
+    template_name = 'casepartnersnotpub.html'
+    extra_context = {'menu': menu}
+    paginate_by = 6
+
+    def get_queryset(self):
+        now = datetime.datetime.now()
+        queryset = Case.objects.filter(user_id=self.request.user.partner,is_published=False)
+        qs = Case.objects.filter(user_id=self.request.user.partner, date_of_close__lte=now)
+
+        return queryset | qs
+
+    def get_context_data(self, **kwargs):
+        now = datetime.datetime.now()
+        queryset = Case.objects.filter(user_id=self.request.user.partner, is_published=False)
+        qs = Case.objects.filter(user_id=self.request.user.partner, date_of_close__lte=now)
+        superqs = queryset | qs
+
+        context = super().get_context_data(**kwargs)
+        context['total_active_records'] = Case.objects.filter(user_id=self.request.user.partner,is_published=True).count()
+        context['all_cases'] = Case.objects.filter(user_id=self.request.user.partner).count()
+        context['case_isnt_published'] = superqs.count()
+        return context
 
 def detail_view(request, case_id):
     # dictionary for initial data with
     # field names as keys
     context = {}
     # add the dictionary during initialization
+
     context["data"] = Case.objects.get(pk=case_id)
     context["menu"] = menu
+
     return render(request, "DetailCase.html", context)
 
 def detail_view_for_Partner(request, case_id):
@@ -140,7 +172,7 @@ def detail_view_for_Partner(request, case_id):
 class ShowPartners(ListView):
     model = Partner
     template_name = 'partners.html'
-    paginate_by = 5
+    paginate_by = 6
     extra_context = {'name': 'Партнеры', 'menu': menu}
 
 class LoginUser(LoginView):
@@ -173,15 +205,16 @@ class partner_register(CreateView):
         login(self.request, user)
         return redirect('/')
 
-class student_update(UpdateView):
+class student_update(PartnerPermissionMixin, UpdateView):
     model = Student
-    fields = '__all__'
+    fields = ['Fio', 'Educational_institution', 'age', 'region', 'Direction_of_study', 'Education']
     template_name = 'personal.html'
+    context_object_name = 'student'
     success_url = "/"
     extra_context = {'menu': menu}
 
 
-class partner_update(UpdateView):
+class partner_update(PartnerPermissionMixin,UpdateView):
     model = Partner
     fields = ['Fio', 'name_of_partner', 'site', 'avatar', 'about_company']
     success_url = "/"
@@ -189,15 +222,21 @@ class partner_update(UpdateView):
     template_name = 'personal_partner.html'
     extra_context = {'menu': menu}
 
-
-class case_update(UpdateView):
+class case_update(CaseCreateUpdateDeletePermissionMixin, UpdateView):
     model = Case
-    fields = '__all__'
+    fields = ['title', 'description', 'date_of_close', 'category', 'file', 'region', 'is_published', 'tags']
     success_url = "/mycases"
     template_name = 'updatecase.html'
     extra_context = {'menu': menu}
 
-class delete_case(DeleteView):
+class answer_update(AnswerCreateUpdateDeletePermissionMixin, UpdateView):
+    model = Answer
+    fields = ['Url', 'File']
+    success_url = "/answers"
+    template_name = 'updateAnswer.html'
+    extra_context = {'menu': menu}
+
+class delete_case(CaseCreateUpdateDeletePermissionMixin, DeleteView):
     model = Case
     template_name = 'delete_case.html'
     success_url = "/mycases"
@@ -223,11 +262,14 @@ class AnswerToCase(FormMixin, DetailView):
         self.object.id_case = self.get_object()
         self.object.id_student = Student.objects.get(user=self.request.user)
         self.object.is_won = False
+        self.object.status = 'Ожидание'
         self.object.save()
         return super().form_valid(form)
 
 
-class delete_answer(DeleteView):
+
+
+class delete_answer(AnswerCreateUpdateDeletePermissionMixin, DeleteView):
     model = Answer
     template_name = 'delete_answer.html'
     success_url = "/answers"
@@ -238,17 +280,83 @@ def ShowAnswer(request, case_id):
     # add the dictionary during initialization
     context["data"] = Case.objects.get(pk=case_id)
     context["menu"] = menu
+    context['answer_victory'] = Answer.objects.filter(id_case=case_id, status='Победа').count()
+    context['answer_waiting'] = Answer.objects.filter(id_case=case_id, status='Ожидание').count()
+    context['all_answer'] = Answer.objects.filter(id_case=case_id).count()
+    context['answer_defeat'] = Answer.objects.filter(id_case=case_id, status='Отказ').count()
     return render(request,'showanswer.html', context)
 
 class ShowAnswerStudent(ListView):
     model = Answer
     template_name = 'showanswer_student.html'
-    extra_context = {'name': 'Ответы', 'menu': menu}
+    now = datetime.datetime.now()
+    extra_context = {'name': 'Ответы', 'menu': menu, 'now': now}
 
     def get_queryset(self):
         queryset = Answer.objects.filter(id_student=self.request.user.student)
         return queryset
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['answer_victory'] = Answer.objects.filter(id_student=self.request.user.student,status='Победа').count()
+        context['answer_waiting'] = Answer.objects.filter(id_student=self.request.user.student, status='Ожидание').count()
+        context['all_answer'] = Answer.objects.filter(id_student=self.request.user.student).count()
+        context['answer_defeat'] = Answer.objects.filter(id_student=self.request.user.student,status='Отказ').count()
+        return context
+
+class ShowAnswerStudentStatusVictory(ListView):
+    model = Answer
+    template_name = 'answers_status/status_victory.html'
+    now = datetime.datetime.now()
+    extra_context = {'name': 'Ответы', 'menu': menu, 'now': now}
+
+    def get_queryset(self):
+        queryset = Answer.objects.filter(id_student=self.request.user.student, status='Победа')
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['answer_victory'] = Answer.objects.filter(id_student=self.request.user.student,status='Победа').count()
+        context['answer_waiting'] = Answer.objects.filter(id_student=self.request.user.student, status='Ожидание').count()
+        context['all_answer'] = Answer.objects.filter(id_student=self.request.user.student).count()
+        context['answer_defeat'] = Answer.objects.filter(id_student=self.request.user.student,status='Отказ').count()
+        return context
+
+class ShowAnswerStudentStatusDefeat(ListView):
+    model = Answer
+    template_name = 'answers_status/status_defeat.html'
+    now = datetime.datetime.now()
+    extra_context = {'name': 'Ответы', 'menu': menu, 'now': now}
+
+    def get_queryset(self):
+        queryset = Answer.objects.filter(id_student=self.request.user.student, status='Отказ')
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['answer_victory'] = Answer.objects.filter(id_student=self.request.user.student,status='Победа').count()
+        context['answer_waiting'] = Answer.objects.filter(id_student=self.request.user.student, status='Ожидание').count()
+        context['all_answer'] = Answer.objects.filter(id_student=self.request.user.student).count()
+        context['answer_defeat'] = Answer.objects.filter(id_student=self.request.user.student,status='Отказ').count()
+        return context
+
+class ShowAnswerStudentStatusWaiting(ListView):
+    model = Answer
+    template_name = 'answers_status/status_waiting.html'
+    now = datetime.datetime.now()
+    extra_context = {'name': 'Ответы', 'menu': menu, 'now': now}
+
+    def get_queryset(self):
+        queryset = Answer.objects.filter(id_student=self.request.user.student, status='Ожидание')
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['answer_victory'] = Answer.objects.filter(id_student=self.request.user.student,status='Победа').count()
+        context['answer_waiting'] = Answer.objects.filter(id_student=self.request.user.student, status='Ожидание').count()
+        context['all_answer'] = Answer.objects.filter(id_student=self.request.user.student).count()
+        context['answer_defeat'] = Answer.objects.filter(id_student=self.request.user.student,status='Отказ').count()
+        return context
 
 def detail_student(request, user_id):
     a = User.objects.get(pk=user_id)
@@ -289,9 +397,11 @@ class PasswordResetCompleteViewBastau(PasswordResetCompleteView):
     template_name = "reset_password/password_reset_done.html"
     extra_context = {'menu': menu}
 
-def edit(request, pk):
-    answer = Answer.objects.get(id=pk)
-    if answer.is_won == False:
-        answer.is_won = True
-        answer.save()
-        return render(request, 'winner.html')
+
+class Winner(WinnerUpdateMixin, UpdateView):
+    model = Answer
+    fields = ['status',]
+    success_url = "/"
+    context_object_name = 'partner'
+    template_name = 'updatewinner.html'
+    extra_context = {'menu': menu}
