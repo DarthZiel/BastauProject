@@ -41,12 +41,18 @@ def personal(request):
 
     return render(request, "personal.html", context)
 
+class ListWinners(ListView):
+    # now = datetime.datetime.now()
+    model = Answer
+    template_name = 'ListWinners.html'
+    paginate_by = 6
+    extra_context = {"name": 'Победители', 'menu': menu}
 
-def ListWinners(request):
-    context = {'menu': menu}
-    context['data'] = Answer.objects.filter(status='Победа')
+    def get_queryset(self):
+        queryset = Answer.objects.filter(status='Победа')
+        return queryset
 
-    return render(request, 'ListWinners.html',context)
+
 
 
 def index(request):
