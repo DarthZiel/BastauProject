@@ -274,6 +274,10 @@ def ShowAnswer(request, case_id):
     # add the dictionary during initialization
     context["data"] = Case.objects.get(pk=case_id)
     context["menu"] = menu
+    context['answer_victory'] = Answer.objects.filter(id_case=case_id, status='Победа').count()
+    context['answer_waiting'] = Answer.objects.filter(id_case=case_id, status='Ожидание').count()
+    context['all_answer'] = Answer.objects.filter(id_case=case_id).count()
+    context['answer_defeat'] = Answer.objects.filter(id_case=case_id, status='Отказ').count()
     return render(request,'showanswer.html', context)
 
 class ShowAnswerStudent(ListView):
@@ -388,7 +392,7 @@ class PasswordResetCompleteViewBastau(PasswordResetCompleteView):
     extra_context = {'menu': menu}
 
 
-class Winner(UpdateView):
+class Winner(WinnerUpdateMixin, UpdateView):
     model = Answer
     fields = ['status',]
     success_url = "/"
