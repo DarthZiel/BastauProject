@@ -242,7 +242,7 @@ class delete_case(CaseCreateUpdateDeletePermissionMixin, DeleteView):
     success_url = "/mycases"
     extra_context = {'menu': menu}
 
-class AnswerToCase(FormMixin, DetailView):
+class AnswerToCase(AnswerAddPermissionMixin, FormMixin, DetailView):
     model = Case
     template_name = 'addanswer.html'
     form_class = AddAnswer
