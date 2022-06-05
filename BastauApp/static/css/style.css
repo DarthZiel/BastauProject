@@ -621,7 +621,3 @@ font-size: 14px;
 background: linear-gradient(45deg, rgb(25, 119, 123), rgb(30, 92, 119));;
 
 }
-.show{
-  position: absolute;
-max-height:100%;
-}
