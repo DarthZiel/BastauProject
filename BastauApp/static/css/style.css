@@ -617,4 +617,11 @@ font-size: 14px;
  height: 50px;
 
 }
->>>>>>> d6638dee5dfcd4bf7b834d86bee3ee247cbd761e
+.navbar-collapse{
+background: linear-gradient(45deg, rgb(25, 119, 123), rgb(30, 92, 119));;
+
+}
+.show{
+  position: absolute;
+max-height:100%;
+}

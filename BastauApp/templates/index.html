@@ -42,7 +42,7 @@
           {% endif %}
           {% else %}
            <button class="main-page__button"><a href="{% url 'login' %}">Заказ</a></button>
-           <button class="main-page__button"><a href="{% url 'home' %}">Заявка</a></button>
+           <button class="main-page__button"><a href="{% url 'index' %}">Заявка</a></button>
           {% endif %}
 
       </div>
@@ -79,11 +79,12 @@
 
 <div class="mutnyy">
   <div class="container">
-    <div class="mutnyy__block">
-      <div>
+    <div class="mutnyy__block row">
+      <div class="col-lg-6">
         <img class="img-chel" src="../static/img_register/чел за компом картинка png.png" alt="">
       </div>
-      <div class="content-myntogo">
+
+      <div class="content-myntogo col-lg-6">
         <h3 class="mb-4">Размести задание, получи приглашение, пригласи победителя на стажировку</h3>
         <div class="nav-link"><button><a href="{% url 'register' %}" class="text-white">Зарегистрироваться</a></button></div>
         <span class="span">Что такое кейс и как его разработать? <a href="">Читать здесь</a></span>
@@ -93,11 +94,11 @@
 </div>
 <div class="infa">
   <div class="container">
-    <div class="mutnyy__block">
-      <div>
+    <div class="mutnyy__block row">
+      <div class="col-lg-6">
         <img class="img-chel" src="../static/img_register/лупа картинка png.png" alt="">
       </div>
-      <div class="content-myntogo">
+      <div class="content-myntogo col-lg-6">
         <span>"Bastau Project" - Платформа, где вы встречаетесь с потенциальными работодателем. Вы получаете реальную задачу (кейс) от компании. При успешном ее решении получаете - приглашение пройти практику</span>
       </div>
     </div>
@@ -119,7 +120,7 @@
               <h5 class="card-title d-flex justify-content-center">{{partner.name_of_partner}}</h5>
             </div>
           </div>
-{% endfor %}
+            {% endfor %}
         </div>
 </div>
 
