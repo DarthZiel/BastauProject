@@ -5,10 +5,27 @@
   <div class="container">
     <div class="main-page__block">
       <div class="d-flex">
-        <div class="main-page__counter">1</div>
-        <div class="main-page__counter">2</div>
-        <div class="main-page__counter">3</div>
-        <div class="main-page__counter">4</div>
+          {% if string_case_count|length == 1%}
+        <div class="main-page__counter">0</div>
+        <div class="main-page__counter">0</div>
+        <div class="main-page__counter">0</div>
+        <div class="main-page__counter">{{string_case_count.0}}</div>
+          {%elif string_case_count|length == 2 %}
+          <div class="main-page__counter">0</div>
+        <div class="main-page__counter">0</div>
+        <div class="main-page__counter">{{string_case_count.0}}</div>
+        <div class="main-page__counter">{{string_case_count.1}}</div>
+          {% elif string_case_count|length == 3%}
+        <div class="main-page__counter">0</div>
+        <div class="main-page__counter">{{string_case_count.0}}</div>
+        <div class="main-page__counter">{{string_case_count.1}}</div>
+        <div class="main-page__counter">{{string_case_count.2}}</div>
+           {% elif string_case_count|length == 4%}
+        <div class="main-page__counter">{{string_case_count.0}}</div>
+        <div class="main-page__counter">{{string_case_count.1}}</div>
+        <div class="main-page__counter">{{string_case_count.2}}</div>
+        <div class="main-page__counter">{{string_case_count.3}}</div>
+          {%endif%}
       </div>
       <h4 class="d-flex justify-content-center my-3">количество кейсов на сайте</h4>
       <div class="line mt-5 mb-2"></div>
