@@ -79,7 +79,7 @@ html{
   width: 100%;
   height: 100%;
   height: 100px;
-  backdrop-filter: blur(5px);
+  //backdrop-filter: blur(5px);
   background: -webkit-linear-gradient(45deg, rgb(25, 119, 123), rgb(30, 92, 119));
 background: -moz-linear-gradient(45deg, rgb(25, 119, 123), rgb(30, 92, 119));
 background: linear-gradient(45deg, rgb(25, 119, 123), rgb(30, 92, 119));
@@ -521,7 +521,7 @@ placeholder: 'Все категории'
   height: 500px;
   box-shadow: rgb(12 6 91 / 31%) 0px 5px 27px 0px;
   margin: 100px 0;
-  
+
 }
 .mutnyy__block{
   height: 100%;
@@ -619,5 +619,5 @@ font-size: 14px;
 }
 .navbar-collapse{
 background: linear-gradient(45deg, rgb(25, 119, 123), rgb(30, 92, 119));;
-
 }
+
