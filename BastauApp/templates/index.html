@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}Bastau Project{% endblock %}
 {% block content %}
-<div class="main-page">
+<div class="main-page col">
   <div class="container">
-    <div class="main-page__block">
+    <div class="main-page__block col-lg-4">
       <div class="d-flex">
           {% if string_case_count|length == 1%}
         <div class="main-page__counter">0</div>
@@ -39,18 +39,18 @@
   </div>
 </div>
 
-<h5 class="sertificats__title">Наши сертификаты</р>
-<div class="container">
+<h5 class="sertificats__title">Наши сертификаты</р></h5>
+<div class="container ">
   <div class="sertificats">
-    <div class="sertificats__item"><img src="https://netnarco.ru/sites/default/files/docs/2.jpg"></div>
-    <div class="sertificats__item"><img src="https://netnarco.ru/sites/default/files/docs/2.jpg"></div>
-    <div class="sertificats__item"><img src="https://netnarco.ru/sites/default/files/docs/2.jpg"></div>
-    <div class="sertificats__item"><img src="https://netnarco.ru/sites/default/files/docs/2.jpg"></div>
-    <div class="sertificats__item"><img src="https://netnarco.ru/sites/default/files/docs/2.jpg"></div>
-    <div class="sertificats__item"><img src="https://netnarco.ru/sites/default/files/docs/2.jpg"></div>
+    <div class="mr-5 ml-5 mb-3"><img src="https://netnarco.ru/sites/default/files/docs/2.jpg" width="250px" height="200px"></div>
+    <div class="mr-5 ml-5 mb-3"><img src="https://netnarco.ru/sites/default/files/docs/2.jpg" width="250px" height="200px"></div>
+    <div class="mr-5 ml-5 mb-3"><img src="https://netnarco.ru/sites/default/files/docs/2.jpg" width="250px" height="200px"></div>
+    <div class="mr-5 ml-5 mb-3"><img src="https://netnarco.ru/sites/default/files/docs/2.jpg" width="250px" height="200px"></div>
+    <div class="mr-5 ml-5 mb-3"><img src="https://netnarco.ru/sites/default/files/docs/2.jpg" width="250px" height="200px"></div>
+    <div class="mr-5 ml-5 mb-3"><img src="https://netnarco.ru/sites/default/files/docs/2.jpg" width="250px" height="200px"></div>
   </div>
   <div class="sertificats__btns">
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center row">
       <button>
         сертификаты
       </button>
@@ -58,7 +58,7 @@
         примеры проектов
       </button>
     </div>
-    <div>
+    <div class="d-flex justify-content-center">
       <button>
         клиенты/партнеры
       </button>
@@ -74,7 +74,7 @@
       </div>
       <div class="content-myntogo">
         <h3 class="mb-4">Размести задание, получи приглашение, пригласи победителя на стажировку</h3>
-        <div><button><a href="{% url 'register' %}">Зарегистрироваться</a></button></div>
+        <div class="nav-link"><button><a href="{% url 'register' %}" class="text-white">Зарегистрироваться</a></button></div>
         <span class="span">Что такое кейс и как его разработать? <a href="">Читать здесь</a></span>
       </div>
     </div>
@@ -110,37 +110,6 @@
           </div>
 {% endfor %}
         </div>
-<div class="sertificats__title">Кейсы</div>
-  <div class="main-cases">
-{% for item in data %}
-     <div class="main-cases__item">
-         <div class="main-cases__item__header">
-             {% if item.user_id.avatar %}
-             <img src="{{item.user_id.avatar.url}}" alt="стандартное">
-             {% else %}
-             <img src="https://audit.msu.ru/wp-content/themes/audit/images/noavatar.png">
-             {% endif %}
-             <div class="main-cases__item__part-name">{{item.user_id.name_of_partner}}</div>
-         </div>
-         <div class="main-cases__item__body">
-             <div class="main-cases__item__title"><h5>{{item}}</h5></div>
-             <div class="main-cases__item__tags">
-                 {% for tag in item.tags.all %}
-                 {{tag}} |
-                 {% endfor %}
-             </div>
-         </div>
-         <div class="main-cases__item__footer">
-             <div class="main-cases__item__city">{{item.region}}</div>
-             <div class="main-cases__item__link"><a href="{% url 'detail_case' item.id %}">Перейти к кейсу</a></div>
-         </div>
-         <div>
-         </div>
-      </div>
-    {% endfor %}
-    </div>
-
-
 </div>
 
         {% endblock %}

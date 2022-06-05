@@ -28,7 +28,7 @@
 
         {% block mainmenu %}
 
-        <nav class="nav-item"> <a href="{% url 'index' %}" class="navbar-brand">BASTAU PROJECT</a> 
+        <nav class="nav-item"> <a href="{% url 'index' %}" class="navbar-brand">BASTAU PROJECT</a>
         </nav>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Переключатель навигации">
             <span class="navbar-toggler-icon"></span>
@@ -54,7 +54,7 @@
                 <li class="nav-item"><a href="{% url 'personal_partner' user.id %}"  class="nav-link">Личный кабинет</a></li>
                 {%endif%}
             {% else %}
-            <li class="nav-item"><a href="{% url 'register' %}"  class="nav-link">Регистрация</a></li>
+            <li class="nav-item "><a href="{% url 'register' %}"  class="nav-link text-white">Регистрация</a></li>
               <li class="nav-item"><a href="{% url 'login'%}"  class="nav-link">Войти</a></li>
             {% endif %}
             </ul>
@@ -69,37 +69,38 @@
       {% endblock %}
     </div>
     <footer class="footer">
-      <div class="container d-flex">
-        <div class="footer__item">
+      <div class="container d-flex justify-content-center">
+        <div class="row">
+        <div class="footer__item col-lg-4 align-items-center mt-3">
           <div class="mb-3">Уважаемый посетитель сайта</div> 
           <p>При использовании материалов активная ссылка на источник https://www.bastau.kz/ обязательна</p>
         </div>
-        <div class="footer__item d-flex flex-column">
-          <a href="">
+        <div class="footer__item d-flex flex-column align-items-center col-lg-4">
+          <a href="{% url 'about' %}" class="text-light">
             О проекте
           </a>
-          <a href="">
+          <a href="" class="text-light">
             Кейсы
           </a>
-          <a href="">
+          <a href="" class="text-light">
             Партнерам
           </a>
-          <a href="">
+          <a href="" class="text-light">
             Личный кабтинет
           </a>
     
         </div>
-        <div class="footer__item">
+        <div class="footer__item col-lg-4 mt-3">
           <p>Центр обслужтивания</p>
-          <a href="">+7 (701) 700-11-11</a>
+          <a href="" class="text-light">+7 (701) 700-11-11</a>
           <p>Прием обращений</p>
-          <a href="">+7 (707) 707-00-00</a>
+          <a href="" class="text-light">+7 (707) 707-00-00</a>
           <p>Улица Ломова 45,</p>
-          <a href="">Павлодар 140000</a>
+          <a href="" class="text-light">Павлодар 140000</a>
           <p>Все контакты</p>
         </div>
+        </div>
       </div>
-      
     </footer>
      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
