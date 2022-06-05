@@ -32,8 +32,19 @@
       <div class="main-page__des">выбери интересный кейс, реши задачу, получи приглашение на стажировку</div>
       <div class="line mt-2 mb-5"></div>
       <div class="main-page__buttons d-flex">
-        <button class="main-page__button">Заказ</button>
-        <button class="main-page__button">Заявка</button>
+          {% if request.user.is_authenticated %}
+            {% if request.user.is_partner %}
+          <button class="main-page__button"><a href="{% url 'createcase' %}">Заказ</a></button>
+          <button class="main-page__button"><a href="{% url 'showcases' %}">Заявка</a></button>
+          {%elif request.user.is_student %}
+          <button class="main-page__button"><a href="{% url 'home' %}">Заказ</a></button>
+           <button class="main-page__button"><a href="{% url 'showcases' %}">Заявка</a></button>
+          {% endif %}
+          {% else %}
+           <button class="main-page__button"><a href="{% url 'login' %}">Заказ</a></button>
+           <button class="main-page__button"><a href="{% url 'home' %}">Заявка</a></button>
+          {% endif %}
+
       </div>
     </div>
   </div>
