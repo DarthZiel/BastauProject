@@ -52,18 +52,20 @@ class ListWinners(ListView):
         queryset = Answer.objects.filter(status='Победа')
         return queryset
 
-
-
-
 def index(request):
     context = {'menu': menu}
     context['data'] = Case.objects.order_by("-id")[0:3]
     context['partners'] = Partner.objects.order_by("-Fio")[0:3]
+    case_count = Case.objects.count()
+    string_case_count = str(case_count)
+    context['string_case_count'] = string_case_count
+
     return render(request, 'index.html', context)
 
 
 def about(request):
-    return render(request, 'about.html')
+    context = {'menu': menu}
+    return render(request, 'about.html',context)
 
 class createcase( CreateView):
     model = Case

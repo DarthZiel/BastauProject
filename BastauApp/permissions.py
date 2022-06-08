@@ -35,3 +35,13 @@ class WinnerUpdateMixin:
         if not self.has_permissions():
             raise Http404()
         return super().dispatch(request, *args, **kwargs)
+
+
+class AnswerAddPermissionMixin:
+    def has_permissions(self):
+        return self.get_object().user_id.user == self.request.user
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.has_permissions():
+            raise Http404()
+        return super().dispatch(request, *args, **kwargs)

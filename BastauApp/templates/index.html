@@ -1,129 +1,126 @@
 {% extends 'base.html' %}
 {% block title %}Bastau Project{% endblock %}
 {% block content %}
-<div class="main-page">
-  <div class="container">
-    <div class="main-page__block">
-      <div class="d-flex">
-        <div class="main-page__counter">1</div>
-        <div class="main-page__counter">2</div>
-        <div class="main-page__counter">3</div>
-        <div class="main-page__counter">4</div>
-      </div>
-      <h4 class="d-flex justify-content-center my-3">количество кейсов на сайте</h4>
-      <div class="line mt-5 mb-2"></div>
-      <div class="main-page__des">выбери интересный кейс, реши задачу, получи приглашение на стажировку</div>
-      <div class="line mt-2 mb-5"></div>
-      <div class="main-page__buttons d-flex">
-        <button class="main-page__button">Заказ</button>
-        <button class="main-page__button">Заявка</button>
+  <div class="main-page ">
+    <div class="container">
+      <div class="main-page__block col-lg-4 col">
+        <div class="d-flex">
+          {% if string_case_count|length == 1%}
+            <div class="main-page__counter">0</div>
+            <div class="main-page__counter">0</div>
+            <div class="main-page__counter">0</div>
+            <div class="main-page__counter">{{string_case_count.0}}</div>
+          {%elif string_case_count|length == 2 %}
+            <div class="main-page__counter">0</div>
+            <div class="main-page__counter">0</div>
+            <div class="main-page__counter">{{string_case_count.0}}</div>
+            <div class="main-page__counter">{{string_case_count.1}}</div>
+          {% elif string_case_count|length == 3%}
+            <div class="main-page__counter">0</div>
+            <div class="main-page__counter">{{string_case_count.0}}</div>
+            <div class="main-page__counter">{{string_case_count.1}}</div>
+            <div class="main-page__counter">{{string_case_count.2}}</div>
+          {% elif string_case_count|length == 4%}
+            <div class="main-page__counter">{{string_case_count.0}}</div>
+            <div class="main-page__counter">{{string_case_count.1}}</div>
+            <div class="main-page__counter">{{string_case_count.2}}</div>
+            <div class="main-page__counter">{{string_case_count.3}}</div>
+          {%endif%}
+        </div>
+        <h4 class="d-flex justify-content-center my-3">количество кейсов на сайте</h4>
+        <div class="line mt-5 mb-2"></div>
+        <div class="main-page__des">выбери интересный кейс, реши задачу, получи приглашение на стажировку</div>
+        <div class="line mt-2 mb-5"></div>
+        <div class="main-page__buttons d-flex">
+            {% if request.user.is_authenticated %}
+              {% if request.user.is_partner %}
+                <button class="main-page__button"><a href="{% url 'createcase' %}">Заказ</a></button>
+                <button class="main-page__button"><a href="{% url 'showcases' %}">Заявка</a></button>
+              {%elif request.user.is_student %}
+                <button class="main-page__button"><a href="{% url 'home' %}">Заказ</a></button>
+                <button class="main-page__button"><a href="{% url 'showcases' %}">Заявка</a></button>
+            {% endif %}
+            {% else %}
+              <button class="main-page__button"><a href="{% url 'login' %}">Заказ</a></button>
+              <button class="main-page__button"><a href="{% url 'index' %}">Заявка</a></button>
+            {% endif %}
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<h5 class="sertificats__title">Наши сертификаты</р>
-<div class="container">
-  <div class="sertificats">
-    <div class="sertificats__item"></div>
-    <div class="sertificats__item"></div>
-    <div class="sertificats__item"></div>
-    <div class="sertificats__item"></div>
-    <div class="sertificats__item"></div>
-    <div class="sertificats__item"></div>
-  </div>
-  <div class="sertificats__btns">
-    <div class="d-flex justify-content-center">
-      <button>
-        сертификаты
-      </button>
-      <button>
-        примеры проектов
-      </button>
+  <h5 class="sertificats__title mb-5">Последние кейсы</р></h5>
+  <div class="container ">
+    <div class="sertificats">
+      <div class="mr-5 ml-5 mb-3"><img src="https://netnarco.ru/sites/default/files/docs/2.jpg" width="250px" height="200px"></div>
+      <div class="mr-5 ml-5 mb-3"><img src="https://netnarco.ru/sites/default/files/docs/2.jpg" width="250px" height="200px"></div>
+      <div class="mr-5 ml-5 mb-3"><img src="https://netnarco.ru/sites/default/files/docs/2.jpg" width="250px" height="200px"></div>
+      <div class="mr-5 ml-5 mb-3"><img src="https://netnarco.ru/sites/default/files/docs/2.jpg" width="250px" height="200px"></div>
+      <div class="mr-5 ml-5 mb-3"><img src="https://netnarco.ru/sites/default/files/docs/2.jpg" width="250px" height="200px"></div>
+      <div class="mr-5 ml-5 mb-3"><img src="https://netnarco.ru/sites/default/files/docs/2.jpg" width="250px" height="200px"></div>
     </div>
-    <div>
-      <button>
-        клиенты/партнеры
-      </button>
-    </div>
-  </div>
-</div>
-<<<<<<< HEAD
-<div class="mutnyy">
-  <div class="container">
-    <div class="mutnyy__block">
-      <div>
-        <img class="img-chel" src="../static/img_register/чел за компом картинка png.png" alt="">
+    <div class="sertificats__btns">
+      <div class="d-flex justify-content-center row">
+        <button>
+          сертификаты
+        </button>
+        <button>
+          примеры проектов
+        </button>
       </div>
-      <div class="content-myntogo">
-        <h3 class="mb-4">Размести задание, получи приглашение, пригласи победителя на стажировку</h3>
-        <div><button>Зарегистрироваться</button></div>
-        <span class="span">Что такое кейс и как его разработать? <a href="">Читать здесь</a></span>
+      <div class="d-flex justify-content-center">
+        <button>
+          клиенты/партнеры
+        </button>
       </div>
     </div>
   </div>
-</div>
-<div class="infa">
+
+  <div class="mutnyy">
+    <div class="container">
+      <div class="mutnyy__block row">
+        <div class="col-lg-6">
+          <img class="img-chel" src="../static/img_register/чел за компом картинка png.png" alt="">
+        </div>
+
+        <div class="content-myntogo col-lg-6">
+          <h3 class="mb-4">Размести задание, получи приглашение, пригласи победителя на стажировку</h3>
+          <div class="nav-link"><button><a href="{% url 'register' %}" class="text-white">Зарегистрироваться</a></button></div>
+          <span class="span">Что такое кейс и как его разработать? <a href="">Читать здесь</a></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="infa">
   <div class="container">
-    <div class="mutnyy__block">
-      <div>
+    <div class="mutnyy__block row">
+      <div class="col-lg-6">
         <img class="img-chel" src="../static/img_register/лупа картинка png.png" alt="">
       </div>
-      <div class="content-myntogo">
+      <div class="content-myntogo col-lg-6">
         <span>"Bastau Project" - Платформа, где вы встречаетесь с потенциальными работодателем. Вы получаете реальную задачу (кейс) от компании. При успешном ее решении получаете - приглашение пройти практику</span>
       </div>
     </div>
   </div>
-=======
-<div class="container">
-    <h1 class="sertificats__title">Партнеры</h1>
-    <div class="row justify-content-center ml-1">
-          {% for partner in partners %}
-          <div class="card mb-5 main-cases__item animation" style="max-width: 300px; margin-left: 3%;margin-right: 3%; border-radius: 25px; display:inline-table;">
-              <a href="{% url 'detail_partner' partner.user_id %}">
-                  {% if partner.avatar %}
-                    <img src="{{partner.avatar.url}}" class="card-img-top img_partners" height="250px"  >
-                {% else %}
-                   <img src="https://audit.msu.ru/wp-content/themes/audit/images/noavatar.png"  height="250px">
-                {% endif %}
-                  </a>
-            <div class="card-body">
-              <h5 class="card-title d-flex justify-content-center">{{partner.name_of_partner}}</h5>
+
+  <div class="container">
+      <h1 class="sertificats__title mb-5">Наши Партнеры</h1>
+      <div class="row justify-content-center ml-1">
+            {% for partner in partners %}
+            <div class="card mb-5 main-cases__item animation" style="max-width: 300px; margin-left: 3%;margin-right: 3%; border-radius: 25px; display:inline-table;">
+                <a href="{% url 'detail_partner' partner.user_id %}">
+                    {% if partner.avatar %}
+                      <img src="{{partner.avatar.url}}" class="card-img-top img_partners" height="250px"  >
+                  {% else %}
+                    <img src="https://audit.msu.ru/wp-content/themes/audit/images/noavatar.png"  height="250px">
+                  {% endif %}
+                    </a>
+              <div class="card-body">
+                <h5 class="card-title d-flex justify-content-center">{{partner.name_of_partner}}</h5>
+              </div>
             </div>
+              {% endfor %}
           </div>
-{% endfor %}
-        </div>
-<div class="sertificats__title">Кейсы</div>
-  <div class="main-cases">
-{% for item in data %}
-     <div class="main-cases__item">
-         <div class="main-cases__item__header">
-             {% if item.user_id.avatar %}
-             <img src="{{item.user_id.avatar.url}}" alt="стандартное">
-             {% else %}
-             <img src="https://audit.msu.ru/wp-content/themes/audit/images/noavatar.png">
-             {% endif %}
-             <div class="main-cases__item__part-name">{{item.user_id.name_of_partner}}</div>
-         </div>
-         <div class="main-cases__item__body">
-             <div class="main-cases__item__title"><h5>{{item}}</h5></div>
-             <div class="main-cases__item__tags">
-                 {% for tag in item.tags.all %}
-                 {{tag}} |
-                 {% endfor %}
-             </div>
-         </div>
-         <div class="main-cases__item__footer">
-             <div class="main-cases__item__city">{{item.region}}</div>
-             <div class="main-cases__item__link"><a href="{% url 'detail_case' item.id %}">Перейти к кейсу</a></div>
-         </div>
-         <div>
-         </div>
-      </div>
-    {% endfor %}
-    </div>
+  </div>
 
->>>>>>> d6638dee5dfcd4bf7b834d86bee3ee247cbd761e
-</div>
-
-        {% endblock %}
+{% endblock %}

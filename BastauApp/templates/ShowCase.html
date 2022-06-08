@@ -6,15 +6,15 @@
 
   <div class="case-page">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-9">
+        <div class="row ">
+            <div class="col-lg-9 card p-3 mr-2">
                  <form method="get">
                     {% csrf_token %}
                      <div class="row">
                         <div class="col">
                             {{ filter.form.search }}
                         </div>
-                            <button type="submit" class="btn btn-secondary" >Поиск</button><br>
+                            <button type="submit" class="btn btn-gradient" >Поиск</button><br>
                        </div>
                  </form>
                      <br>
@@ -54,7 +54,7 @@
                       {% endfor %}
                         </div>
                              </div>
-                            <div class="col-lg">
+                            <div class="col-lg card p-4"" >
                                 <div class="sticky">
                                     <h2>Фильтрация</h2>
                               <form method="get">
@@ -65,7 +65,7 @@
                                     {{ filter.form.user_id|as_crispy_field }}
 
                                 {{ filter.form.tags}}<br>
-                                <button type="submit" class="btn btn-secondary">Фильтровать</button>
+                                <button type="submit" class="mb-2 btn btn-gradient">Фильтровать</button>
                               </form>
                                     <a href="{% url 'showcases' %}">Отменить фильтрацию</a>
                                 </div>
