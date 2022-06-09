@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}Кейсы{% endblock %}
 {% load crispy_forms_tags %}
+{% load static %}
 {% load widget_tweaks %}
   {% block content %}
-
   <div class="case-page">
     <div class="container">
         <div class="row ">
@@ -28,7 +28,7 @@
                             {% if fil.user_id.avatar %}
                             <img src="{{fil.user_id.avatar.url}}" alt="стандартное">
                             {% else %}
-                              <img src="https://audit.msu.ru/wp-content/themes/audit/images/noavatar.png">
+                              <img src="{% static 'img_register/avatar_partners.png' %}">
                             {% endif %}
                             <div class="main-cases__item__part-name ">{{fil.user_id.name_of_partner}}</div>
                         </div>

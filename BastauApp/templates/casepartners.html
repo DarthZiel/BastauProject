@@ -8,7 +8,7 @@
          <div class="col-lg-3 mr-2 main-cases__item cases_public card">
             <span></span>
                 <a href='{% url "personal_partner" user.id %}'><button class="btn btn-block btn-primary">Редактировать профиль</button></a>
-                <a href='{% url "mycases" %}'><button class="btn btn-block btn-success mt-1">Опубликовано: {{total_active_records}}</button></a>
+                <a href='{% url "mycases" %}'><button class="btn btn-block btn-gradient mt-1">Опубликовано: {{total_active_records}}</button></a>
                 <a href='{% url "mycasesArchive" %}'><button class="btn btn-block btn-danger mt-1">В архиве: {{case_isnt_published}} </button></a>
          </div>
          <div class="col-lg-8">

@@ -23,7 +23,7 @@ html{
   height: 100vh;
   background-image: url(../img_register/картинка\ лэндинга\ png.png);
   background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; 
   background-attachment: fixed;
   background-position: center center;
 }
@@ -167,14 +167,37 @@ background: linear-gradient(45deg, rgb(25, 119, 123), rgb(30, 92, 119));
 }
 
 .main-content{
-  min-height: calc(100vh - 64px);
+  min-height: calc(80vh - 64px);
+  /* background-image: url('../img_register/лэндинг\ о\ комп\ svg.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center; */
+}
+.partners-fon{
+  background-image: url('../img_register/лэндинг\ компании\ svg.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
+}
+.lk-fon{
+  height: 100%;
+  padding-bottom: 100px;
+  background-image: url('../img_register/лэндинг\ лк\ svg.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
+}
+.win-fon{
+  min-height: 80vh;
   background-image: url('../img_register/лэндинг\ о\ комп\ svg.svg');
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center center;
 }
-
 .partner-page{
   min-height: calc(100vh - 100px);
   display: flex;

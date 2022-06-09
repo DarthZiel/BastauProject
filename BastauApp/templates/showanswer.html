@@ -6,11 +6,11 @@
 
  <div class="container">
      <h1 class="mb-3 hidden">Всего ответов: {{all_answer}}</h1>
-     <div class="row align-items-start card">
-         <div class="col-lg-3 mr-2 main-cases__item cases_public">
+     <div class="row align-items-start ">
+         <div class="col-lg-3 mr-2 main-cases__item cases_public case">
             <span></span>
                 <a href='{% url "mycases" %}'><button class="btn btn-block btn-primary"> Мои кейсы</button></a>
-                <button class="btn btn-block btn-success mt-1">Победителей: {{answer_victory}}</button>
+                <button class="btn btn-block btn-gradient mt-1">Победителей: {{answer_victory}}</button>
                 <button class="btn btn-block btn-warning mt-1">В ожидании: {{answer_waiting}} </button>
                 <button class="btn btn-block btn-danger mt-1">Отказано: {{answer_defeat}} </button>
          </div>

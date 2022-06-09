@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Bastau Project{% endblock %}
 {% block content %}
+{% load static %}
   <div class="main-page ">
     <div class="container">
       <div class="main-page__block col-lg-4 col">
@@ -91,7 +92,7 @@
       </div>
     </div>
   </div>
-  <div class="infa">
+  <div class="infa ">
   <div class="container">
     <div class="mutnyy__block row">
       <div class="col-lg-6">
@@ -112,7 +113,7 @@
                     {% if partner.avatar %}
                       <img src="{{partner.avatar.url}}" class="card-img-top img_partners" height="250px"  >
                   {% else %}
-                    <img src="https://audit.msu.ru/wp-content/themes/audit/images/noavatar.png"  height="250px">
+                    <img src="{% static 'img_register/avatar_partners.png' %}"  height="250px">
                   {% endif %}
                     </a>
               <div class="card-body">
