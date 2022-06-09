@@ -5,7 +5,7 @@
 <br><br><br><br>
     <div class="container">
         <div class="row">
-            <div class="col-lg-3 main-cases__item mb-1 mr-2 ml-2 h-100">
+            <div class="col-lg-3 main-cases__item mb-1 mr-2 ml-2 h-100 card">
                 <div class="d-flex justify-content-center"><img src="https://cdn-icons-png.flaticon.com/512/843/843341.png"  height="200px"></div>
                 <div class="text-center">{{student.Fio}}</div>
                 <table class="text-align-center w-100 text-center">
@@ -53,11 +53,11 @@
                     </tr>
 
                 </table>
-                <a href='{% url "show_answer_student" %}'><button class="btn btn-block btn-primary btn-success">Мои ответы</button></a>
-                <a href='/logout/'><button class="btn btn-block btn-primary mt-1 btn-danger">Выйти</button></a>
+                <a href='{% url "show_answer_student" %}'><button class="btn btn-block btn-gradient">Мои ответы</button></a>
+                <a href='/logout/'><button class="btn btn-block btn-gradient mt-1 ">Выйти</button></a>
             </div>
 
-            <div class="main-cases__item col-lg h-100">
+            <div class="main-cases__item col-lg h-100 card">
                 <form action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                         {% for field in form %}
@@ -67,7 +67,7 @@
                                     <span style="color:red">{{ error }}</span>
                                 {% endfor %}
                         {% endfor %}<br>
-                    <input type="submit" value="Сохранить" class="btn btn-block btn-primary">
+                    <input type="submit" value="Сохранить" class="btn btn-block btn-gradient">
 
                 </form>
 

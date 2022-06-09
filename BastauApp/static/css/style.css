@@ -21,11 +21,11 @@ html{
   padding-top: 100px;
   width: 100%;
   height: 100vh;
-  background-image: url(../img_register/картинка\ лэндинга\ png.png);
+  /* background-image: url(../img_register/картинка\ лэндинга\ png.png);
   background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; 
   background-attachment: fixed;
-  background-position: center center;
+  background-position: center center; */
 }
 .main-page__block {
   width: 40%;
