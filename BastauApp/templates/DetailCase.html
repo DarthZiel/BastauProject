@@ -1,18 +1,16 @@
-<head>
-  <title>Деталь кейса</title>
-</head>
 {% extends 'base.html' %}
-{% block title %}{% endblock %}
+{% load static %}
+{% block title %}{{data.title}}{% endblock %}
 {% load widget_tweaks %}
  {% block content %}
 <br><br><br><br>
-    <div class="container">
+    <div class="w-75 align-item-center m-auto">
         <div class="row">
-            <div class="col-lg-3 main-cases__item mb-1 mr-2 ml-2 h-100">
+            <div class="col-lg-3 main-cases__item mb-1 mr-2 ml-2 h-100 card">
                 {% if data.user_id.avatar %}
                     <div class="d-flex justify-content-center"><img src="{{data.user_id.avatar.url}}" alt="" width="200px"></div>
                 {% else %}
-                   <div class="d-flex justify-content-center"><img src="https://audit.msu.ru/wp-content/themes/audit/images/noavatar.png"  height="200px"></div>
+                   <div class="d-flex justify-content-center"><img src="{% static 'img_register/avatar_partners.png' %}"  height="200px"></div>
                 {% endif %}
                 <div class="d-flex justify-content-center">{{data.user_id.name_of_partner}}</div>
                 <div class="d-flex justify-content-center"><a href="{{data.user_id.site}}">Сайт</a></div>
@@ -41,7 +39,7 @@
                 </table>
             </div>
 
-            <div class="main-cases__item col-lg h-100">
+            <div class="main-cases__item col-lg h-100 card">
                  <b><p>{{data.title}}</p></b>
                 <h3>Описание:</h3>
                 <div class="mb-4">{{data.description}}</div>

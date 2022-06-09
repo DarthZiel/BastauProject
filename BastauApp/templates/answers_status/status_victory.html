@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}Мои ответы{% endblock %}
   {% block content %}
-<br><br><br><br>
  <div class="container">
      <h1 class="mb-3">Мои ответы {{total_active_records}}</h1>
      <div class="row align-items-start">
-         <div class="col-lg-3 mr-2 main-cases__item cases_public">
+         <div class="col-lg-3 mr-2 main-cases__item cases_public card">
             <span></span>
                 <a href='{% url "personal" user.id %}'><button class="btn btn-block btn-primary">Редактировать профиль</button></a>
                 <a href='{% url "show_answer_student" %}'><button class="btn btn-block btn-info mt-1">Всего ответов: {{all_answer}}</button></a>
@@ -25,12 +24,12 @@
                     </span>
                           <p>{{item.category}}</p>
                             <div class="row">
-                                <a href="{{item.Url}}"><button class="btn btn-secondary mr-1 ml-2 mb-1">Ссылка</button></a>
+                                <a href="{{item.Url}}"><button class="btn btn-gradient mr-1 ml-2 mb-1">Ссылка</button></a>
                                 {% if item.File.url != None%}
-                                <a href="{{item.File.url}}" download=""><button class="btn btn-secondary mr-1 ml-2 mb-1">Скачать файл</button></a>
+                                <a href="{{item.File.url}}" download=""><button class="btn btn-gradient mr-1 ml-2 mb-1">Скачать файл</button></a>
                                 {% endif %}
-                                <a href="{% url 'delete_answer' item.id %}"><button class="btn btn-secondary mr-1 ml-2 mb-1">Удалить</button></a>
-                                <a href="{% url 'answer_update' item.id %}"><button class="btn btn-secondary mr-1 ml-2 mb-1">Редактировать</button></a>
+                                <a href="{% url 'delete_answer' item.id %}"><button class="btn btn-gradient mr-1 ml-2 mb-1">Удалить</button></a>
+                                <a href="{% url 'answer_update' item.id %}"><button class="btn btn-gradient mr-1 ml-2 mb-1">Редактировать</button></a>
                             </div>
                      <div class="text-center">
                          {%if item.status == 'Отказ'%}

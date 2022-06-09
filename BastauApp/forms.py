@@ -156,7 +156,7 @@ class AddCaseForm(forms.ModelForm):
 class AddAnswer(forms.ModelForm):
     class Meta:
         model = Answer
-        fields = ['File', 'Url', 'id_case', 'id_student']
+        fields = ['Url', 'File', ]
 
 '''Форма авторизации ответа'''
 class LoginUserForm(AuthenticationForm):

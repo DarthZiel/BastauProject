@@ -1,16 +1,19 @@
 {% extends 'base.html' %}
-{% block title %}Личный кабинет{% endblock %}
+{% load static %}
+{% block title %}{{partner_info.name_of_partner}}{% endblock %}
   {% block content %}
 <br><br><br><br>
  <div class="container">
         <div class="row">
-            <div class="col-lg-3 main-cases__item mb-1 mr-2 ml-2 h-100">
+            <div class="col-lg-3 main-cases__item mb-1 mr-2 ml-2 h-100 card ">
+                <div class="card">
                 {% if partner_info.avatar %}
                     <div class="d-flex justify-content-center"><img src="{{partner_info.avatar.url}}" alt="" width="200px"></div>
                 {% else %}
-                   <div class="d-flex justify-content-center"><img src="https://audit.msu.ru/wp-content/themes/audit/images/noavatar.png"  height="200px"></div>
+                   <div class="d-flex justify-content-center"><img src="{% static 'img_register/avatar_partners.png' %}"  height="200px"></div>
                 {% endif %}
                 <div class="d-flex justify-content-center">{{partner_info.name_of_partner}}</div>
+                </div>
                 <div class="d-flex justify-content-center"><a href="{{partner_info.site}}">Сайт</a></div>
                 <hr>
                 <table  class="w-100 table_info_partners_bio">
@@ -33,7 +36,7 @@
                 </table>
             </div>
 
-            <div class="main-cases__item col-lg h-100">
+            <div class="main-cases__item col-lg h-100 card">
                 <h3>О компании:</h3>
                 <div class="mb-4">{{partner_info.about_company}}</div>
             </div>

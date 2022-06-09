@@ -50,12 +50,9 @@ class ListWinners(ListView):
         queryset = Answer.objects.filter(status='Победа')
         return queryset
 
-
-
-
 def index(request):
     context = {'menu': menu}
-    context['data'] = Case.objects.order_by("-id")[0:3]
+    context['data'] = Case.objects.order_by("-id")[0:6]
     context['partners'] = Partner.objects.order_by("-Fio")[0:3]
     case_count = Case.objects.count()
     string_case_count = str(case_count)
@@ -65,7 +62,8 @@ def index(request):
 
 
 def about(request):
-    return render(request, 'about.html')
+    context = {'menu': menu}
+    return render(request, 'about.html',context)
 
 class createcase( CreateView):
     model = Case
@@ -147,7 +145,7 @@ class ShowArchive(ListView):
         superqs = queryset | qs
 
         context = super().get_context_data(**kwargs)
-        context['total_active_records'] = Case.objects.filter(user_id=self.request.user.partner,is_published=True).count()
+        context['total_active_records'] = Case.objects.filter(user_id=self.request.user.partner,is_published=True, date_of_close__gte=now).count()
         context['all_cases'] = Case.objects.filter(user_id=self.request.user.partner).count()
         context['case_isnt_published'] = superqs.count()
         return context
@@ -226,7 +224,7 @@ class partner_update(PartnerPermissionMixin,UpdateView):
 
 class case_update(CaseCreateUpdateDeletePermissionMixin, UpdateView):
     model = Case
-    fields = ['title', 'description', 'date_of_close', 'category', 'file', 'region', 'is_published', 'tags']
+    fields = ['title', 'description', 'category', 'file', 'region', 'is_published', 'tags']
     success_url = "/mycases"
     template_name = 'updatecase.html'
     extra_context = {'menu': menu}
