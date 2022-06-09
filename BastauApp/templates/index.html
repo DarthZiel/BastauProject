@@ -37,12 +37,12 @@
           <button class="main-page__button"><a href="{% url 'createcase' %}">Заказ</a></button>
           <button class="main-page__button"><a href="{% url 'showcases' %}">Заявка</a></button>
           {%elif request.user.is_student %}
-          <button class="main-page__button"><a href="{% url 'home' %}">Заказ</a></button>
+          <button class="main-page__button"><a href="{% url 'index' %}">Заказ</a></button>
            <button class="main-page__button"><a href="{% url 'showcases' %}">Заявка</a></button>
           {% endif %}
           {% else %}
            <button class="main-page__button"><a href="{% url 'login' %}">Заказ</a></button>
-           <button class="main-page__button"><a href="{% url 'home' %}">Заявка</a></button>
+           <button class="main-page__button"><a href="{% url 'index' %}">Заявка</a></button>
           {% endif %}
 
       </div>
