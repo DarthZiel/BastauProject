@@ -5,7 +5,7 @@
  <div class="container">
      <h1 class="mb-3">Опубликовано кейсов: {{total_active_records}}</h1>
      <div class="row align-items-start">
-         <div class="col-lg-3 mr-2 main-cases__item cases_public">
+         <div class="col-lg-3 mr-2 main-cases__item cases_public card">
             <span></span>
                 <a href='{% url "personal_partner" user.id %}'><button class="btn btn-block btn-primary">Редактировать профиль</button></a>
                 <a href='{% url "mycases" %}'><button class="btn btn-block btn-success mt-1">Опубликовано: {{total_active_records}}</button></a>
@@ -24,10 +24,10 @@
             </span>
                   <p>{{item.category}}</p>
                     <div class="row">
-                        <a href="{% url 'detail_view_for_Partner' item.id %}"><button class="btn btn-secondary mr-1 ml-2 mb-1">Открыть</button></a>
-                        <a href="{% url 'show_answer' item.id %}"><button class="btn btn-secondary mr-1 ml-2">Ответы</button></a>
-                        <a href="{% url 'delete_case' item.id %}"><button class="btn btn-secondary mr-1 ml-2">Удалить</button></a>
-                        <a href="{% url 'case_update' item.id %}"><button class="btn btn-secondary mr-1 ml-2">Редактировать</button></a>
+                        <a href="{% url 'detail_view_for_Partner' item.id %}"><button class="btn btn-gradient mr-1 ml-2 mb-1">Открыть</button></a>
+                        <a href="{% url 'show_answer' item.id %}"><button class="btn btn-gradient mr-1 ml-2">Ответы</button></a>
+                        <a href="{% url 'delete_case' item.id %}"><button class="btn btn-gradient mr-1 ml-2">Удалить</button></a>
+                        <a href="{% url 'case_update' item.id %}"><button class="btn btn-gradient mr-1 ml-2">Редактировать</button></a>
 
                     </div>
              </div>
