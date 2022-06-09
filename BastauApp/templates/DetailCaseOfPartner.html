@@ -2,10 +2,11 @@
 {% block title %}Деталь кейса{% endblock %}
 {% load widget_tweaks %}
  {% block content %}
+<div class="lk-fon">
 <br><br><br><br>
     <div class="w-75 align-item-center m-auto">
         <div class="row">
-            <div class="col-lg-3 main-cases__item mb-1 mr-2 ml-2 h-100">
+            <div class="col-lg-3 main-cases__item mb-1 mr-2 ml-2 h-100 card">
                 {% if data.user_id.avatar %}
                     <div class="d-flex justify-content-center"><img src="{{data.user_id.avatar.url}}" alt="" width="200px"></div>
                 {% else %}
@@ -38,7 +39,7 @@
                 </table>
             </div>
 
-            <div class="main-cases__item col-lg h-100">
+            <div class="main-cases__item col-lg h-100 card">
                  <b><p>{{data.title}}</p></b>
                 <h3>Описание:</h3>
                 <div class="mb-4">{{data.description}}</div>
@@ -52,7 +53,7 @@
             </div>
        </div>
     </div>
-
+</div>
 {% endblock %}
 
 

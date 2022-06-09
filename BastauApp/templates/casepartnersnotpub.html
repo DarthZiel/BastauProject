@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% block title %}Мои кейсы{% endblock %}
   {% block content %}
+<div class="lk-fon">
 <br><br><br><br>
  <div class="container">
      <h1 class="mb-3">В Архиве: {{case_isnt_published}}</h1>
      <div class="row align-items-start">
-         <div class="col-lg-3 mr-2 main-cases__item cases_public ">
+         <div class="col-lg-3 mr-2 main-cases__item cases_public card">
             <span></span>
                 <a href='{% url "personal_partner" user.id %}'><button class="btn btn-block btn-primary">Редактировать профиль</button></a>
                 <a href='{% url "mycases" %}'><button class="btn btn-block btn-gradient mt-1">Опубликовано: {{total_active_records}}</button></a>
@@ -18,7 +19,7 @@
          <div class="col-lg-6 mb-2">
              <div class="row ">
 
-         <div class="main-cases__item hidden">
+         <div class="main-cases__item hidden card">
             <span class="case__title">
                 {{item}}
             </span>
@@ -45,8 +46,7 @@
           {% include 'include/pagination.html' %}
       </div>
   {% endblock %}
-
-
+</div>
 
 
  

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Мои кейсы{% endblock %}
   {% block content %}
+<div class="lk-fon">
 <br><br><br><br>
  <div class="container">
      <h1 class="mb-3">Опубликовано кейсов: {{total_active_records}}</h1>
@@ -18,7 +19,7 @@
          <div class="col-lg-6 mb-2">
              <div class="row ">
 
-         <div class="main-cases__item hidden">
+         <div class="main-cases__item hidden card">
             <span class="case__title">
                 {{item}}
             </span>
@@ -45,7 +46,7 @@
           {% include 'include/pagination.html' %}
       </div>
   {% endblock %}
-
+</div>
 
 
 

@@ -2,9 +2,10 @@
 {% block title %}{{student_info.Fio}}{% endblock %}
 {% load widget_tweaks %}
  {% block content %}
+<div class="partners-fon">
 <br><br><br><br>
     <div class="container">
-            <div class="main-cases__item text-align-center mb-1 mr-2 ml-2 h-100 col-md-4 mx-auto">
+            <div class="main-cases__item text-align-center mb-1 mr-2 ml-2 h-100 col-md-4 mx-auto card">
                 <div class="d-flex justify-content-center text-align-center"><img src="https://cdn-icons-png.flaticon.com/512/843/843341.png"  height="200px"></div>
                 <div class="text-center">{{student_info.Fio}}</div>
                 <table class="text-align-center w-100 text-center">
@@ -52,10 +53,11 @@
                     </tr>
 
                 </table>
-                <a href="{% url 'show_answer' student_info.pk %}"><button class="btn btn-block btn-primary btn-success">Перейти к ответу</button></a>
+                <a onclick="javascript:history.back(-2); return false;"><button class="btn btn-block btn-gradient btn-success" >Перейти к ответу</button></a>
             </div>
 
        </div>
     </div>
 
   {% endblock %}
+</div>

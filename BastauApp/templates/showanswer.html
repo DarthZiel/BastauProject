@@ -2,6 +2,7 @@
 {% extends 'base.html' %}
 {% block title %}Ответы{% endblock %}
   {% block content %}
+<div class="lk-fon">
 <br><br><br><br>
  <div class="container">
      <h1 class="mb-3 hidden">Всего ответов: {{all_answer}}</h1>
@@ -19,7 +20,7 @@
          <div class="col-lg-6 mb-2">
              <div class="row ">
 
-         <div class="main-cases__item hidden">
+         <div class="main-cases__item hidden card">
             <span class="case__title">
               <a href="{% url 'detail_student' item.id_student_id %}">{{item.id_student}}</a>
             </span>
@@ -53,6 +54,7 @@
       <div class="grid-img-right mt-4 text-right bg bg1" >
           {% include 'include/pagination.html' %}
       </div>
+</div>
   {% endblock %}
 
 
