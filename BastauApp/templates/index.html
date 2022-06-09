@@ -27,6 +27,27 @@
             <div class="main-page__counter">{{string_case_count.2}}</div>
             <div class="main-page__counter">{{string_case_count.3}}</div>
           {%endif%}
+<<<<<<< HEAD
+      </div>
+      <h4 class="d-flex justify-content-center my-3">количество кейсов на сайте</h4>
+      <div class="line mt-5 mb-2"></div>
+      <div class="main-page__des">выбери интересный кейс, реши задачу, получи приглашение на стажировку</div>
+      <div class="line mt-2 mb-5"></div>
+      <div class="main-page__buttons d-flex">
+          {% if request.user.is_authenticated %}
+            {% if request.user.is_partner %}
+          <button class="main-page__button"><a href="{% url 'createcase' %}">Заказ</a></button>
+          <button class="main-page__button"><a href="{% url 'showcases' %}">Заявка</a></button>
+          {%elif request.user.is_student %}
+          <button class="main-page__button"><a href="{% url 'index' %}">Заказ</a></button>
+           <button class="main-page__button"><a href="{% url 'showcases' %}">Заявка</a></button>
+          {% endif %}
+          {% else %}
+           <button class="main-page__button"><a href="{% url 'login' %}">Заказ</a></button>
+           <button class="main-page__button"><a href="{% url 'index' %}">Заявка</a></button>
+          {% endif %}
+
+=======
         </div>
         <h4 class="d-flex justify-content-center my-3">количество кейсов на сайте</h4>
         <div class="line mt-5 mb-2"></div>
@@ -46,6 +67,7 @@
               <button class="main-page__button"><a href="{% url 'index' %}">Заявка</a></button>
             {% endif %}
         </div>
+>>>>>>> 3faea5eae66f78ebc42689ad2e68c060b6cdbdbc
       </div>
     </div>
   </div>

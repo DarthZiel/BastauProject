@@ -1,6 +1,4 @@
-import datetime
 from .permissions import *
-from .models import *
 from .forms import *
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -277,16 +275,30 @@ class delete_answer(AnswerCreateUpdateDeletePermissionMixin, DeleteView):
     success_url = "/answers"
     extra_context = {'menu': menu}
 
-def ShowAnswer(request, case_id):
-    context = {}
-    # add the dictionary during initialization
-    context["data"] = Case.objects.get(pk=case_id)
-    context["menu"] = menu
-    context['answer_victory'] = Answer.objects.filter(id_case=case_id, status='Победа').count()
-    context['answer_waiting'] = Answer.objects.filter(id_case=case_id, status='Ожидание').count()
-    context['all_answer'] = Answer.objects.filter(id_case=case_id).count()
-    context['answer_defeat'] = Answer.objects.filter(id_case=case_id, status='Отказ').count()
-    return render(request,'showanswer.html', context)
+class ShowAnswer(CaseCreateUpdateDeletePermissionMixin, DetailView):
+    model = Case
+    template_name = 'showanswer.html'
+
+    def get_context_data(self, **kwargs):
+            context = super(ShowAnswer, self).get_context_data(**kwargs)
+            context['data'] =Case.objects.get(id=self.kwargs.get('pk'))
+
+            context["menu"] = menu
+            context['answer_victory'] = Answer.objects.filter(id_case=self.kwargs.get('pk'), status='Победа').count()
+            context['answer_waiting'] = Answer.objects.filter(id_case=self.kwargs.get('pk'), status='Ожидание').count()
+            context['all_answer'] = Answer.objects.filter(id_case=self.kwargs.get('pk')).count()
+            context['answer_defeat'] = Answer.objects.filter(id_case=self.kwargs.get('pk'), status='Отказ').count()
+            return context
+# def ShowAnswer(request, case_id):
+#     context = {}
+#     # add the dictionary during initialization
+#     context["data"] = Case.objects.get(pk=case_id)
+#     context["menu"] = menu
+#     context['answer_victory'] = Answer.objects.filter(id_case=case_id, status='Победа').count()
+#     context['answer_waiting'] = Answer.objects.filter(id_case=case_id, status='Ожидание').count()
+#     context['all_answer'] = Answer.objects.filter(id_case=case_id).count()
+#     context['answer_defeat'] = Answer.objects.filter(id_case=case_id, status='Отказ').count()
+#     return render(request,'showanswer.html', context)
 
 class ShowAnswerStudent(ListView):
     model = Answer

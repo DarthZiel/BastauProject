@@ -45,3 +45,4 @@ class AnswerAddPermissionMixin:
         if not self.has_permissions():
             raise Http404()
         return super().dispatch(request, *args, **kwargs)
+
