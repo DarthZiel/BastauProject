@@ -54,7 +54,7 @@ class ListWinners(ListView):
 
 def index(request):
     context = {'menu': menu}
-    context['data'] = Case.objects.order_by("-id")[0:3]
+    context['data'] = Case.objects.order_by("-id")[0:6]
     context['partners'] = Partner.objects.order_by("-Fio")[0:3]
     case_count = Case.objects.count()
     string_case_count = str(case_count)

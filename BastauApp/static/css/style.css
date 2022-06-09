@@ -654,3 +654,12 @@ border-radius: 10px 10px 10px 10px;
   height: 100px;
   padding-top: 30px;
 }
+.hr_style{
+background: linear-gradient(45deg, rgb(25, 119, 123), rgb(30, 92, 119));;
+width:150px;
+
+height: 5px !important;
+
+border-radius: 50%;
+
+}

@@ -50,35 +50,43 @@
     </div>
   </div>
 
-  <h5 class="sertificats__title mb-5">Последние кейсы</р></h5>
-  <div class="container ">
-    <div class="sertificats">
-      <div class="mr-5 ml-5 mb-3"><img src="https://netnarco.ru/sites/default/files/docs/2.jpg" width="250px" height="200px"></div>
-      <div class="mr-5 ml-5 mb-3"><img src="https://netnarco.ru/sites/default/files/docs/2.jpg" width="250px" height="200px"></div>
-      <div class="mr-5 ml-5 mb-3"><img src="https://netnarco.ru/sites/default/files/docs/2.jpg" width="250px" height="200px"></div>
-      <div class="mr-5 ml-5 mb-3"><img src="https://netnarco.ru/sites/default/files/docs/2.jpg" width="250px" height="200px"></div>
-      <div class="mr-5 ml-5 mb-3"><img src="https://netnarco.ru/sites/default/files/docs/2.jpg" width="250px" height="200px"></div>
-      <div class="mr-5 ml-5 mb-3"><img src="https://netnarco.ru/sites/default/files/docs/2.jpg" width="250px" height="200px"></div>
-    </div>
-    <div class="sertificats__btns">
-      <div class="d-flex justify-content-center row">
-        <button>
-          сертификаты
-        </button>
-        <button>
-          примеры проектов
-        </button>
+  <h5 class="sertificats__title ">Последние кейсы</р></h5>
+<hr class="hr_style">
+  <div class=" w-75 mx-auto">
+    <div class="row d-flex justify-content-center align-middle ">
+    {% for case in data %}
+      <div class="row ml-3">
+        <div class="main-cases__item mb-2  ">
+          <div class="main-cases__item__header">
+            {% if case.user_id.avatar %}
+            <img src="{{case.user_id.avatar.url}}" alt="стандартное">
+            {% else %}
+            <img src="{% static 'img_register/avatar_partners.png' %}">
+            {% endif %}
+            <div class="main-cases__item__part-name ">{{case.user_id.name_of_partner}}</div>
+          </div>
+          <div class="main-cases__item__body">
+            <div class="main-cases__item__title hidden"><h5>{{case}}</h5></div>
+            <div class="main-cases__item__tags hidden">
+              {% for tag in case.tags.all %}
+              #{{tag}}
+              {% endfor %}
+            </div>
+          </div>
+          <div class="main-cases__item__footer">
+            <div class="main-cases__item__city">{{case.region}}</div>
+            <div class="main-cases__item__link"><a href="{% url 'detail_case' case.id %}">Перейти к кейсу</a></div>
+          </div>
+          <div>
+          </div>
+        </div>
+        <br>
       </div>
-      <div class="d-flex justify-content-center">
-        <button>
-          клиенты/партнеры
-        </button>
-      </div>
-    </div>
-  </div>
+      {% endfor %}
+          </div>
 
-  <div class="mutnyy">
-    <div class="container">
+
+    <div class="container mt-5">
       <div class="mutnyy__block row">
         <div class="col-lg-6">
           <img class="img-chel" src="../static/img_register/чел за компом картинка png.png" alt="">
@@ -102,10 +110,10 @@
         <span>"Bastau Project" - Платформа, где вы встречаетесь с потенциальными работодателем. Вы получаете реальную задачу (кейс) от компании. При успешном ее решении получаете - приглашение пройти практику</span>
       </div>
     </div>
-  </div>
 
-  <div class="container">
-      <h1 class="sertificats__title mb-5">Наши Партнеры</h1>
+  <div class="w-100 mx-auto">
+      <h1 class="sertificats__title ">Наши Партнеры</h1>
+    <hr class="hr_style">
       <div class="row justify-content-center ml-1">
             {% for partner in partners %}
             <div class="card mb-5 main-cases__item animation" style="max-width: 300px; margin-left: 3%;margin-right: 3%; border-radius: 25px; display:inline-table;">
