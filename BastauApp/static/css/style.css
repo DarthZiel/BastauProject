@@ -21,11 +21,11 @@ html{
   padding-top: 100px;
   width: 100%;
   height: 100vh;
-  /* background-image: url(../img_register/картинка\ лэндинга\ png.png);
+  background-image: url(../img_register/картинка\ лэндинга\ png.png);
   background-size: cover;
   background-repeat: no-repeat; 
   background-attachment: fixed;
-  background-position: center center; */
+  background-position: center center;
 }
 .main-page__block {
   width: 40%;
@@ -68,7 +68,6 @@ html{
    flex-direction: column;
    justify-content: space-between;
    width: 100%;
-   height: 100px;
    background: -webkit-linear-gradient(45deg, rgb(25, 119, 123), rgb(30, 92, 119));
    background: -moz-linear-gradient(45deg, rgb(25, 119, 123), rgb(30, 92, 119));
    background: linear-gradient(45deg, rgb(25, 119, 123), rgb(30, 92, 119));
@@ -78,7 +77,6 @@ html{
   align-items: center;
   width: 100%;
   height: 100%;
-  height: 100px;
   background: -webkit-linear-gradient(45deg, rgb(25, 119, 123), rgb(30, 92, 119));
 background: -moz-linear-gradient(45deg, rgb(25, 119, 123), rgb(30, 92, 119));
 background: linear-gradient(45deg, rgb(25, 119, 123), rgb(30, 92, 119));
@@ -169,14 +167,37 @@ background: linear-gradient(45deg, rgb(25, 119, 123), rgb(30, 92, 119));
 }
 
 .main-content{
-  min-height: calc(100vh - 64px);
+  min-height: calc(80vh - 64px);
+  /* background-image: url('../img_register/лэндинг\ о\ комп\ svg.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center; */
+}
+.partners-fon{
+  background-image: url('../img_register/лэндинг\ компании\ svg.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
+}
+.lk-fon{
+  height: 100%;
+  padding-bottom: 100px;
+  background-image: url('../img_register/лэндинг\ лк\ svg.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
+}
+.win-fon{
+  min-height: 80vh;
   background-image: url('../img_register/лэндинг\ о\ комп\ svg.svg');
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center center;
 }
-
 .partner-page{
   min-height: calc(100vh - 100px);
   display: flex;
@@ -620,10 +641,16 @@ font-size: 14px;
 
 }
 
-.navbar-collapse{
-background: linear-gradient(45deg, rgb(25, 119, 123), rgb(30, 92, 119));;
-}
 .btn-gradient {
   background: linear-gradient(45deg, rgb(25, 119, 123), rgb(30, 92, 119));
   color: #f1f1f1!important;
+
+}
+.border-gradient{
+border: 1px solid rgb(25, 119, 123);
+border-radius: 10px 10px 10px 10px;
+}
+.header-bastau a{
+  height: 100px;
+  padding-top: 30px;
 }
