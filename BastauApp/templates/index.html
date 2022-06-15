@@ -32,20 +32,6 @@
       <div class="line mt-5 mb-2"></div>
       <div class="main-page__des">выбери интересный кейс, реши задачу, получи приглашение на стажировку</div>
       <div class="line mt-2 mb-5"></div>
-      <div class="main-page__buttons d-flex">
-          {% if request.user.is_authenticated %}
-            {% if request.user.is_partner %}
-          <button class="main-page__button"><a href="{% url 'createcase' %}">Заказ</a></button>
-          <button class="main-page__button"><a href="{% url 'showcases' %}">Заявка</a></button>
-          {%elif request.user.is_student %}
-          <button class="main-page__button"><a href="{% url 'index' %}">Заказ</a></button>
-           <button class="main-page__button"><a href="{% url 'showcases' %}">Заявка</a></button>
-          {% endif %}
-          {% else %}
-           <button class="main-page__button"><a href="{% url 'login' %}">Заказ</a></button>
-           <button class="main-page__button"><a href="{% url 'index' %}">Заявка</a></button>
-          {% endif %}
-      </div>
     </div>
   </div>
 
@@ -94,7 +80,6 @@
         <div class="content-myntogo col-lg-6">
           <h3 class="mb-4">Размести задание, получи приглашение, пригласи победителя на стажировку</h3>
           <div class="nav-link"><button><a href="{% url 'register' %}" class="text-white">Зарегистрироваться</a></button></div>
-          <span class="span">Что такое кейс и как его разработать? <a href="">Читать здесь</a></span>
         </div>
       </div>
     </div>

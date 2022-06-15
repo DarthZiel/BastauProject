@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-7sgtg!ce7@*y#)fkwjr^87$*^i#nu83uz^cq=grek@k0af$sq!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['marquis0lim.pythonanywhere.com',]
 
 
 
@@ -124,11 +124,10 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
 STATIC_URL = '/static/'
 
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+STATIC_ROOT = '/home/marquis0lim/BastauProject/static'
+MEDIA_ROOT = '/home/marquis0lim/BastauProject/media'
 MEDIA_URL = '/media/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -141,7 +140,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '587'
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'bastauproject@gmail.com'
-EMAIL_HOST_PASSWORD = 'coolhot2680'
+EMAIL_HOST_PASSWORD = 'swceygaaitxzhslx'
 
 
 

@@ -165,7 +165,7 @@ class Answer(models.Model):
     Url = models.URLField(verbose_name='Ссылка на ответ')
     File = models.FileField(verbose_name='Файл', upload_to = "file",blank=True)
     id_case = models.ForeignKey(Case, verbose_name="Кейс", on_delete=models.CASCADE,blank=True,related_name='cases')
-    id_student = models.OneToOneField(Student, verbose_name="Студент", on_delete=models.CASCADE,blank=True)
+    id_student = models.ForeignKey(Student, verbose_name="Студент", on_delete=models.CASCADE,blank=True)
     status = models.CharField(max_length=50, choices=STATUS, default=STATUS[0],verbose_name='Статус')
     class Meta:
         verbose_name = "Ответ"

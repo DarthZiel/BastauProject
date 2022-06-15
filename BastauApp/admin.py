@@ -54,7 +54,7 @@ class AnswerAdmin(admin.ModelAdmin):
     list_display = ("id", "id_student","id_case", "status")
     list_display_links = ("id_student",)
     list_filter = ('status',)
-    search_fields = ("id_student","id_case")
+    search_fields = ("id_student__Fio",'id_case__title')
     # readonly_fields = ("id_student","id_case")
 
 @admin.register(User)
